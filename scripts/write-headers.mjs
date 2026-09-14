@@ -6,6 +6,7 @@
  *   dist/_headers    Netlify / Cloudflare Pages
  *   dist/_redirects  Netlify / Cloudflare Pages
  *   dist/.htaccess   Hostinger and anything else running Apache
+ *   site/vercel.json Vercel — and this one is COMMITTED, not built (see below)
  *
  * It is generated rather than hand-written because the Content-Security-Policy
  * has to know two things that live in src/data/site.ts and change over time:
@@ -13,7 +14,12 @@
  * A CSP written by hand goes stale the day either of those changes, and a stale
  * CSP fails silently — the browser blocks the request and shows nothing.
  *
- * Audit 2026-09-14, Phase 1.
+ * Vercel reads none of the other three. It reads vercel.json, and it reads it
+ * from the REPOSITORY at deploy time, not from the build output — so unlike its
+ * siblings this file has to be committed. The script still writes it, so the CSP
+ * cannot drift; if the file changes, the run says so and you commit it.
+ *
+ * Audit 2026-09-14, Phase 1. Vercel output added 2026-09-14 when Hassan deployed.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -176,9 +182,41 @@ ${SECURITY.map(([k, v]) => `  Header always set ${k} "${v.replace(/"/g, '\\"')}"
 `;
 fs.writeFileSync(path.join(DIST, ".htaccess"), htaccess);
 
+/* ── site/vercel.json  (Vercel) ─────────────────────────────────────────── */
+/* Committed, not built — Vercel reads this from the repo, not from dist/.
+
+   Caching is deliberately split: the catch-all carries the security headers
+   ONLY, and the long-cache rules name the asset paths. HTML is left to Vercel's
+   own default (public, max-age=0, must-revalidate), which is exactly what we
+   want — that way nothing depends on which rule "wins" when two match.
+
+   The www -> non-www redirect is NOT here. On Vercel that is a domain setting,
+   configured when the custom domain is added, not a rewrite in this file. */
+const vercelPath = path.join(ROOT, "site/vercel.json");
+const vercel = {
+  $schema: "https://openapi.vercel.sh/vercel.json",
+  /* Canonical tags are emitted without a trailing slash (see layouts/Site.astro),
+     so the server should agree rather than serve the page at both addresses. */
+  trailingSlash: false,
+  headers: [
+    { source: "/(.*)", headers: SECURITY.map(([key, value]) => ({ key, value })) },
+    ...CACHE
+      .filter(([p]) => p !== "/*.html")
+      .map(([p, value]) => ({
+        source: p.replace(/\/\*$/, "/(.*)"),
+        headers: [{ key: "Cache-Control", value }],
+      })),
+  ],
+};
+const vercelJson = JSON.stringify(vercel, null, 2) + "\n";
+const vercelChanged =
+  !fs.existsSync(vercelPath) || fs.readFileSync(vercelPath, "utf8") !== vercelJson;
+fs.writeFileSync(vercelPath, vercelJson);
+
 console.log(`headers written:`);
 console.log(`  dist/_headers      ${SECURITY.length} security headers, ${CACHE.length} cache rules`);
 console.log(`  dist/_redirects    canonical host -> https://${CANONICAL}`);
 console.log(`  dist/.htaccess     same, for Apache`);
+console.log(`  site/vercel.json   same, for Vercel${vercelChanged ? "  ** CHANGED — git add site/vercel.json **" : ""}`);
 console.log(`  CSP form-action    ${formOrigin || "'self' only (FORM_ENDPOINT not set)"}`);
 console.log(`  CSP analytics      ${GTM_ID ? `allowed for ${GTM_ID}` : "not allowed (GTM_ID not set)"}`);
