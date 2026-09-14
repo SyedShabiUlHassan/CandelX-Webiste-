@@ -10,12 +10,17 @@ node_modules/
 # They live on disk and should be backed up separately (Drive, an external
 # disk) — git is for the source that produces site/dist.
 research/
-catalogue/
 Videos/
 assets-src/
 prototype/
 scrollcraft/
 *.pdf
+
+# LEADING SLASH IS LOAD-BEARING. An unanchored `catalogue/` matches a directory
+# of that name at ANY depth, so it silently swallowed site/public/catalogue/ —
+# the 216 product photos the built site links to. Anchored, it excludes only the
+# top-level scrape folder, which is what was meant. 2026-09-14.
+/catalogue/
 
 # The 1.7 MB single-file export of the old site.
 Candelx Surgicals Website.html
