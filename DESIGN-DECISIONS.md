@@ -832,3 +832,63 @@ where a dash means "not made in that variant" and IS information).
 Measuring 79 pages by writing HTML into an iframe with `document.write` **silently lies in dev
 mode** — Vite injects scoped CSS via JS modules that do not run on a written document, and every
 page reported an identical +107px. Use `iframe.src` (a real navigation) or navigate the tab.
+
+---
+
+## 2026-09-14 — Phase 1 + 3 wired up (dormant until the accounts exist)
+
+Everything here is built, tested and **switched off**, gated on a constant in
+`site/src/data/site.ts`. Nothing loads, nothing is set, nothing is claimed until
+Hassan fills the constant in.
+
+| Constant | Empty today means | Set it and |
+|---|---|---|
+| `FORM_ENDPOINT` | form says it cannot send | form posts for real; CSP allows that host |
+| `CONTACT` | em dashes on /support | phone/email appear on /support, footer and JSON-LD |
+| `GTM_ID` | no tag, no cookie, **no banner** | Consent Mode v2 + banner + GTM, in that order |
+| `CATALOGUE_PDF` | no "Catalogue" nav item | the PDF link appears in the header |
+
+### Consent ordering is load-bearing — do not "add the banner later"
+`src/components/Consent.astro` renders, in this order and in one place:
+1. Consent Mode v2 defaults, **all denied**, pushed to `dataLayer`
+2. a previously stored choice replayed as a `consent update`
+3. **then** `gtm.js`
+4. the banner, which calls `consent update` on a click and pushes a `cx_consent`
+   event for GTM triggers to hang off
+
+Verified: fresh visitor sees the banner with everything denied; Accept stores and
+grants; a returning granted visitor gets the update replayed **before** GTM and no
+banner; a declined visitor gets no update at all. Installing GTM first and adding a
+banner afterwards means every EU visitor in between was tracked unlawfully.
+
+**GA4 goes inside GTM, not on the page.** Installing both tags directly double-counts
+every pageview — the most common setup mistake. `GA4_ID` exists only so the privacy
+page can name the measurement ID.
+
+### The privacy page reads `GTM_ID` itself
+`/privacy` renders a different "Cookies and analytics" section depending on whether
+analytics is configured, so it cannot describe the wrong thing. A privacy notice that
+is out of date is worse than none.
+
+### Headers are GENERATED, not hand-written
+`scripts/write-headers.mjs` runs after `astro build` (chained in `site/package.json`)
+and emits `dist/_headers` + `dist/_redirects` (Netlify / Cloudflare Pages) **and**
+`dist/.htaccess` (Hostinger / Apache), so the same `dist/` works either place.
+
+Generated because the CSP depends on two things that change: the form endpoint's
+origin and whether GTM is on. A hand-written CSP goes stale the day either moves, and
+**a stale CSP fails silently** — the browser blocks the request and shows nothing.
+
+- `script-src` carries `'unsafe-inline'` deliberately: Astro inlines page scripts and
+  GTM requires it. Everything else is locked to our own origin, so an injected
+  `<script src="evil.com">` is still blocked — which is the attack this prevents.
+  Tighten to hashes only if the inline scripts are ever externalised.
+- **HSTS starts at `max-age=86400`, not a year.** Raise it once HTTPS is proven on
+  every subdomain; browsers cache HSTS, so it is hard to undo.
+- Only `/_astro/*` is content-hashed, so only it is frozen for a year. Fonts and
+  images get 30 days; HTML must always revalidate or a deploy never reaches anyone.
+
+Verified against the built site: 0 external scripts, 0 external images, 0 iframes,
+0 `object`/`embed`, 0 `javascript:` hrefs, 0 `@import`, 0 `data:` URIs in CSS. The
+87 external `<link>`s are `rel="canonical"`, which is not a resource load. Nothing
+the CSP would block.

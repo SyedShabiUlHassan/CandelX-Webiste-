@@ -1,0 +1,157 @@
+---
+/* Cookie consent + Google Tag Manager, in that order — which is the whole point.
+   Audit 2026-09-14, Phase 3 + Phase 5.
+
+   GA4 sets cookies. Under GDPR/ePrivacy an EU visitor has to consent BEFORE
+   that happens, so this component:
+
+     1. declares Consent Mode v2 defaults as DENIED, in <head>, before GTM;
+     2. replays a previously stored choice, so a returning visitor is not asked
+        again and their consent is restored before any tag fires;
+     3. loads GTM only after those defaults are in the dataLayer;
+     4. shows the banner, and calls gtag('consent','update',...) on a choice.
+
+   Installing GTM first and "adding a banner later" means every EU visitor in
+   between was tracked unlawfully — hence the ordering here is load-bearing.
+
+   Renders NOTHING when GTM_ID is empty: no tag, no cookie, no banner. There is
+   nothing to consent to, and a banner that consents to nothing is just noise. */
+import { GTM_ID } from "../data/site.ts";
+
+const enabled = !!GTM_ID;
+---
+
+{enabled && (
+  <>
+    {/* ── 1 + 2: defaults and the stored choice, BEFORE GTM ────────────── */}
+    <script is:inline define:vars={{ GTM_ID }}>
+      (function () {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+
+        /* Everything off until told otherwise. functionality and security are
+           granted because they cover the site working at all, not tracking. */
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "denied",
+          functionality_storage: "granted",
+          security_storage: "granted",
+          wait_for_update: 500,
+        });
+
+        var stored = null;
+        try { stored = localStorage.getItem("cx-consent"); } catch (e) {}
+
+        if (stored === "granted") {
+          gtag("consent", "update", {
+            ad_storage: "granted",
+            ad_user_data: "granted",
+            ad_personalization: "granted",
+            analytics_storage: "granted",
+          });
+        }
+        window.__cxConsent = stored;
+
+        /* ── 3: GTM, now that the defaults are in the dataLayer ────────── */
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+          j.async = true;
+          j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", GTM_ID);
+      })();
+    </script>
+
+    {/* ── 4: the banner. Hidden until the script decides it is needed, so a
+           returning visitor never sees it flash. ─────────────────────────── */}
+    <div class="cc" data-consent hidden role="dialog" aria-modal="false"
+         aria-labelledby="cc-t" aria-describedby="cc-d">
+      <div class="cc__in">
+        <div>
+          <p class="cc__t" id="cc-t">Cookies</p>
+          <p class="cc__d" id="cc-d">
+            We'd like to use analytics cookies to see which products people look for,
+            so we can list more of them. Nothing is stored unless you accept.
+            <a href="/privacy">What we collect</a>.
+          </p>
+        </div>
+        <div class="cc__btns">
+          <button class="cc__b cc__b--ghost" type="button" data-consent-no>Decline</button>
+          <button class="cc__b" type="button" data-consent-yes>Accept</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const bar = document.querySelector<HTMLElement>("[data-consent]");
+      if (bar && (window as any).__cxConsent == null) bar.hidden = false;
+
+      function decide(granted: boolean) {
+        const v = granted ? "granted" : "denied";
+        try { localStorage.setItem("cx-consent", v); } catch (e) { /* private mode */ }
+        (window as any).gtag?.("consent", "update", {
+          ad_storage: v,
+          ad_user_data: v,
+          ad_personalization: v,
+          analytics_storage: v,
+        });
+        /* Give GTM something to trigger on — a tag that should only fire after
+           consent can listen for this instead of guessing. */
+        (window as any).dataLayer?.push({ event: "cx_consent", cx_consent: v });
+        if (bar) bar.hidden = true;
+      }
+
+      document.querySelector("[data-consent-yes]")?.addEventListener("click", () => decide(true));
+      document.querySelector("[data-consent-no]")?.addEventListener("click", () => decide(false));
+    </script>
+
+    <noscript>
+      <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+        height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
+    </noscript>
+  </>
+)}
+
+<style>
+  .cc {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
+    background: var(--surface-card);
+    border-top: 1px solid var(--border-hairline);
+    box-shadow: 0 -8px 30px -22px rgba(0, 25, 35, .5);
+  }
+  .cc__in {
+    max-width: 1200px; margin: 0 auto; padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--s-8); flex-wrap: wrap;
+  }
+  .cc__t {
+    margin: 0; font-family: var(--font-sans); font-weight: var(--fw-semibold);
+    font-size: 14px; color: var(--text-strong);
+  }
+  .cc__d { margin: 4px 0 0; font-size: 13.5px; color: var(--text-muted); max-width: 62ch; }
+  .cc__btns { display: flex; gap: 10px; flex: none; }
+  .cc__b {
+    min-height: 44px; padding: 0 22px; border-radius: var(--r-pill);
+    border: none; cursor: pointer; font-family: var(--font-sans);
+    font-size: 14px; font-weight: var(--fw-medium);
+    background: var(--brand-teal); color: var(--white);
+  }
+  .cc__b--ghost {
+    background: transparent; color: var(--text-body);
+    border: 1px solid var(--border-default);
+  }
+  .cc__b:hover { filter: brightness(1.06); }
+
+  @media (max-width: 820px) {
+    .cc__in { padding: 16px 20px; gap: var(--s-5); }
+    .cc__btns { width: 100%; }
+    .cc__b { flex: 1; }
+  }
+</style>

@@ -65,5 +65,23 @@ export const CATALOGUE_PDF = "";
  *  Audit 2026-09-14, B-01 — the site's only conversion path. */
 export const FORM_ENDPOINT = "";
 
+/** ANALYTICS — both empty until Hassan creates the accounts.
+ *
+ *  Empty means the site loads no tag, sets no cookie, and shows no consent
+ *  banner — there is nothing to consent to. The privacy page reads these too,
+ *  so its "what we set" section stays truthful automatically.
+ *
+ *  Set GTM_ID only. GA4 is fired THROUGH GTM (add a GA4 Configuration tag in
+ *  the GTM console) — installing both tags directly double-counts every
+ *  pageview, which is the most common setup mistake. GA4_ID is here purely so
+ *  the privacy page can name the measurement ID if you want it to.
+ *
+ *  The moment GTM_ID is set:
+ *    - Consent Mode v2 defaults to DENIED before GTM loads
+ *    - the banner appears, and nothing is stored until the visitor accepts
+ *  Audit 2026-09-14, Phase 3 + Phase 5. */
+export const GTM_ID = "";   // e.g. "GTM-XXXXXXX"
+export const GA4_ID  = "";  // e.g. "G-XXXXXXXXXX" — configured inside GTM, not here
+
 /** Social / Open Graph share image. 1200x630. */
 export const OG_IMAGE = "/brand/og-candelx.png";

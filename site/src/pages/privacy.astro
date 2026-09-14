@@ -13,10 +13,16 @@
 import Site from "../layouts/Site.astro";
 import Section from "../components/ds/Section.astro";
 import Eyebrow from "../components/ds/Eyebrow.astro";
-import { BRAND_FULL, CONTACT, TITLE_SUFFIX } from "../data/site.ts";
+import { BRAND_FULL, CONTACT, TITLE_SUFFIX, GTM_ID, GA4_ID } from "../data/site.ts";
 
 const updated = "14 September 2026";
 const contactLine = CONTACT.email || "the address on our contact page";
+
+/* This section has to describe what the site ACTUALLY does, and the site's
+   analytics are switched on by a constant. Read it here rather than hand-editing
+   this page later and forgetting — a privacy notice that describes the wrong
+   thing is worse than none. */
+const analytics = !!GTM_ID;
 ---
 
 <Site
@@ -73,20 +79,45 @@ const contactLine = CONTACT.email || "the address on our contact page";
       </p>
 
       <h2>Cookies and analytics</h2>
-      <p>
-        <b>This site currently sets no cookies and runs no analytics or tracking scripts.</b>
-        Nothing about your visit is recorded beyond the ordinary server logs kept by our host
-        for security and troubleshooting.
-      </p>
-      <p>
-        If we add analytics in future, we will ask for your consent first through a banner, and
-        nothing will be set until you accept. This page will be updated on the same day.
-      </p>
+      {analytics ? (
+        <>
+          <p>
+            We use <b>Google Analytics</b>{GA4_ID ? <> (measurement ID <span class="lg-mono">{GA4_ID}</span>)</> : null},
+            loaded through Google Tag Manager, to count visits and see which products people
+            search for. It tells us what to list more of; it does not identify you personally.
+          </p>
+          <p>
+            <b>Nothing is set until you accept.</b> Analytics and advertising storage start in a
+            denied state on every visit, and only change if you press Accept on the banner. If you
+            decline, or ignore it, no analytics cookie is ever written. Your choice is remembered
+            in your own browser so we don't ask again; clearing your site data resets it.
+          </p>
+          <p>
+            The cookies Google Analytics sets when you accept are <span class="lg-mono">_ga</span>
+            and <span class="lg-mono">_ga_*</span>, and they expire after two years.
+          </p>
+        </>
+      ) : (
+        <>
+          <p>
+            <b>This site sets no cookies and runs no analytics or tracking scripts.</b>
+            Nothing about your visit is recorded beyond the ordinary server logs kept by our host
+            for security and troubleshooting.
+          </p>
+          <p>
+            If we add analytics later, we will ask for your consent through a banner first, and
+            nothing will be stored until you accept. This page updates itself when that happens.
+          </p>
+        </>
+      )}
 
       <h2>Third parties</h2>
       <p>
-        This site loads nothing from anyone else. Our typefaces, images and scripts are all served
-        from our own domain, so opening a page does not tell any other company that you were here.
+        Our typefaces, images and scripts are served from our own domain, so opening a page does
+        not, by itself, tell any other company that you were here.
+        {analytics
+          ? " The one exception is Google Tag Manager and Google Analytics, described above, which load only in the way that section sets out."
+          : " There are no exceptions — nothing on this site is loaded from anyone else."}
       </p>
 
       <h2>Your rights</h2>
@@ -121,4 +152,5 @@ const contactLine = CONTACT.email || "the address on our contact page";
   .lg ul { margin: var(--s-3) 0 0; padding-left: 20px; color: var(--text-body); font-size: 15px; line-height: 1.68; }
   .lg li { margin-top: 5px; }
   .lg b { color: var(--text-strong); font-weight: var(--fw-semibold); }
+  .lg-mono { font-family: var(--font-mono); font-size: .92em; color: var(--text-strong); }
 </style>

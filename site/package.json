@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node ../scripts/write-headers.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:only": "astro build"
   },
   "dependencies": {
     "@types/three": "^0.185.4",
