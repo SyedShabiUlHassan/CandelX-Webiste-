@@ -85,12 +85,12 @@ export const families: CatFamily[] = [
       "Steel sheet": "1.0mm",
       "Mesh type": "Woven 5.5 x 5.5 x 1.0mm"
     },
-    "image": "/catalogue/img/p16/p16-wire-mesh-trays-01-538x324.png",
-    "imageAlt": "/catalogue/img/p16/p16-wire-mesh-trays-02-370x285.png",
+    "image": "/catalogue/img/p16/p16-wire-mesh-trays-01-538x324.webp",
+    "imageAlt": "/catalogue/img/p16/p16-wire-mesh-trays-02-370x285.webp",
     "imageFlag": "ok",
     "details": [
       {
-        "src": "/catalogue/img/p16/p16-wire-mesh-trays-03-177x139.png",
+        "src": "/catalogue/img/p16/p16-wire-mesh-trays-03-177x139.webp",
         "caption": "Single Frame protection — Round Corners",
         "flag": "low_res"
       },
@@ -100,7 +100,7 @@ export const families: CatFamily[] = [
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p16/p16-wire-mesh-trays-05-163x133.png",
+        "src": "/catalogue/img/p16/p16-wire-mesh-trays-05-163x133.webp",
         "caption": "Easy to lock",
         "flag": "low_res"
       },
@@ -902,32 +902,32 @@ export const families: CatFamily[] = [
       "Steel sheet": "1.0mm",
       "Mesh type": "Woven 5.5 x 5.5 x 1.0mm"
     },
-    "image": "/catalogue/img/p17/p17-5-5-x-5-5-x-01-441x295.png",
-    "imageAlt": "/catalogue/img/p17/p17-5-5-x-5-5-x-02-482x286.png",
+    "image": "/catalogue/img/p17/p17-5-5-x-5-5-x-01-441x295.webp",
+    "imageAlt": "/catalogue/img/p17/p17-5-5-x-5-5-x-02-482x286.webp",
     "imageFlag": "ok",
     "details": [
       {
-        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-04-137x133.png",
+        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-04-137x133.webp",
         "caption": "Double Frame protection — Round Corners",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-05-163x133.png",
+        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-05-163x133.webp",
         "caption": "Mesh Type : Woven — 5.5 x 5.5 x 1.0mm",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-03-177x139.png",
+        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-03-177x139.webp",
         "caption": "Easy to lock",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-06-163x134.png",
+        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-06-163x134.webp",
         "caption": "Pull up & Stackable — Handles",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-07-283x167.png",
+        "src": "/catalogue/img/p17/p17-5-5-x-5-5-x-07-283x167.webp",
         "caption": "LIDs (optional)",
         "flag": "ok"
       }
@@ -1714,8 +1714,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Height": "32 mm"
     },
-    "image": "/catalogue/img/p60/p60-mesh-cassette-01-370x228.png",
-    "imageAlt": "/catalogue/img/p60/p60-mesh-cassette-02-327x188.png",
+    "image": "/catalogue/img/p60/p60-mesh-cassette-01-370x228.webp",
+    "imageAlt": "/catalogue/img/p60/p60-mesh-cassette-02-327x188.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -1842,10 +1842,10 @@ export const families: CatFamily[] = [
       "Handling": "Drop handle",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxmb-1001.jpg",
+    "image": "/catalogue/img/extras/cxmb-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxmb-1001.jpg"
+      "/catalogue/img/extras/cxmb-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -1899,27 +1899,27 @@ export const families: CatFamily[] = [
       "Perforation": "Square pattern Lid & bottom : 6.4 x 6.4mm",
       "Side": "4.8 x 4.8mm"
     },
-    "image": "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.png",
-    "imageAlt": "/catalogue/img/p08/p08-perforated-trays-punching-processed-02-495x272.png",
+    "image": "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.webp",
+    "imageAlt": "/catalogue/img/p08/p08-perforated-trays-punching-processed-02-495x272.webp",
     "imageFlag": "ok",
     "details": [
       {
-        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-recovered-chamfercorner-163x110.png",
+        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-recovered-chamfercorner-163x110.webp",
         "caption": "Chamfer Corner",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-03-164x133.png",
+        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-03-164x133.webp",
         "caption": "Easy locking System",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-04-163x133.png",
+        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-04-163x133.webp",
         "caption": "Pull up & Stackable Handles",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-05-164x123.png",
+        "src": "/catalogue/img/p08/p08-perforated-trays-punching-processed-05-164x123.webp",
         "caption": "Round Corner",
         "flag": "low_res"
       }
@@ -2482,8 +2482,8 @@ export const families: CatFamily[] = [
       "Steel sheet": "1.0mm",
       "Perforation": "Round pattern 8.0mm & 4.8mm dia."
     },
-    "image": "/catalogue/img/p09/p09-perforated-trays-punching-processed-01-270x325.png",
-    "imageAlt": "/catalogue/img/p09/p09-perforated-trays-punching-processed-02-319x247.png",
+    "image": "/catalogue/img/p09/p09-perforated-trays-punching-processed-01-270x325.webp",
+    "imageAlt": "/catalogue/img/p09/p09-perforated-trays-punching-processed-02-319x247.webp",
     "imageFlag": "ok",
     "details": [
       {
@@ -2492,12 +2492,12 @@ export const families: CatFamily[] = [
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p09/p09-perforated-trays-punching-processed-05-163x133.png",
+        "src": "/catalogue/img/p09/p09-perforated-trays-punching-processed-05-163x133.webp",
         "caption": "Round-pattern perforation — 8.0 & 4.8 mm dia.",
         "flag": "low_res"
       },
       {
-        "src": "/catalogue/img/p09/p09-perforated-trays-punching-processed-06-276x183.png",
+        "src": "/catalogue/img/p09/p09-perforated-trays-punching-processed-06-276x183.webp",
         "caption": "LIDs (optional)",
         "flag": "ok"
       }
@@ -3054,10 +3054,10 @@ export const families: CatFamily[] = [
       "Walls": "Shallow",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpd-1001.jpg",
+    "image": "/catalogue/img/extras/cxpd-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpd-1001.jpg"
+      "/catalogue/img/extras/cxpd-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3104,10 +3104,10 @@ export const families: CatFamily[] = [
       "Rim": "Rolled",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpi-1001.jpg",
+    "image": "/catalogue/img/extras/cxpi-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpi-1001.jpg"
+      "/catalogue/img/extras/cxpi-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3140,7 +3140,7 @@ export const families: CatFamily[] = [
     "section": "Perforated Trays",
     "name": "Surgical Instrument Box",
     "subtitle": "Perforated, lidded",
-    "summary": "Perforated on every face, so steam reaches the set from all sides and the box is sterilised and stored as one unit.",
+    "summary": "Perforated on every face, so steam reaches the set from all sides and the box is sterilized and stored as one unit.",
     "catalogueTitle": "Surgical Instrument Box",
     "variants": [],
     "needsReview": true,
@@ -3153,10 +3153,10 @@ export const families: CatFamily[] = [
       "Lid": "Loose, perforated",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpx-1001.jpg",
+    "image": "/catalogue/img/extras/cxpx-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpx-1001.jpg"
+      "/catalogue/img/extras/cxpx-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3203,10 +3203,10 @@ export const families: CatFamily[] = [
       "Rim": "Reinforced",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpy-1001.jpg",
+    "image": "/catalogue/img/extras/cxpy-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpy-1001.jpg"
+      "/catalogue/img/extras/cxpy-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3253,10 +3253,10 @@ export const families: CatFamily[] = [
       "Handles": "Drop",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpy-1002.jpg",
+    "image": "/catalogue/img/extras/cxpy-1002.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpy-1002.jpg"
+      "/catalogue/img/extras/cxpy-1002.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3303,10 +3303,10 @@ export const families: CatFamily[] = [
       "Intended for": "Microsurgical and ophthalmic instruments",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpo-1001.jpg",
+    "image": "/catalogue/img/extras/cxpo-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpo-1001.jpg"
+      "/catalogue/img/extras/cxpo-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3353,10 +3353,10 @@ export const families: CatFamily[] = [
       "Lid": "Integral",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpo-1002.jpg",
+    "image": "/catalogue/img/extras/cxpo-1002.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpo-1002.jpg"
+      "/catalogue/img/extras/cxpo-1002.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3403,10 +3403,10 @@ export const families: CatFamily[] = [
       "Rim": "Rolled, reinforced",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpb-1001.jpg",
+    "image": "/catalogue/img/extras/cxpb-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpb-1001.jpg"
+      "/catalogue/img/extras/cxpb-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3453,10 +3453,10 @@ export const families: CatFamily[] = [
       "Body": "Fine mesh",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpb-1002.jpg",
+    "image": "/catalogue/img/extras/cxpb-1002.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpb-1002.jpg"
+      "/catalogue/img/extras/cxpb-1002.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3503,10 +3503,10 @@ export const families: CatFamily[] = [
       "Profile": "Slim",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxpb-1003.jpg",
+    "image": "/catalogue/img/extras/cxpb-1003.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpb-1003.jpg"
+      "/catalogue/img/extras/cxpb-1003.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3552,10 +3552,10 @@ export const families: CatFamily[] = [
       "Retention": "Sprung clips",
       "Supplied": "Separately, matched to basket"
     },
-    "image": "/catalogue/img/extras/cxpl-1001.jpg",
+    "image": "/catalogue/img/extras/cxpl-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxpl-1001.jpg"
+      "/catalogue/img/extras/cxpl-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -3588,8 +3588,8 @@ export const families: CatFamily[] = [
     ],
     "section": "Universal Trays",
     "name": "Transportation Baskets",
-    "subtitle": "Stackable transport baskets — steel & aluminium",
-    "summary": "1.5 mm sheet, heavier than a sterilisation tray, because transport is where trays get bent — for sets carried loaded and wet between departments.",
+    "subtitle": "Stackable transport baskets — steel & aluminum",
+    "summary": "1.5 mm sheet, heavier than a sterilization tray, because transport is where trays get bent — for sets carried loaded and wet between departments.",
     "catalogueTitle": "Transportation Baskets",
     "variants": [],
     "needsReview": false,
@@ -3598,8 +3598,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Sheet": "1.5 mm"
     },
-    "image": "/catalogue/img/p24/p24-transportation-baskets-01-478x350.png",
-    "imageAlt": "/catalogue/img/p24/p24-transportation-baskets-02-408x260.png",
+    "image": "/catalogue/img/p24/p24-transportation-baskets-01-478x350.webp",
+    "imageAlt": "/catalogue/img/p24/p24-transportation-baskets-02-408x260.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -3608,8 +3608,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p24/p24-transportation-baskets-01-478x350.png",
-          "/catalogue/img/p24/p24-transportation-baskets-02-408x260.png"
+          "/catalogue/img/p24/p24-transportation-baskets-01-478x350.webp",
+          "/catalogue/img/p24/p24-transportation-baskets-02-408x260.webp"
         ],
         "sizes": [
           {
@@ -3706,12 +3706,12 @@ export const families: CatFamily[] = [
         ]
       },
       {
-        "label": "Aluminium — CXUTA · optional",
+        "label": "Aluminum — CXUTA · optional",
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p24/p24-transportation-baskets-03-566x434.png",
-          "/catalogue/img/p24/p24-transportation-baskets-04-400x242.png"
+          "/catalogue/img/p24/p24-transportation-baskets-03-566x434.webp",
+          "/catalogue/img/p24/p24-transportation-baskets-04-400x242.webp"
         ],
         "sizes": [
           {
@@ -3989,8 +3989,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p27/p27-suitable-for-surgical-sets-01-438x438.png",
-    "imageAlt": "/catalogue/img/p27/p27-suitable-for-surgical-sets-02-439x324.png",
+    "image": "/catalogue/img/p27/p27-suitable-for-surgical-sets-01-438x438.webp",
+    "imageAlt": "/catalogue/img/p27/p27-suitable-for-surgical-sets-02-439x324.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -3999,8 +3999,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p27/p27-suitable-for-surgical-sets-01-438x438.png",
-          "/catalogue/img/p27/p27-suitable-for-surgical-sets-02-439x324.png"
+          "/catalogue/img/p27/p27-suitable-for-surgical-sets-01-438x438.webp",
+          "/catalogue/img/p27/p27-suitable-for-surgical-sets-02-439x324.webp"
         ],
         "sizes": [
           {
@@ -4075,8 +4075,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p27/p27-suitable-for-surgical-sets-03-383x430.png",
-          "/catalogue/img/p27/p27-suitable-for-surgical-sets-04-479x277.png"
+          "/catalogue/img/p27/p27-suitable-for-surgical-sets-03-383x430.webp",
+          "/catalogue/img/p27/p27-suitable-for-surgical-sets-04-479x277.webp"
         ],
         "sizes": [
           {
@@ -4244,7 +4244,7 @@ export const families: CatFamily[] = [
     "section": "Universal Trays",
     "name": "Universal Trays & Sterilization Boxes",
     "subtitle": "Needle box, laryngoscope tray & universal trays",
-    "summary": "Tray and lidded box in one range, so a set can be sterilised open and stored closed without ever being moved into a second container.",
+    "summary": "Tray and lidded box in one range, so a set can be sterilized open and stored closed without ever being moved into a second container.",
     "catalogueTitle": "Universal Trays & Sterilization Boxes",
     "variants": [],
     "needsReview": false,
@@ -4252,8 +4252,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p28/p28-suitable-for-surgical-sets-01-342x172.png",
-    "imageAlt": "/catalogue/img/p28/p28-suitable-for-surgical-sets-03-402x203.png",
+    "image": "/catalogue/img/p28/p28-suitable-for-surgical-sets-01-342x172.webp",
+    "imageAlt": "/catalogue/img/p28/p28-suitable-for-surgical-sets-03-402x203.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -4386,8 +4386,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p29/p29-universal-trays-01-326x406.png",
-    "imageAlt": "/catalogue/img/p29/p29-universal-trays-02-305x258.png",
+    "image": "/catalogue/img/p29/p29-universal-trays-01-326x406.webp",
+    "imageAlt": "/catalogue/img/p29/p29-universal-trays-02-305x258.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -4496,8 +4496,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p30/p30-universal-transportation-trays-01-274x255.png",
-    "imageAlt": "/catalogue/img/p30/p30-universal-transportation-trays-02-420x199.png",
+    "image": "/catalogue/img/p30/p30-universal-transportation-trays-01-274x255.webp",
+    "imageAlt": "/catalogue/img/p30/p30-universal-transportation-trays-02-420x199.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -4700,10 +4700,10 @@ export const families: CatFamily[] = [
       "Rim": "Reinforced",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxubs-1001.jpg",
+    "image": "/catalogue/img/extras/cxubs-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxubs-1001.jpg"
+      "/catalogue/img/extras/cxubs-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -4749,10 +4749,10 @@ export const families: CatFamily[] = [
       "Base": "Raised foot frame",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxubs-1002.jpg",
+    "image": "/catalogue/img/extras/cxubs-1002.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxubs-1002.jpg"
+      "/catalogue/img/extras/cxubs-1002.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -4799,10 +4799,10 @@ export const families: CatFamily[] = [
       "Closure": "Centre latch",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxubs-1003.jpg",
+    "image": "/catalogue/img/extras/cxubs-1003.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxubs-1003.jpg"
+      "/catalogue/img/extras/cxubs-1003.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -4849,10 +4849,10 @@ export const families: CatFamily[] = [
       "Corners": "Reinforced posts",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxubs-1004.jpg",
+    "image": "/catalogue/img/extras/cxubs-1004.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxubs-1004.jpg"
+      "/catalogue/img/extras/cxubs-1004.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -4894,8 +4894,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Height": "30 mm"
     },
-    "image": "/catalogue/img/p46/p46-cassette-trays-01-381x269.png",
-    "imageAlt": "/catalogue/img/p46/p46-cassette-trays-02-379x266.png",
+    "image": "/catalogue/img/p46/p46-cassette-trays-01-381x269.webp",
+    "imageAlt": "/catalogue/img/p46/p46-cassette-trays-02-379x266.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -5161,8 +5161,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Height": "32 mm (all sizes)"
     },
-    "image": "/catalogue/img/p48/p48-08-plus-instruments-01-438x236.png",
-    "imageAlt": "/catalogue/img/p48/p48-08-plus-instruments-02-344x188.png",
+    "image": "/catalogue/img/p48/p48-08-plus-instruments-01-438x236.webp",
+    "imageAlt": "/catalogue/img/p48/p48-08-plus-instruments-02-344x188.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -5171,8 +5171,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p48/p48-08-plus-instruments-01-438x236.png",
-          "/catalogue/img/p48/p48-08-plus-instruments-02-344x188.png"
+          "/catalogue/img/p48/p48-08-plus-instruments-01-438x236.webp",
+          "/catalogue/img/p48/p48-08-plus-instruments-02-344x188.webp"
         ],
         "sizes": [
           {
@@ -5286,8 +5286,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p48/p48-08-plus-instruments-03-501x243.png",
-          "/catalogue/img/p48/p48-08-plus-instruments-04-291x176.png"
+          "/catalogue/img/p48/p48-08-plus-instruments-03-501x243.webp",
+          "/catalogue/img/p48/p48-08-plus-instruments-04-291x176.webp"
         ],
         "sizes": [
           {
@@ -5631,8 +5631,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p49/p49-for-osteotome-set-01-567x285.png",
-    "imageAlt": "/catalogue/img/p49/p49-for-osteotome-set-02-427x246.png",
+    "image": "/catalogue/img/p49/p49-for-osteotome-set-01-567x285.webp",
+    "imageAlt": "/catalogue/img/p49/p49-for-osteotome-set-02-427x246.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -5743,12 +5743,12 @@ export const families: CatFamily[] = [
       "Height": "23 mm (all sizes)",
       "Capacity": "5 / 7 / 10 / 20 instruments"
     },
-    "image": "/catalogue/img/p50/p50-07-instruments-01-359x264.png",
+    "image": "/catalogue/img/p50/p50-07-instruments-01-359x264.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [
       {
-        "src": "/catalogue/img/p50/p50-07-instruments-02-437x235.png",
+        "src": "/catalogue/img/p50/p50-07-instruments-02-437x235.webp",
         "caption": "Silicone instrument stringers",
         "flag": "ok"
       }
@@ -5939,8 +5939,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Height": "22 mm"
     },
-    "image": "/catalogue/img/p51/p51-strip-lock-01-446x236.png",
-    "imageAlt": "/catalogue/img/p51/p51-strip-lock-02-456x252.png",
+    "image": "/catalogue/img/p51/p51-strip-lock-01-446x236.webp",
+    "imageAlt": "/catalogue/img/p51/p51-strip-lock-02-456x252.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -6181,8 +6181,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Height": "23 mm"
     },
-    "image": "/catalogue/img/p52/p52-strip-lock-01-387x209.png",
-    "imageAlt": "/catalogue/img/p52/p52-strip-lock-02-451x234.png",
+    "image": "/catalogue/img/p52/p52-strip-lock-01-387x209.webp",
+    "imageAlt": "/catalogue/img/p52/p52-strip-lock-02-451x234.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -6419,8 +6419,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p53/p53-square-pattern-01-339x252.png",
-    "imageAlt": "/catalogue/img/p53/p53-square-pattern-02-351x188.png",
+    "image": "/catalogue/img/p53/p53-square-pattern-01-339x252.webp",
+    "imageAlt": "/catalogue/img/p53/p53-square-pattern-02-351x188.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -6553,8 +6553,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p54/p54-elongated-01-348x193.png",
-    "imageAlt": "/catalogue/img/p54/p54-elongated-02-458x249.png",
+    "image": "/catalogue/img/p54/p54-elongated-01-348x193.webp",
+    "imageAlt": "/catalogue/img/p54/p54-elongated-02-458x249.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -6727,8 +6727,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p55/p55-elongated-single-lock-01-529x307.png",
-    "imageAlt": "/catalogue/img/p55/p55-elongated-single-lock-02-434x253.png",
+    "image": "/catalogue/img/p55/p55-elongated-single-lock-01-529x307.webp",
+    "imageAlt": "/catalogue/img/p55/p55-elongated-single-lock-02-434x253.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -6901,8 +6901,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p56/p56-elongated-double-lock-01-315x197.png",
-    "imageAlt": "/catalogue/img/p56/p56-elongated-double-lock-02-304x150.png",
+    "image": "/catalogue/img/p56/p56-elongated-double-lock-01-315x197.webp",
+    "imageAlt": "/catalogue/img/p56/p56-elongated-double-lock-02-304x150.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -7023,8 +7023,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p57/p57-elongated-01-411x213.png",
-    "imageAlt": "/catalogue/img/p57/p57-elongated-02-352x183.png",
+    "image": "/catalogue/img/p57/p57-elongated-01-411x213.webp",
+    "imageAlt": "/catalogue/img/p57/p57-elongated-02-352x183.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -7184,8 +7184,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p58/p58-unionjack-01-335x351.png",
-    "imageAlt": "/catalogue/img/p58/p58-unionjack-02-357x231.png",
+    "image": "/catalogue/img/p58/p58-unionjack-01-335x351.webp",
+    "imageAlt": "/catalogue/img/p58/p58-unionjack-02-357x231.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -7320,8 +7320,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Height": "34 mm"
     },
-    "image": "/catalogue/img/p59/p59-double-hinge-cassette-trays-01-397x234.png",
-    "imageAlt": "/catalogue/img/p59/p59-double-hinge-cassette-trays-02-330x219.png",
+    "image": "/catalogue/img/p59/p59-double-hinge-cassette-trays-01-397x234.webp",
+    "imageAlt": "/catalogue/img/p59/p59-double-hinge-cassette-trays-02-330x219.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -7430,8 +7430,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Height": "24 mm"
     },
-    "image": "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-04-332x345.png",
-    "imageAlt": "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-05-395x242.png",
+    "image": "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-04-332x345.webp",
+    "imageAlt": "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-05-395x242.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -7440,8 +7440,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-04-332x345.png",
-          "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-05-395x242.png"
+          "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-04-332x345.webp",
+          "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-05-395x242.webp"
         ],
         "sizes": [
           {
@@ -7477,8 +7477,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-01-450x353.png",
-          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-02-374x292.png"
+          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-01-450x353.webp",
+          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-02-374x292.webp"
         ],
         "sizes": [
           {
@@ -7514,8 +7514,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-03-383x342.png",
-          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-04-433x259.png"
+          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-03-383x342.webp",
+          "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-04-433x259.webp"
         ],
         "sizes": [
           {
@@ -7626,8 +7626,8 @@ export const families: CatFamily[] = [
       "Material": "304 (ASTM)",
       "Size": "150 &times; 40 &times; 30 mm (all)"
     },
-    "image": "/catalogue/img/p63/p63-round-click-lock-01-275x220.png",
-    "imageAlt": "/catalogue/img/p63/p63-round-click-lock-02-311x187.png",
+    "image": "/catalogue/img/p63/p63-round-click-lock-01-275x220.webp",
+    "imageAlt": "/catalogue/img/p63/p63-round-click-lock-02-311x187.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -7765,8 +7765,8 @@ export const families: CatFamily[] = [
     ],
     "section": "Cassette Trays",
     "name": "Dental Implant Cassette",
-    "subtitle": "Hinged, colour-coded bur wells",
-    "summary": "Colour-coded wells and rails lay the implant sequence out left to right, so it is read off the cassette rather than remembered.",
+    "subtitle": "Hinged, color-coded bur wells",
+    "summary": "Color-coded wells and rails lay the implant sequence out left to right, so it is read off the cassette rather than remembered.",
     "catalogueTitle": "Dental Implant Cassette",
     "variants": [],
     "needsReview": true,
@@ -7776,21 +7776,21 @@ export const families: CatFamily[] = [
     ],
     "specs": {
       "Material": "Stainless steel",
-      "Inserts": "Silicone, colour-coded",
+      "Inserts": "Silicone, color-coded",
       "Lid": "Hinged, slotted",
       "Interior": "Bur wells, instrument rails, open tray",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxcd-1004.jpg",
+    "image": "/catalogue/img/extras/cxcd-1004.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxcd-1004.jpg",
-      "/catalogue/img/extras/cxcd-1005.jpg",
-      "/catalogue/img/extras/cxcd-1006.jpg",
-      "/catalogue/img/extras/cxcd-1007.jpg",
-      "/catalogue/img/extras/cxcd-1008.jpg",
-      "/catalogue/img/extras/cxcd-1010.jpg",
-      "/catalogue/img/extras/cxcd-1011.jpg"
+      "/catalogue/img/extras/cxcd-1004.webp",
+      "/catalogue/img/extras/cxcd-1005.webp",
+      "/catalogue/img/extras/cxcd-1006.webp",
+      "/catalogue/img/extras/cxcd-1007.webp",
+      "/catalogue/img/extras/cxcd-1008.webp",
+      "/catalogue/img/extras/cxcd-1010.webp",
+      "/catalogue/img/extras/cxcd-1011.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -7914,10 +7914,10 @@ export const families: CatFamily[] = [
       "Lid": "Hinged, slotted",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxcd-1009.jpg",
+    "image": "/catalogue/img/extras/cxcd-1009.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxcd-1009.jpg"
+      "/catalogue/img/extras/cxcd-1009.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -7964,12 +7964,12 @@ export const families: CatFamily[] = [
       "Lid": "Hinged, slotted",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxcd-1012.jpg",
+    "image": "/catalogue/img/extras/cxcd-1012.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxcd-1012.jpg",
-      "/catalogue/img/extras/cxcd-1013.jpg",
-      "/catalogue/img/extras/cxcd-1015.jpg"
+      "/catalogue/img/extras/cxcd-1012.webp",
+      "/catalogue/img/extras/cxcd-1013.webp",
+      "/catalogue/img/extras/cxcd-1015.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -8042,11 +8042,11 @@ export const families: CatFamily[] = [
       "Profile": "Flat",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxcd-1002.jpg",
-    "imageAlt": "/catalogue/img/extras/cxcd-1014.jpg",
+    "image": "/catalogue/img/extras/cxcd-1002.webp",
+    "imageAlt": "/catalogue/img/extras/cxcd-1014.webp",
     "images": [
-      "/catalogue/img/extras/cxcd-1002.jpg",
-      "/catalogue/img/extras/cxcd-1014.jpg"
+      "/catalogue/img/extras/cxcd-1002.webp",
+      "/catalogue/img/extras/cxcd-1014.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -8107,11 +8107,11 @@ export const families: CatFamily[] = [
       "Closure": "Latch",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxcd-1001.jpg",
-    "imageAlt": "/catalogue/img/extras/cxcd-1003.jpg",
+    "image": "/catalogue/img/extras/cxcd-1001.webp",
+    "imageAlt": "/catalogue/img/extras/cxcd-1003.webp",
     "images": [
-      "/catalogue/img/extras/cxcd-1001.jpg",
-      "/catalogue/img/extras/cxcd-1003.jpg"
+      "/catalogue/img/extras/cxcd-1001.webp",
+      "/catalogue/img/extras/cxcd-1003.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -8165,8 +8165,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p40/p40-for-professional-01-302x187.png",
-    "imageAlt": "/catalogue/img/p40/p40-for-professional-02-305x221.png",
+    "image": "/catalogue/img/p40/p40-for-professional-01-302x187.webp",
+    "imageAlt": "/catalogue/img/p40/p40-for-professional-02-305x221.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -8175,9 +8175,9 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p40/p40-for-professional-01-302x187.png",
-          "/catalogue/img/p40/p40-for-professional-02-305x221.png",
-          "/catalogue/img/p40/p40-for-professional-03-263x175.png"
+          "/catalogue/img/p40/p40-for-professional-01-302x187.webp",
+          "/catalogue/img/p40/p40-for-professional-02-305x221.webp",
+          "/catalogue/img/p40/p40-for-professional-03-263x175.webp"
         ],
         "sizes": [
           {
@@ -8200,9 +8200,9 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p40/p40-for-professional-04-317x209.png",
-          "/catalogue/img/p40/p40-for-professional-05-319x230.png",
-          "/catalogue/img/p40/p40-for-professional-06-273x182.png"
+          "/catalogue/img/p40/p40-for-professional-04-317x209.webp",
+          "/catalogue/img/p40/p40-for-professional-05-319x230.webp",
+          "/catalogue/img/p40/p40-for-professional-06-273x182.webp"
         ],
         "sizes": [
           {
@@ -8225,10 +8225,10 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p40/p40-for-professional-07-289x250.png",
-          "/catalogue/img/p40/p40-for-professional-08-399x324.png",
-          "/catalogue/img/p40/p40-for-professional-09-287x215.png",
-          "/catalogue/img/p40/p40-for-professional-10-272x268.png"
+          "/catalogue/img/p40/p40-for-professional-07-289x250.webp",
+          "/catalogue/img/p40/p40-for-professional-08-399x324.webp",
+          "/catalogue/img/p40/p40-for-professional-09-287x215.webp",
+          "/catalogue/img/p40/p40-for-professional-10-272x268.webp"
         ],
         "sizes": [
           {
@@ -8312,8 +8312,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.png",
-    "imageAlt": "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.png",
+    "image": "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.webp",
+    "imageAlt": "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -8322,7 +8322,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.png"
+          "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.webp"
         ],
         "sizes": [
           {
@@ -8358,7 +8358,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.png"
+          "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.webp"
         ],
         "sizes": [
           {
@@ -8381,7 +8381,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p41/p41-68-x-60-x-20mm-04-202x143.png"
+          "/catalogue/img/p41/p41-68-x-60-x-20mm-04-202x143.webp"
         ],
         "sizes": [
           {
@@ -8404,7 +8404,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p41/p41-68-x-60-x-20mm-03-291x250.png"
+          "/catalogue/img/p41/p41-68-x-60-x-20mm-03-291x250.webp"
         ],
         "sizes": [
           {
@@ -8427,7 +8427,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p41/p41-68-x-60-x-20mm-05-301x168.png"
+          "/catalogue/img/p41/p41-68-x-60-x-20mm-05-301x168.webp"
         ],
         "sizes": [
           {
@@ -8450,7 +8450,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p41/p41-68-x-60-x-20mm-06-187x149.png"
+          "/catalogue/img/p41/p41-68-x-60-x-20mm-06-187x149.webp"
         ],
         "sizes": [
           {
@@ -8583,7 +8583,7 @@ export const families: CatFamily[] = [
     "needsReview": false,
     "notes": [],
     "specs": {},
-    "image": "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.png",
+    "image": "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -8593,7 +8593,7 @@ export const families: CatFamily[] = [
         "code": "CXGK-9902",
         "note": null,
         "images": [
-          "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.png"
+          "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.webp"
         ],
         "sizes": [
           {
@@ -8616,7 +8616,7 @@ export const families: CatFamily[] = [
         "code": "CXGK-9904",
         "note": null,
         "images": [
-          "/catalogue/img/p42/p42-prf-system-recovered-srf9904-26x494.png"
+          "/catalogue/img/p42/p42-prf-system-recovered-srf9904-26x494.webp"
         ],
         "sizes": [
           {
@@ -8639,7 +8639,7 @@ export const families: CatFamily[] = [
         "code": "CXGK-9906",
         "note": null,
         "images": [
-          "/catalogue/img/p42/p42-prf-system-recovered-srf9906-28x494.png"
+          "/catalogue/img/p42/p42-prf-system-recovered-srf9906-28x494.webp"
         ],
         "sizes": [
           {
@@ -8662,7 +8662,7 @@ export const families: CatFamily[] = [
         "code": "CXGK-9908",
         "note": null,
         "images": [
-          "/catalogue/img/p42/p42-prf-system-recovered-srf9908-29x494.png"
+          "/catalogue/img/p42/p42-prf-system-recovered-srf9908-29x494.webp"
         ],
         "sizes": [
           {
@@ -8685,7 +8685,7 @@ export const families: CatFamily[] = [
         "code": "CXGK-9910",
         "note": "TC · 13 cm",
         "images": [
-          "/catalogue/img/p42/p42-goldman-fox-01-144x388.png"
+          "/catalogue/img/p42/p42-goldman-fox-01-144x388.webp"
         ],
         "sizes": [
           {
@@ -8708,7 +8708,7 @@ export const families: CatFamily[] = [
         "code": "CXGK-9912",
         "note": "1 × 2 teeth · 12.5 cm",
         "images": [
-          "/catalogue/img/p42/p42-prf-system-recovered-srf9912-32x411.png"
+          "/catalogue/img/p42/p42-prf-system-recovered-srf9912-32x411.webp"
         ],
         "sizes": [
           {
@@ -8731,7 +8731,7 @@ export const families: CatFamily[] = [
         "code": "CXGK-9914",
         "note": "16 cm",
         "images": [
-          "/catalogue/img/p42/p42-prf-system-recovered-srf9914-87x485.png"
+          "/catalogue/img/p42/p42-prf-system-recovered-srf9914-87x485.webp"
         ],
         "sizes": [
           {
@@ -8866,8 +8866,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-01-514x284.png",
-    "imageAlt": "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-04-449x406.png",
+    "image": "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-01-514x284.webp",
+    "imageAlt": "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-04-449x406.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -8876,7 +8876,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-01-514x284.png"
+          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-01-514x284.webp"
         ],
         "sizes": [
           {
@@ -8899,10 +8899,10 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-04-449x406.png",
-          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-05-467x340.png",
-          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-02-163x133.jpg",
-          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-03-163x133.png"
+          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-04-449x406.webp",
+          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-05-467x340.webp",
+          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-02-163x133.webp",
+          "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-03-163x133.webp"
         ],
         "sizes": [
           {
@@ -8973,8 +8973,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p68/p68-implant-surgical-box-01-256x264.png",
-    "imageAlt": "/catalogue/img/p68/p68-implant-surgical-box-02-198x165.png",
+    "image": "/catalogue/img/p68/p68-implant-surgical-box-01-256x264.webp",
+    "imageAlt": "/catalogue/img/p68/p68-implant-surgical-box-02-198x165.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [],
@@ -9062,7 +9062,7 @@ export const families: CatFamily[] = [
     "section": "Implantology / Bur Holders",
     "name": "Implantology & Burr Holders",
     "subtitle": "Autoclavable bur & drill holders — four holder families",
-    "summary": "Burs are small, costly and easily lost in a tray. These keep them upright, separated and identifiable right through sterilisation.",
+    "summary": "Burs are small, costly and easily lost in a tray. These keep them upright, separated and identifiable right through sterilization.",
     "catalogueTitle": "Implantology & Burr Holders",
     "variants": [],
     "needsReview": false,
@@ -9070,8 +9070,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p69/p69-bur-holders-03-244x227.png",
-    "imageAlt": "/catalogue/img/p69/p69-bur-holders-04-273x245.png",
+    "image": "/catalogue/img/p69/p69-bur-holders-03-244x227.webp",
+    "imageAlt": "/catalogue/img/p69/p69-bur-holders-04-273x245.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -9080,9 +9080,9 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p69/p69-bur-holders-03-244x227.png",
-          "/catalogue/img/p69/p69-bur-holders-04-273x245.png",
-          "/catalogue/img/p69/p69-bur-holders-17-224x217.png"
+          "/catalogue/img/p69/p69-bur-holders-03-244x227.webp",
+          "/catalogue/img/p69/p69-bur-holders-04-273x245.webp",
+          "/catalogue/img/p69/p69-bur-holders-17-224x217.webp"
         ],
         "sizes": [
           {
@@ -9196,9 +9196,9 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p69/p69-bur-holders-06-216x216.png",
-          "/catalogue/img/p69/p69-bur-holders-11-204x227.png",
-          "/catalogue/img/p69/p69-bur-holders-16-240x226.png"
+          "/catalogue/img/p69/p69-bur-holders-06-216x216.webp",
+          "/catalogue/img/p69/p69-bur-holders-11-204x227.webp",
+          "/catalogue/img/p69/p69-bur-holders-16-240x226.webp"
         ],
         "sizes": [
           {
@@ -9260,9 +9260,9 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p69/p69-bur-holders-02-197x169.png",
-          "/catalogue/img/p69/p69-bur-holders-07-182x197.png",
-          "/catalogue/img/p69/p69-bur-holders-12-196x193.png"
+          "/catalogue/img/p69/p69-bur-holders-02-197x169.webp",
+          "/catalogue/img/p69/p69-bur-holders-07-182x197.webp",
+          "/catalogue/img/p69/p69-bur-holders-12-196x193.webp"
         ],
         "sizes": [
           {
@@ -9363,10 +9363,10 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p69/p69-bur-holders-01-141x155.png",
-          "/catalogue/img/p69/p69-bur-holders-08-189x191.png",
-          "/catalogue/img/p69/p69-bur-holders-13-192x179.png",
-          "/catalogue/img/p69/p69-bur-holders-18-227x180.png"
+          "/catalogue/img/p69/p69-bur-holders-01-141x155.webp",
+          "/catalogue/img/p69/p69-bur-holders-08-189x191.webp",
+          "/catalogue/img/p69/p69-bur-holders-13-192x179.webp",
+          "/catalogue/img/p69/p69-bur-holders-18-227x180.webp"
         ],
         "sizes": [
           {
@@ -9740,7 +9740,7 @@ export const families: CatFamily[] = [
     "section": "Implantology / Bur Holders",
     "name": "Dental Bur Holder",
     "subtitle": "Frame handle, silicone wells",
-    "summary": "Colour-coded wells and a folding carry frame keep burs upright, separated and identifiable through the cycle.",
+    "summary": "Color-coded wells and a folding carry frame keep burs upright, separated and identifiable through the cycle.",
     "catalogueTitle": "Dental Bur Holder",
     "variants": [],
     "needsReview": true,
@@ -9749,15 +9749,15 @@ export const families: CatFamily[] = [
     ],
     "specs": {
       "Material": "Stainless steel",
-      "Wells": "Silicone, colour-coded",
+      "Wells": "Silicone, color-coded",
       "Handle": "Folding wire frame",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxbd-1001.jpg",
-    "imageAlt": "/catalogue/img/extras/cxbd-1002.jpg",
+    "image": "/catalogue/img/extras/cxbd-1001.webp",
+    "imageAlt": "/catalogue/img/extras/cxbd-1002.webp",
     "images": [
-      "/catalogue/img/extras/cxbd-1001.jpg",
-      "/catalogue/img/extras/cxbd-1002.jpg"
+      "/catalogue/img/extras/cxbd-1001.webp",
+      "/catalogue/img/extras/cxbd-1002.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -9811,7 +9811,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "316 (ASTM)"
     },
-    "image": "/catalogue/img/p72/p72-orthodontics-ss-mirrors-set-of-7-vectorrender-2437x4261.png",
+    "image": "/catalogue/img/p72/p72-orthodontics-ss-mirrors-set-of-7-vectorrender-2437x4261.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -9833,7 +9833,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p72-1.png"
+        "image": "/catalogue/img/mirrors/p72-1.webp"
       },
       {
         "sku": "CXVM-0207",
@@ -9847,7 +9847,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p72-3.png"
+        "image": "/catalogue/img/mirrors/p72-3.webp"
       },
       {
         "sku": "CXVM-0307",
@@ -9861,7 +9861,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p72-2.png"
+        "image": "/catalogue/img/mirrors/p72-2.webp"
       },
       {
         "sku": "CXVM-0407",
@@ -9875,7 +9875,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p72-4.png"
+        "image": "/catalogue/img/mirrors/p72-4.webp"
       },
       {
         "sku": "CXVM-0507",
@@ -9889,7 +9889,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p72-5.png"
+        "image": "/catalogue/img/mirrors/p72-5.webp"
       },
       {
         "sku": "CXVM-0607",
@@ -9903,7 +9903,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p72-6.png"
+        "image": "/catalogue/img/mirrors/p72-6.webp"
       },
       {
         "sku": "CXVM-0707",
@@ -9917,18 +9917,18 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p72-7.png"
+        "image": "/catalogue/img/mirrors/p72-7.webp"
       }
     ],
     "images": [
-      "/catalogue/img/p72/p72-orthodontics-ss-mirrors-set-of-7-vectorrender-2437x4261.png",
-      "/catalogue/img/mirrors/p72-1.png",
-      "/catalogue/img/mirrors/p72-3.png",
-      "/catalogue/img/mirrors/p72-2.png",
-      "/catalogue/img/mirrors/p72-4.png",
-      "/catalogue/img/mirrors/p72-5.png",
-      "/catalogue/img/mirrors/p72-6.png",
-      "/catalogue/img/mirrors/p72-7.png"
+      "/catalogue/img/p72/p72-orthodontics-ss-mirrors-set-of-7-vectorrender-2437x4261.webp",
+      "/catalogue/img/mirrors/p72-1.webp",
+      "/catalogue/img/mirrors/p72-3.webp",
+      "/catalogue/img/mirrors/p72-2.webp",
+      "/catalogue/img/mirrors/p72-4.webp",
+      "/catalogue/img/mirrors/p72-5.webp",
+      "/catalogue/img/mirrors/p72-6.webp",
+      "/catalogue/img/mirrors/p72-7.webp"
     ],
     "imageAspect": 0.5719
   },
@@ -9949,8 +9949,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "316 (ASTM)"
     },
-    "image": "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.png",
-    "imageAlt": "/catalogue/img/p73/p73-photography-mirrors-with-handle-vectorrender-2133x1852.png",
+    "image": "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.webp",
+    "imageAlt": "/catalogue/img/p73/p73-photography-mirrors-with-handle-vectorrender-2133x1852.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -9959,7 +9959,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.png"
+          "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.webp"
         ],
         "sizes": [
           {
@@ -9974,7 +9974,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73a-1.png"
+            "image": "/catalogue/img/mirrors/p73a-1.webp"
           },
           {
             "sku": "CXVM-0205",
@@ -9988,7 +9988,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73a-2.png"
+            "image": "/catalogue/img/mirrors/p73a-2.webp"
           },
           {
             "sku": "CXVM-0305",
@@ -10002,7 +10002,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73a-3.png"
+            "image": "/catalogue/img/mirrors/p73a-3.webp"
           },
           {
             "sku": "CXVM-0405",
@@ -10016,7 +10016,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73a-4.png"
+            "image": "/catalogue/img/mirrors/p73a-4.webp"
           },
           {
             "sku": "CXVM-0505",
@@ -10030,7 +10030,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73a-5.png"
+            "image": "/catalogue/img/mirrors/p73a-5.webp"
           }
         ]
       },
@@ -10039,7 +10039,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p73/p73-photography-mirrors-with-handle-vectorrender-2133x1852.png"
+          "/catalogue/img/p73/p73-photography-mirrors-with-handle-vectorrender-2133x1852.webp"
         ],
         "sizes": [
           {
@@ -10054,7 +10054,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73b-1.png"
+            "image": "/catalogue/img/mirrors/p73b-1.webp"
           },
           {
             "sku": "CXVM-0204",
@@ -10068,7 +10068,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73b-2.png"
+            "image": "/catalogue/img/mirrors/p73b-2.webp"
           },
           {
             "sku": "CXVM-0304",
@@ -10082,7 +10082,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73b-3.png"
+            "image": "/catalogue/img/mirrors/p73b-3.webp"
           },
           {
             "sku": "CXVM-0404",
@@ -10096,7 +10096,7 @@ export const families: CatFamily[] = [
             "needsReview": false,
             "variant": "CXVM",
             "isLid": false,
-            "image": "/catalogue/img/mirrors/p73b-4.png"
+            "image": "/catalogue/img/mirrors/p73b-4.webp"
           }
         ]
       }
@@ -10118,7 +10118,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73a-1.png"
+        "image": "/catalogue/img/mirrors/p73a-1.webp"
       },
       {
         "sku": "CXVM-0205",
@@ -10132,7 +10132,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73a-2.png"
+        "image": "/catalogue/img/mirrors/p73a-2.webp"
       },
       {
         "sku": "CXVM-0305",
@@ -10146,7 +10146,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73a-3.png"
+        "image": "/catalogue/img/mirrors/p73a-3.webp"
       },
       {
         "sku": "CXVM-0405",
@@ -10160,7 +10160,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73a-4.png"
+        "image": "/catalogue/img/mirrors/p73a-4.webp"
       },
       {
         "sku": "CXVM-0505",
@@ -10174,7 +10174,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73a-5.png"
+        "image": "/catalogue/img/mirrors/p73a-5.webp"
       },
       {
         "sku": "CXVM-0104",
@@ -10188,7 +10188,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73b-1.png"
+        "image": "/catalogue/img/mirrors/p73b-1.webp"
       },
       {
         "sku": "CXVM-0204",
@@ -10202,7 +10202,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73b-2.png"
+        "image": "/catalogue/img/mirrors/p73b-2.webp"
       },
       {
         "sku": "CXVM-0304",
@@ -10216,7 +10216,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73b-3.png"
+        "image": "/catalogue/img/mirrors/p73b-3.webp"
       },
       {
         "sku": "CXVM-0404",
@@ -10230,20 +10230,20 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p73b-4.png"
+        "image": "/catalogue/img/mirrors/p73b-4.webp"
       }
     ],
     "images": [
-      "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.png",
-      "/catalogue/img/mirrors/p73a-1.png",
-      "/catalogue/img/mirrors/p73a-2.png",
-      "/catalogue/img/mirrors/p73a-3.png",
-      "/catalogue/img/mirrors/p73a-4.png",
-      "/catalogue/img/mirrors/p73a-5.png",
-      "/catalogue/img/mirrors/p73b-1.png",
-      "/catalogue/img/mirrors/p73b-2.png",
-      "/catalogue/img/mirrors/p73b-3.png",
-      "/catalogue/img/mirrors/p73b-4.png"
+      "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.webp",
+      "/catalogue/img/mirrors/p73a-1.webp",
+      "/catalogue/img/mirrors/p73a-2.webp",
+      "/catalogue/img/mirrors/p73a-3.webp",
+      "/catalogue/img/mirrors/p73a-4.webp",
+      "/catalogue/img/mirrors/p73a-5.webp",
+      "/catalogue/img/mirrors/p73b-1.webp",
+      "/catalogue/img/mirrors/p73b-2.webp",
+      "/catalogue/img/mirrors/p73b-3.webp",
+      "/catalogue/img/mirrors/p73b-4.webp"
     ],
     "imageAspect": 1.426
   },
@@ -10264,7 +10264,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "Glass"
     },
-    "image": "/catalogue/img/p74/p74-glass-two-sided-orthodontic-mirror-vectorrender-2775x4198.png",
+    "image": "/catalogue/img/p74/p74-glass-two-sided-orthodontic-mirror-vectorrender-2775x4198.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10286,7 +10286,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-1.png"
+        "image": "/catalogue/img/mirrors/p74-1.webp"
       },
       {
         "sku": "CXVM-0208",
@@ -10300,7 +10300,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-2.png"
+        "image": "/catalogue/img/mirrors/p74-2.webp"
       },
       {
         "sku": "CXVM-0308",
@@ -10314,7 +10314,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-3.png"
+        "image": "/catalogue/img/mirrors/p74-3.webp"
       },
       {
         "sku": "CXVM-0408",
@@ -10328,7 +10328,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-4.png"
+        "image": "/catalogue/img/mirrors/p74-4.webp"
       },
       {
         "sku": "CXVM-0508",
@@ -10342,7 +10342,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-5.png"
+        "image": "/catalogue/img/mirrors/p74-5.webp"
       },
       {
         "sku": "CXVM-0608",
@@ -10356,7 +10356,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-6.png"
+        "image": "/catalogue/img/mirrors/p74-6.webp"
       },
       {
         "sku": "CXVM-0708",
@@ -10370,7 +10370,7 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-8.png"
+        "image": "/catalogue/img/mirrors/p74-8.webp"
       },
       {
         "sku": "CXVM-0808",
@@ -10384,19 +10384,19 @@ export const families: CatFamily[] = [
         "needsReview": false,
         "variant": "CXVM",
         "isLid": false,
-        "image": "/catalogue/img/mirrors/p74-7.png"
+        "image": "/catalogue/img/mirrors/p74-7.webp"
       }
     ],
     "images": [
-      "/catalogue/img/p74/p74-glass-two-sided-orthodontic-mirror-vectorrender-2775x4198.png",
-      "/catalogue/img/mirrors/p74-1.png",
-      "/catalogue/img/mirrors/p74-2.png",
-      "/catalogue/img/mirrors/p74-3.png",
-      "/catalogue/img/mirrors/p74-4.png",
-      "/catalogue/img/mirrors/p74-5.png",
-      "/catalogue/img/mirrors/p74-6.png",
-      "/catalogue/img/mirrors/p74-8.png",
-      "/catalogue/img/mirrors/p74-7.png"
+      "/catalogue/img/p74/p74-glass-two-sided-orthodontic-mirror-vectorrender-2775x4198.webp",
+      "/catalogue/img/mirrors/p74-1.webp",
+      "/catalogue/img/mirrors/p74-2.webp",
+      "/catalogue/img/mirrors/p74-3.webp",
+      "/catalogue/img/mirrors/p74-4.webp",
+      "/catalogue/img/mirrors/p74-5.webp",
+      "/catalogue/img/mirrors/p74-6.webp",
+      "/catalogue/img/mirrors/p74-8.webp",
+      "/catalogue/img/mirrors/p74-7.webp"
     ],
     "imageAspect": 0.661
   },
@@ -10417,7 +10417,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p76/p76-instruments-trays-01-252x181.png",
+    "image": "/catalogue/img/p76/p76-instruments-trays-01-252x181.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10512,7 +10512,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p76/p76-instruments-trays-02-265x167.png",
+    "image": "/catalogue/img/p76/p76-instruments-trays-02-265x167.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10555,7 +10555,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p76/p76-instruments-trays-03-244x177.jpg",
+    "image": "/catalogue/img/p76/p76-instruments-trays-03-244x177.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10624,7 +10624,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p76/p76-instruments-trays-04-217x178.jpg",
+    "image": "/catalogue/img/p76/p76-instruments-trays-04-217x178.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10706,7 +10706,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p76/p76-instruments-trays-05-227x208.png",
+    "image": "/catalogue/img/p76/p76-instruments-trays-05-227x208.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10788,7 +10788,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p77/p77-dressing-container-01-174x225.png",
+    "image": "/catalogue/img/p77/p77-dressing-container-01-174x225.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10844,7 +10844,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p77/p77-dressing-container-02-230x230.jpg",
+    "image": "/catalogue/img/p77/p77-dressing-container-02-230x230.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -10913,7 +10913,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p77/p77-dressing-container-06-217x276.jpg",
+    "image": "/catalogue/img/p77/p77-dressing-container-06-217x276.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -11060,7 +11060,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p77/p77-dressing-container-03-278x129.png",
+    "image": "/catalogue/img/p77/p77-dressing-container-03-278x129.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -11103,7 +11103,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p77/p77-dressing-container-04-249x211.jpg",
+    "image": "/catalogue/img/p77/p77-dressing-container-04-249x211.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -11146,7 +11146,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p77/p77-dressing-container-05-253x202.jpg",
+    "image": "/catalogue/img/p77/p77-dressing-container-05-253x202.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -11195,10 +11195,10 @@ export const families: CatFamily[] = [
       "Body": "Solid, drawn",
       "Finish": "Polished"
     },
-    "image": "/catalogue/img/extras/cxwdt-1001.jpg",
+    "image": "/catalogue/img/extras/cxwdt-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwdt-1001.jpg"
+      "/catalogue/img/extras/cxwdt-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11244,10 +11244,10 @@ export const families: CatFamily[] = [
       "Form": "Long, narrow",
       "Finish": "Polished"
     },
-    "image": "/catalogue/img/extras/cxwct-1001.jpg",
+    "image": "/catalogue/img/extras/cxwct-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwct-1001.jpg"
+      "/catalogue/img/extras/cxwct-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11293,10 +11293,10 @@ export const families: CatFamily[] = [
       "Form": "Cylindrical",
       "Finish": "Polished"
     },
-    "image": "/catalogue/img/extras/cxwcd-1001.jpg",
+    "image": "/catalogue/img/extras/cxwcd-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwcd-1001.jpg"
+      "/catalogue/img/extras/cxwcd-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11342,10 +11342,10 @@ export const families: CatFamily[] = [
       "Body": "Solid, drawn",
       "Finish": "Polished"
     },
-    "image": "/catalogue/img/extras/cxwmb-1001.jpg",
+    "image": "/catalogue/img/extras/cxwmb-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwmb-1001.jpg"
+      "/catalogue/img/extras/cxwmb-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11391,10 +11391,10 @@ export const families: CatFamily[] = [
       "Lid": "Hinged",
       "Finish": "Polished"
     },
-    "image": "/catalogue/img/extras/cxwnb-1001.jpg",
+    "image": "/catalogue/img/extras/cxwnb-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwnb-1001.jpg"
+      "/catalogue/img/extras/cxwnb-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11440,10 +11440,10 @@ export const families: CatFamily[] = [
       "Form": "Full oval",
       "Finish": "Polished, seamless interior"
     },
-    "image": "/catalogue/img/extras/cxwbp-1001.jpg",
+    "image": "/catalogue/img/extras/cxwbp-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwbp-1001.jpg"
+      "/catalogue/img/extras/cxwbp-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11490,10 +11490,10 @@ export const families: CatFamily[] = [
       "Handle": "Rear",
       "Finish": "Polished, seamless interior"
     },
-    "image": "/catalogue/img/extras/cxwbp-1002.jpg",
+    "image": "/catalogue/img/extras/cxwbp-1002.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwbp-1002.jpg"
+      "/catalogue/img/extras/cxwbp-1002.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11539,10 +11539,10 @@ export const families: CatFamily[] = [
       "Rim": "Rolled",
       "Finish": "Mirror polished"
     },
-    "image": "/catalogue/img/extras/cxwsb-1001.jpg",
+    "image": "/catalogue/img/extras/cxwsb-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxwsb-1001.jpg"
+      "/catalogue/img/extras/cxwsb-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -11567,15 +11567,15 @@ export const families: CatFamily[] = [
     "imageAspect": 1.0882
   },
   {
-    "slug": "silicon-colour-codes",
+    "slug": "silicon-color-codes",
     "prefix": "CXAH",
     "prefixes": [
       "CXAH"
     ],
     "section": "Trays Accessories / Silicon Holding System",
-    "name": "Silicon Holding System — Colour Codes",
+    "name": "Silicon Holding System — Color Codes",
     "subtitle": "Silicon Color Codes",
-    "summary": "Colour-coded silicone lets a set be recognised by its colour on the tray — fewer wrong sets pulled when theatre is running late.",
+    "summary": "Color-coded silicone lets a set be recognized by its color on the tray — fewer wrong sets pulled when theatre is running late.",
     "catalogueTitle": "Silicon Holding System",
     "variants": [],
     "needsReview": false,
@@ -11583,18 +11583,18 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "Silicon Medical Grade"
     },
-    "image": "/catalogue/img/p81/p81-silicon-strip-group-1-vectorrender-2344x201.png",
-    "imageAlt": "/catalogue/img/p81/p81-silicon-strip-group-2-vectorrender-2344x201.png",
+    "image": "/catalogue/img/p81/p81-silicon-strip-group-1-vectorrender-2344x201.webp",
+    "imageAlt": "/catalogue/img/p81/p81-silicon-strip-group-2-vectorrender-2344x201.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
       {
-        "label": "Colour E — Blue",
+        "label": "Color E — Blue",
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p81/p81-silicon-strip-group-1-vectorrender-2344x201.png",
-          "/catalogue/img/p82/p82-silicon-strip-group-2-vectorrender-2476x230.png"
+          "/catalogue/img/p81/p81-silicon-strip-group-1-vectorrender-2344x201.webp",
+          "/catalogue/img/p82/p82-silicon-strip-group-2-vectorrender-2476x230.webp"
         ],
         "sizes": [
           {
@@ -11704,11 +11704,11 @@ export const families: CatFamily[] = [
         ]
       },
       {
-        "label": "Colour C — Green",
+        "label": "Color C — Green",
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p81/p81-silicon-strip-group-2-vectorrender-2344x201.png"
+          "/catalogue/img/p81/p81-silicon-strip-group-2-vectorrender-2344x201.webp"
         ],
         "sizes": [
           {
@@ -11766,11 +11766,11 @@ export const families: CatFamily[] = [
         ]
       },
       {
-        "label": "Colour A — Red",
+        "label": "Color A — Red",
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p81/p81-silicon-strip-group-3-vectorrender-2350x158.png"
+          "/catalogue/img/p81/p81-silicon-strip-group-3-vectorrender-2350x158.webp"
         ],
         "sizes": [
           {
@@ -11828,11 +11828,11 @@ export const families: CatFamily[] = [
         ]
       },
       {
-        "label": "Colour D — Navy",
+        "label": "Color D — Navy",
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p82/p82-silicon-strip-group-1-vectorrender-2350x146.png"
+          "/catalogue/img/p82/p82-silicon-strip-group-1-vectorrender-2350x146.webp"
         ],
         "sizes": [
           {
@@ -11890,11 +11890,11 @@ export const families: CatFamily[] = [
         ]
       },
       {
-        "label": "Colour F — Orange",
+        "label": "Color F — Orange",
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p82/p82-silicon-strip-group-3-vectorrender-2856x145.png"
+          "/catalogue/img/p82/p82-silicon-strip-group-3-vectorrender-2856x145.webp"
         ],
         "sizes": [
           {
@@ -12290,8 +12290,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "Silicon Medical Grade"
     },
-    "image": "/catalogue/img/p83/p83-strip-endoscope-left-vectorrender-989x170.png",
-    "imageAlt": "/catalogue/img/p83/p83-strip-endoscope-right-vectorrender-1182x142.png",
+    "image": "/catalogue/img/p83/p83-strip-endoscope-left-vectorrender-989x170.webp",
+    "imageAlt": "/catalogue/img/p83/p83-strip-endoscope-right-vectorrender-1182x142.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -12300,7 +12300,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p83/p83-endoscope-baskets-parts-vectorrender-2011x292.png"
+          "/catalogue/img/p83/p83-endoscope-baskets-parts-vectorrender-2011x292.webp"
         ],
         "sizes": [
           {
@@ -12388,7 +12388,7 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p83/p83-implants-burrholder-parts-vectorrender-2722x255.png"
+          "/catalogue/img/p83/p83-implants-burrholder-parts-vectorrender-2722x255.webp"
         ],
         "sizes": [
           {
@@ -12709,8 +12709,8 @@ export const families: CatFamily[] = [
     ],
     "section": "Trays Accessories / Silicon Holding System",
     "name": "Instrument Rack",
-    "subtitle": "Colour-coded, clip-on",
-    "summary": "Clips onto the tray wall to hold instruments apart and in sequence, colour-coded so the set is identified at a glance.",
+    "subtitle": "Color-coded, clip-on",
+    "summary": "Clips onto the tray wall to hold instruments apart and in sequence, color-coded so the set is identified at a glance.",
     "catalogueTitle": "Instrument Rack",
     "variants": [],
     "needsReview": true,
@@ -12719,14 +12719,14 @@ export const families: CatFamily[] = [
     ],
     "specs": {
       "Material": "Stainless steel",
-      "Strip": "Silicone, colour-coded",
+      "Strip": "Silicone, color-coded",
       "Mounting": "Clip-on to tray wall",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxar-1001.jpg",
+    "image": "/catalogue/img/extras/cxar-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxar-1001.jpg"
+      "/catalogue/img/extras/cxar-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -12772,10 +12772,10 @@ export const families: CatFamily[] = [
       "Top plate": "Punched apertures",
       "Sterilization": "Steam autoclave"
     },
-    "image": "/catalogue/img/extras/cxal-1001.jpg",
+    "image": "/catalogue/img/extras/cxal-1001.webp",
     "imageAlt": null,
     "images": [
-      "/catalogue/img/extras/cxal-1001.jpg"
+      "/catalogue/img/extras/cxal-1001.webp"
     ],
     "imageFlag": "placeholder",
     "details": [],
@@ -12806,15 +12806,15 @@ export const families: CatFamily[] = [
  *  Templates use this to set width/height on <img> so nothing shifts as photos
  *  load. Audit 2026-09-14, M-06. */
 export const imageDims: Record<string, [number, number]> = {
-  "/catalogue/img/p16/p16-wire-mesh-trays-01-538x324.png": [
+  "/catalogue/img/p16/p16-wire-mesh-trays-01-538x324.webp": [
     538,
     324
   ],
-  "/catalogue/img/p16/p16-wire-mesh-trays-02-370x285.png": [
+  "/catalogue/img/p16/p16-wire-mesh-trays-02-370x285.webp": [
     370,
     285
   ],
-  "/catalogue/img/p16/p16-wire-mesh-trays-03-177x139.png": [
+  "/catalogue/img/p16/p16-wire-mesh-trays-03-177x139.webp": [
     177,
     139
   ],
@@ -12822,7 +12822,7 @@ export const imageDims: Record<string, [number, number]> = {
     163,
     126
   ],
-  "/catalogue/img/p16/p16-wire-mesh-trays-05-163x133.png": [
+  "/catalogue/img/p16/p16-wire-mesh-trays-05-163x133.webp": [
     163,
     133
   ],
@@ -12830,75 +12830,75 @@ export const imageDims: Record<string, [number, number]> = {
     164,
     133
   ],
-  "/catalogue/img/p17/p17-5-5-x-5-5-x-01-441x295.png": [
+  "/catalogue/img/p17/p17-5-5-x-5-5-x-01-441x295.webp": [
     441,
     295
   ],
-  "/catalogue/img/p17/p17-5-5-x-5-5-x-02-482x286.png": [
+  "/catalogue/img/p17/p17-5-5-x-5-5-x-02-482x286.webp": [
     482,
     286
   ],
-  "/catalogue/img/p17/p17-5-5-x-5-5-x-04-137x133.png": [
+  "/catalogue/img/p17/p17-5-5-x-5-5-x-04-137x133.webp": [
     137,
     133
   ],
-  "/catalogue/img/p17/p17-5-5-x-5-5-x-05-163x133.png": [
+  "/catalogue/img/p17/p17-5-5-x-5-5-x-05-163x133.webp": [
     163,
     133
   ],
-  "/catalogue/img/p17/p17-5-5-x-5-5-x-03-177x139.png": [
+  "/catalogue/img/p17/p17-5-5-x-5-5-x-03-177x139.webp": [
     177,
     139
   ],
-  "/catalogue/img/p17/p17-5-5-x-5-5-x-06-163x134.png": [
+  "/catalogue/img/p17/p17-5-5-x-5-5-x-06-163x134.webp": [
     163,
     134
   ],
-  "/catalogue/img/p17/p17-5-5-x-5-5-x-07-283x167.png": [
+  "/catalogue/img/p17/p17-5-5-x-5-5-x-07-283x167.webp": [
     283,
     167
   ],
-  "/catalogue/img/p60/p60-mesh-cassette-01-370x228.png": [
+  "/catalogue/img/p60/p60-mesh-cassette-01-370x228.webp": [
     370,
     228
   ],
-  "/catalogue/img/p60/p60-mesh-cassette-02-327x188.png": [
+  "/catalogue/img/p60/p60-mesh-cassette-02-327x188.webp": [
     327,
     188
   ],
-  "/catalogue/img/extras/cxmb-1001.jpg": [
+  "/catalogue/img/extras/cxmb-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.png": [
+  "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.webp": [
     466,
     294
   ],
-  "/catalogue/img/p08/p08-perforated-trays-punching-processed-02-495x272.png": [
+  "/catalogue/img/p08/p08-perforated-trays-punching-processed-02-495x272.webp": [
     495,
     272
   ],
-  "/catalogue/img/p08/p08-perforated-trays-punching-processed-recovered-chamfercorner-163x110.png": [
+  "/catalogue/img/p08/p08-perforated-trays-punching-processed-recovered-chamfercorner-163x110.webp": [
     163,
     110
   ],
-  "/catalogue/img/p08/p08-perforated-trays-punching-processed-03-164x133.png": [
+  "/catalogue/img/p08/p08-perforated-trays-punching-processed-03-164x133.webp": [
     164,
     133
   ],
-  "/catalogue/img/p08/p08-perforated-trays-punching-processed-04-163x133.png": [
+  "/catalogue/img/p08/p08-perforated-trays-punching-processed-04-163x133.webp": [
     163,
     133
   ],
-  "/catalogue/img/p08/p08-perforated-trays-punching-processed-05-164x123.png": [
+  "/catalogue/img/p08/p08-perforated-trays-punching-processed-05-164x123.webp": [
     164,
     123
   ],
-  "/catalogue/img/p09/p09-perforated-trays-punching-processed-01-270x325.png": [
+  "/catalogue/img/p09/p09-perforated-trays-punching-processed-01-270x325.webp": [
     270,
     325
   ],
-  "/catalogue/img/p09/p09-perforated-trays-punching-processed-02-319x247.png": [
+  "/catalogue/img/p09/p09-perforated-trays-punching-processed-02-319x247.webp": [
     319,
     247
   ],
@@ -12906,747 +12906,747 @@ export const imageDims: Record<string, [number, number]> = {
     163,
     133
   ],
-  "/catalogue/img/p09/p09-perforated-trays-punching-processed-05-163x133.png": [
+  "/catalogue/img/p09/p09-perforated-trays-punching-processed-05-163x133.webp": [
     163,
     133
   ],
-  "/catalogue/img/p09/p09-perforated-trays-punching-processed-06-276x183.png": [
+  "/catalogue/img/p09/p09-perforated-trays-punching-processed-06-276x183.webp": [
     276,
     183
   ],
-  "/catalogue/img/extras/cxpd-1001.jpg": [
+  "/catalogue/img/extras/cxpd-1001.webp": [
     1311,
     1311
   ],
-  "/catalogue/img/extras/cxpi-1001.jpg": [
+  "/catalogue/img/extras/cxpi-1001.webp": [
     1238,
     1238
   ],
-  "/catalogue/img/extras/cxpx-1001.jpg": [
+  "/catalogue/img/extras/cxpx-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpy-1001.jpg": [
+  "/catalogue/img/extras/cxpy-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpy-1002.jpg": [
+  "/catalogue/img/extras/cxpy-1002.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpo-1001.jpg": [
+  "/catalogue/img/extras/cxpo-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpo-1002.jpg": [
+  "/catalogue/img/extras/cxpo-1002.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpb-1001.jpg": [
+  "/catalogue/img/extras/cxpb-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpb-1002.jpg": [
+  "/catalogue/img/extras/cxpb-1002.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpb-1003.jpg": [
+  "/catalogue/img/extras/cxpb-1003.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxpl-1001.jpg": [
+  "/catalogue/img/extras/cxpl-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/p24/p24-transportation-baskets-01-478x350.png": [
+  "/catalogue/img/p24/p24-transportation-baskets-01-478x350.webp": [
     478,
     350
   ],
-  "/catalogue/img/p24/p24-transportation-baskets-02-408x260.png": [
+  "/catalogue/img/p24/p24-transportation-baskets-02-408x260.webp": [
     408,
     260
   ],
-  "/catalogue/img/p24/p24-transportation-baskets-03-566x434.png": [
+  "/catalogue/img/p24/p24-transportation-baskets-03-566x434.webp": [
     566,
     434
   ],
-  "/catalogue/img/p24/p24-transportation-baskets-04-400x242.png": [
+  "/catalogue/img/p24/p24-transportation-baskets-04-400x242.webp": [
     400,
     242
   ],
-  "/catalogue/img/p27/p27-suitable-for-surgical-sets-01-438x438.png": [
+  "/catalogue/img/p27/p27-suitable-for-surgical-sets-01-438x438.webp": [
     438,
     438
   ],
-  "/catalogue/img/p27/p27-suitable-for-surgical-sets-02-439x324.png": [
+  "/catalogue/img/p27/p27-suitable-for-surgical-sets-02-439x324.webp": [
     439,
     324
   ],
-  "/catalogue/img/p27/p27-suitable-for-surgical-sets-03-383x430.png": [
+  "/catalogue/img/p27/p27-suitable-for-surgical-sets-03-383x430.webp": [
     383,
     430
   ],
-  "/catalogue/img/p27/p27-suitable-for-surgical-sets-04-479x277.png": [
+  "/catalogue/img/p27/p27-suitable-for-surgical-sets-04-479x277.webp": [
     479,
     277
   ],
-  "/catalogue/img/p28/p28-suitable-for-surgical-sets-01-342x172.png": [
+  "/catalogue/img/p28/p28-suitable-for-surgical-sets-01-342x172.webp": [
     342,
     172
   ],
-  "/catalogue/img/p28/p28-suitable-for-surgical-sets-03-402x203.png": [
+  "/catalogue/img/p28/p28-suitable-for-surgical-sets-03-402x203.webp": [
     402,
     203
   ],
-  "/catalogue/img/p29/p29-universal-trays-01-326x406.png": [
+  "/catalogue/img/p29/p29-universal-trays-01-326x406.webp": [
     326,
     406
   ],
-  "/catalogue/img/p29/p29-universal-trays-02-305x258.png": [
+  "/catalogue/img/p29/p29-universal-trays-02-305x258.webp": [
     305,
     258
   ],
-  "/catalogue/img/p30/p30-universal-transportation-trays-01-274x255.png": [
+  "/catalogue/img/p30/p30-universal-transportation-trays-01-274x255.webp": [
     274,
     255
   ],
-  "/catalogue/img/p30/p30-universal-transportation-trays-02-420x199.png": [
+  "/catalogue/img/p30/p30-universal-transportation-trays-02-420x199.webp": [
     420,
     199
   ],
-  "/catalogue/img/extras/cxubs-1001.jpg": [
+  "/catalogue/img/extras/cxubs-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxubs-1002.jpg": [
+  "/catalogue/img/extras/cxubs-1002.webp": [
     755,
     755
   ],
-  "/catalogue/img/extras/cxubs-1003.jpg": [
+  "/catalogue/img/extras/cxubs-1003.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxubs-1004.jpg": [
+  "/catalogue/img/extras/cxubs-1004.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/p46/p46-cassette-trays-01-381x269.png": [
+  "/catalogue/img/p46/p46-cassette-trays-01-381x269.webp": [
     381,
     269
   ],
-  "/catalogue/img/p46/p46-cassette-trays-02-379x266.png": [
+  "/catalogue/img/p46/p46-cassette-trays-02-379x266.webp": [
     379,
     266
   ],
-  "/catalogue/img/p48/p48-08-plus-instruments-01-438x236.png": [
+  "/catalogue/img/p48/p48-08-plus-instruments-01-438x236.webp": [
     438,
     236
   ],
-  "/catalogue/img/p48/p48-08-plus-instruments-02-344x188.png": [
+  "/catalogue/img/p48/p48-08-plus-instruments-02-344x188.webp": [
     344,
     188
   ],
-  "/catalogue/img/p48/p48-08-plus-instruments-03-501x243.png": [
+  "/catalogue/img/p48/p48-08-plus-instruments-03-501x243.webp": [
     501,
     243
   ],
-  "/catalogue/img/p48/p48-08-plus-instruments-04-291x176.png": [
+  "/catalogue/img/p48/p48-08-plus-instruments-04-291x176.webp": [
     291,
     176
   ],
-  "/catalogue/img/p49/p49-for-osteotome-set-01-567x285.png": [
+  "/catalogue/img/p49/p49-for-osteotome-set-01-567x285.webp": [
     567,
     285
   ],
-  "/catalogue/img/p49/p49-for-osteotome-set-02-427x246.png": [
+  "/catalogue/img/p49/p49-for-osteotome-set-02-427x246.webp": [
     427,
     246
   ],
-  "/catalogue/img/p50/p50-07-instruments-01-359x264.png": [
+  "/catalogue/img/p50/p50-07-instruments-01-359x264.webp": [
     359,
     264
   ],
-  "/catalogue/img/p50/p50-07-instruments-02-437x235.png": [
+  "/catalogue/img/p50/p50-07-instruments-02-437x235.webp": [
     437,
     235
   ],
-  "/catalogue/img/p51/p51-strip-lock-01-446x236.png": [
+  "/catalogue/img/p51/p51-strip-lock-01-446x236.webp": [
     446,
     236
   ],
-  "/catalogue/img/p51/p51-strip-lock-02-456x252.png": [
+  "/catalogue/img/p51/p51-strip-lock-02-456x252.webp": [
     456,
     252
   ],
-  "/catalogue/img/p52/p52-strip-lock-01-387x209.png": [
+  "/catalogue/img/p52/p52-strip-lock-01-387x209.webp": [
     387,
     209
   ],
-  "/catalogue/img/p52/p52-strip-lock-02-451x234.png": [
+  "/catalogue/img/p52/p52-strip-lock-02-451x234.webp": [
     451,
     234
   ],
-  "/catalogue/img/p53/p53-square-pattern-01-339x252.png": [
+  "/catalogue/img/p53/p53-square-pattern-01-339x252.webp": [
     339,
     252
   ],
-  "/catalogue/img/p53/p53-square-pattern-02-351x188.png": [
+  "/catalogue/img/p53/p53-square-pattern-02-351x188.webp": [
     351,
     188
   ],
-  "/catalogue/img/p54/p54-elongated-01-348x193.png": [
+  "/catalogue/img/p54/p54-elongated-01-348x193.webp": [
     348,
     193
   ],
-  "/catalogue/img/p54/p54-elongated-02-458x249.png": [
+  "/catalogue/img/p54/p54-elongated-02-458x249.webp": [
     458,
     249
   ],
-  "/catalogue/img/p55/p55-elongated-single-lock-01-529x307.png": [
+  "/catalogue/img/p55/p55-elongated-single-lock-01-529x307.webp": [
     529,
     307
   ],
-  "/catalogue/img/p55/p55-elongated-single-lock-02-434x253.png": [
+  "/catalogue/img/p55/p55-elongated-single-lock-02-434x253.webp": [
     434,
     253
   ],
-  "/catalogue/img/p56/p56-elongated-double-lock-01-315x197.png": [
+  "/catalogue/img/p56/p56-elongated-double-lock-01-315x197.webp": [
     315,
     197
   ],
-  "/catalogue/img/p56/p56-elongated-double-lock-02-304x150.png": [
+  "/catalogue/img/p56/p56-elongated-double-lock-02-304x150.webp": [
     304,
     150
   ],
-  "/catalogue/img/p57/p57-elongated-01-411x213.png": [
+  "/catalogue/img/p57/p57-elongated-01-411x213.webp": [
     411,
     213
   ],
-  "/catalogue/img/p57/p57-elongated-02-352x183.png": [
+  "/catalogue/img/p57/p57-elongated-02-352x183.webp": [
     352,
     183
   ],
-  "/catalogue/img/p58/p58-unionjack-01-335x351.png": [
+  "/catalogue/img/p58/p58-unionjack-01-335x351.webp": [
     335,
     351
   ],
-  "/catalogue/img/p58/p58-unionjack-02-357x231.png": [
+  "/catalogue/img/p58/p58-unionjack-02-357x231.webp": [
     357,
     231
   ],
-  "/catalogue/img/p59/p59-double-hinge-cassette-trays-01-397x234.png": [
+  "/catalogue/img/p59/p59-double-hinge-cassette-trays-01-397x234.webp": [
     397,
     234
   ],
-  "/catalogue/img/p59/p59-double-hinge-cassette-trays-02-330x219.png": [
+  "/catalogue/img/p59/p59-double-hinge-cassette-trays-02-330x219.webp": [
     330,
     219
   ],
-  "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-04-332x345.png": [
+  "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-04-332x345.webp": [
     332,
     345
   ],
-  "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-05-395x242.png": [
+  "/catalogue/img/p61/p61-cassettes-for-orthodontic-pliers-05-395x242.webp": [
     395,
     242
   ],
-  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-01-450x353.png": [
+  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-01-450x353.webp": [
     450,
     353
   ],
-  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-02-374x292.png": [
+  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-02-374x292.webp": [
     374,
     292
   ],
-  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-03-383x342.png": [
+  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-03-383x342.webp": [
     383,
     342
   ],
-  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-04-433x259.png": [
+  "/catalogue/img/p62/p62-cassettes-for-orthodontic-pliers-04-433x259.webp": [
     433,
     259
   ],
-  "/catalogue/img/p63/p63-round-click-lock-01-275x220.png": [
+  "/catalogue/img/p63/p63-round-click-lock-01-275x220.webp": [
     275,
     220
   ],
-  "/catalogue/img/p63/p63-round-click-lock-02-311x187.png": [
+  "/catalogue/img/p63/p63-round-click-lock-02-311x187.webp": [
     311,
     187
   ],
-  "/catalogue/img/extras/cxcd-1004.jpg": [
+  "/catalogue/img/extras/cxcd-1004.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1005.jpg": [
+  "/catalogue/img/extras/cxcd-1005.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1006.jpg": [
+  "/catalogue/img/extras/cxcd-1006.webp": [
     872,
     872
   ],
-  "/catalogue/img/extras/cxcd-1007.jpg": [
+  "/catalogue/img/extras/cxcd-1007.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1008.jpg": [
+  "/catalogue/img/extras/cxcd-1008.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1010.jpg": [
+  "/catalogue/img/extras/cxcd-1010.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1011.jpg": [
+  "/catalogue/img/extras/cxcd-1011.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1009.jpg": [
+  "/catalogue/img/extras/cxcd-1009.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1012.jpg": [
+  "/catalogue/img/extras/cxcd-1012.webp": [
     901,
     901
   ],
-  "/catalogue/img/extras/cxcd-1013.jpg": [
+  "/catalogue/img/extras/cxcd-1013.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1015.jpg": [
+  "/catalogue/img/extras/cxcd-1015.webp": [
     905,
     905
   ],
-  "/catalogue/img/extras/cxcd-1002.jpg": [
+  "/catalogue/img/extras/cxcd-1002.webp": [
     1319,
     1319
   ],
-  "/catalogue/img/extras/cxcd-1014.jpg": [
+  "/catalogue/img/extras/cxcd-1014.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1001.jpg": [
+  "/catalogue/img/extras/cxcd-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxcd-1003.jpg": [
+  "/catalogue/img/extras/cxcd-1003.webp": [
     1352,
     1352
   ],
-  "/catalogue/img/p40/p40-for-professional-01-302x187.png": [
+  "/catalogue/img/p40/p40-for-professional-01-302x187.webp": [
     302,
     187
   ],
-  "/catalogue/img/p40/p40-for-professional-02-305x221.png": [
+  "/catalogue/img/p40/p40-for-professional-02-305x221.webp": [
     305,
     221
   ],
-  "/catalogue/img/p40/p40-for-professional-03-263x175.png": [
+  "/catalogue/img/p40/p40-for-professional-03-263x175.webp": [
     263,
     175
   ],
-  "/catalogue/img/p40/p40-for-professional-04-317x209.png": [
+  "/catalogue/img/p40/p40-for-professional-04-317x209.webp": [
     317,
     209
   ],
-  "/catalogue/img/p40/p40-for-professional-05-319x230.png": [
+  "/catalogue/img/p40/p40-for-professional-05-319x230.webp": [
     319,
     230
   ],
-  "/catalogue/img/p40/p40-for-professional-06-273x182.png": [
+  "/catalogue/img/p40/p40-for-professional-06-273x182.webp": [
     273,
     182
   ],
-  "/catalogue/img/p40/p40-for-professional-07-289x250.png": [
+  "/catalogue/img/p40/p40-for-professional-07-289x250.webp": [
     289,
     250
   ],
-  "/catalogue/img/p40/p40-for-professional-08-399x324.png": [
+  "/catalogue/img/p40/p40-for-professional-08-399x324.webp": [
     399,
     324
   ],
-  "/catalogue/img/p40/p40-for-professional-09-287x215.png": [
+  "/catalogue/img/p40/p40-for-professional-09-287x215.webp": [
     287,
     215
   ],
-  "/catalogue/img/p40/p40-for-professional-10-272x268.png": [
+  "/catalogue/img/p40/p40-for-professional-10-272x268.webp": [
     272,
     268
   ],
-  "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.png": [
+  "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.webp": [
     311,
     320
   ],
-  "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.png": [
+  "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.webp": [
     290,
     248
   ],
-  "/catalogue/img/p41/p41-68-x-60-x-20mm-04-202x143.png": [
+  "/catalogue/img/p41/p41-68-x-60-x-20mm-04-202x143.webp": [
     202,
     143
   ],
-  "/catalogue/img/p41/p41-68-x-60-x-20mm-03-291x250.png": [
+  "/catalogue/img/p41/p41-68-x-60-x-20mm-03-291x250.webp": [
     291,
     250
   ],
-  "/catalogue/img/p41/p41-68-x-60-x-20mm-05-301x168.png": [
+  "/catalogue/img/p41/p41-68-x-60-x-20mm-05-301x168.webp": [
     301,
     168
   ],
-  "/catalogue/img/p41/p41-68-x-60-x-20mm-06-187x149.png": [
+  "/catalogue/img/p41/p41-68-x-60-x-20mm-06-187x149.webp": [
     187,
     149
   ],
-  "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.png": [
+  "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.webp": [
     28,
     494
   ],
-  "/catalogue/img/p42/p42-prf-system-recovered-srf9904-26x494.png": [
+  "/catalogue/img/p42/p42-prf-system-recovered-srf9904-26x494.webp": [
     26,
     494
   ],
-  "/catalogue/img/p42/p42-prf-system-recovered-srf9906-28x494.png": [
+  "/catalogue/img/p42/p42-prf-system-recovered-srf9906-28x494.webp": [
     28,
     494
   ],
-  "/catalogue/img/p42/p42-prf-system-recovered-srf9908-29x494.png": [
+  "/catalogue/img/p42/p42-prf-system-recovered-srf9908-29x494.webp": [
     29,
     494
   ],
-  "/catalogue/img/p42/p42-goldman-fox-01-144x388.png": [
+  "/catalogue/img/p42/p42-goldman-fox-01-144x388.webp": [
     144,
     388
   ],
-  "/catalogue/img/p42/p42-prf-system-recovered-srf9912-32x411.png": [
+  "/catalogue/img/p42/p42-prf-system-recovered-srf9912-32x411.webp": [
     32,
     411
   ],
-  "/catalogue/img/p42/p42-prf-system-recovered-srf9914-87x485.png": [
+  "/catalogue/img/p42/p42-prf-system-recovered-srf9914-87x485.webp": [
     87,
     485
   ],
-  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-01-514x284.png": [
+  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-01-514x284.webp": [
     514,
     284
   ],
-  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-04-449x406.png": [
+  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-04-449x406.webp": [
     449,
     406
   ],
-  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-05-467x340.png": [
+  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-05-467x340.webp": [
     467,
     340
   ],
-  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-02-163x133.jpg": [
+  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-02-163x133.webp": [
     163,
     133
   ],
-  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-03-163x133.png": [
+  "/catalogue/img/p43/p43-cassette-for-prf-instruments-set-03-163x133.webp": [
     163,
     133
   ],
-  "/catalogue/img/p68/p68-implant-surgical-box-01-256x264.png": [
+  "/catalogue/img/p68/p68-implant-surgical-box-01-256x264.webp": [
     256,
     264
   ],
-  "/catalogue/img/p68/p68-implant-surgical-box-02-198x165.png": [
+  "/catalogue/img/p68/p68-implant-surgical-box-02-198x165.webp": [
     198,
     165
   ],
-  "/catalogue/img/p69/p69-bur-holders-03-244x227.png": [
+  "/catalogue/img/p69/p69-bur-holders-03-244x227.webp": [
     244,
     227
   ],
-  "/catalogue/img/p69/p69-bur-holders-04-273x245.png": [
+  "/catalogue/img/p69/p69-bur-holders-04-273x245.webp": [
     273,
     245
   ],
-  "/catalogue/img/p69/p69-bur-holders-17-224x217.png": [
+  "/catalogue/img/p69/p69-bur-holders-17-224x217.webp": [
     224,
     217
   ],
-  "/catalogue/img/p69/p69-bur-holders-06-216x216.png": [
+  "/catalogue/img/p69/p69-bur-holders-06-216x216.webp": [
     216,
     216
   ],
-  "/catalogue/img/p69/p69-bur-holders-11-204x227.png": [
+  "/catalogue/img/p69/p69-bur-holders-11-204x227.webp": [
     204,
     227
   ],
-  "/catalogue/img/p69/p69-bur-holders-16-240x226.png": [
+  "/catalogue/img/p69/p69-bur-holders-16-240x226.webp": [
     240,
     226
   ],
-  "/catalogue/img/p69/p69-bur-holders-02-197x169.png": [
+  "/catalogue/img/p69/p69-bur-holders-02-197x169.webp": [
     197,
     169
   ],
-  "/catalogue/img/p69/p69-bur-holders-07-182x197.png": [
+  "/catalogue/img/p69/p69-bur-holders-07-182x197.webp": [
     182,
     197
   ],
-  "/catalogue/img/p69/p69-bur-holders-12-196x193.png": [
+  "/catalogue/img/p69/p69-bur-holders-12-196x193.webp": [
     196,
     193
   ],
-  "/catalogue/img/p69/p69-bur-holders-01-141x155.png": [
+  "/catalogue/img/p69/p69-bur-holders-01-141x155.webp": [
     141,
     155
   ],
-  "/catalogue/img/p69/p69-bur-holders-08-189x191.png": [
+  "/catalogue/img/p69/p69-bur-holders-08-189x191.webp": [
     189,
     191
   ],
-  "/catalogue/img/p69/p69-bur-holders-13-192x179.png": [
+  "/catalogue/img/p69/p69-bur-holders-13-192x179.webp": [
     192,
     179
   ],
-  "/catalogue/img/p69/p69-bur-holders-18-227x180.png": [
+  "/catalogue/img/p69/p69-bur-holders-18-227x180.webp": [
     227,
     180
   ],
-  "/catalogue/img/extras/cxbd-1001.jpg": [
+  "/catalogue/img/extras/cxbd-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxbd-1002.jpg": [
+  "/catalogue/img/extras/cxbd-1002.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/p72/p72-orthodontics-ss-mirrors-set-of-7-vectorrender-2437x4261.png": [
+  "/catalogue/img/p72/p72-orthodontics-ss-mirrors-set-of-7-vectorrender-2437x4261.webp": [
     2437,
     4261
   ],
-  "/catalogue/img/mirrors/p72-1.png": [
+  "/catalogue/img/mirrors/p72-1.webp": [
     414,
     1173
   ],
-  "/catalogue/img/mirrors/p72-3.png": [
+  "/catalogue/img/mirrors/p72-3.webp": [
     418,
     1215
   ],
-  "/catalogue/img/mirrors/p72-2.png": [
+  "/catalogue/img/mirrors/p72-2.webp": [
     273,
     1075
   ],
-  "/catalogue/img/mirrors/p72-4.png": [
+  "/catalogue/img/mirrors/p72-4.webp": [
     424,
     1221
   ],
-  "/catalogue/img/mirrors/p72-5.png": [
+  "/catalogue/img/mirrors/p72-5.webp": [
     338,
     1224
   ],
-  "/catalogue/img/mirrors/p72-6.png": [
+  "/catalogue/img/mirrors/p72-6.webp": [
     368,
     1231
   ],
-  "/catalogue/img/mirrors/p72-7.png": [
+  "/catalogue/img/mirrors/p72-7.webp": [
     372,
     1009
   ],
-  "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.png": [
+  "/catalogue/img/p73/p73-intraoral-photo-mirrors-vectorrender-3120x2188.webp": [
     3120,
     2188
   ],
-  "/catalogue/img/p73/p73-photography-mirrors-with-handle-vectorrender-2133x1852.png": [
+  "/catalogue/img/p73/p73-photography-mirrors-with-handle-vectorrender-2133x1852.webp": [
     2133,
     1852
   ],
-  "/catalogue/img/mirrors/p73a-1.png": [
+  "/catalogue/img/mirrors/p73a-1.webp": [
     581,
     1070
   ],
-  "/catalogue/img/mirrors/p73a-2.png": [
+  "/catalogue/img/mirrors/p73a-2.webp": [
     497,
     1056
   ],
-  "/catalogue/img/mirrors/p73a-3.png": [
+  "/catalogue/img/mirrors/p73a-3.webp": [
     620,
     710
   ],
-  "/catalogue/img/mirrors/p73a-4.png": [
+  "/catalogue/img/mirrors/p73a-4.webp": [
     708,
     859
   ],
-  "/catalogue/img/mirrors/p73a-5.png": [
+  "/catalogue/img/mirrors/p73a-5.webp": [
     661,
     860
   ],
-  "/catalogue/img/mirrors/p73b-1.png": [
+  "/catalogue/img/mirrors/p73b-1.webp": [
     586,
     903
   ],
-  "/catalogue/img/mirrors/p73b-2.png": [
+  "/catalogue/img/mirrors/p73b-2.webp": [
     531,
     862
   ],
-  "/catalogue/img/mirrors/p73b-3.png": [
+  "/catalogue/img/mirrors/p73b-3.webp": [
     459,
     860
   ],
-  "/catalogue/img/mirrors/p73b-4.png": [
+  "/catalogue/img/mirrors/p73b-4.webp": [
     376,
     858
   ],
-  "/catalogue/img/p74/p74-glass-two-sided-orthodontic-mirror-vectorrender-2775x4198.png": [
+  "/catalogue/img/p74/p74-glass-two-sided-orthodontic-mirror-vectorrender-2775x4198.webp": [
     2775,
     4198
   ],
-  "/catalogue/img/mirrors/p74-1.png": [
+  "/catalogue/img/mirrors/p74-1.webp": [
     227,
     644
   ],
-  "/catalogue/img/mirrors/p74-2.png": [
+  "/catalogue/img/mirrors/p74-2.webp": [
     248,
     682
   ],
-  "/catalogue/img/mirrors/p74-3.png": [
+  "/catalogue/img/mirrors/p74-3.webp": [
     307,
     742
   ],
-  "/catalogue/img/mirrors/p74-4.png": [
+  "/catalogue/img/mirrors/p74-4.webp": [
     244,
     683
   ],
-  "/catalogue/img/mirrors/p74-5.png": [
+  "/catalogue/img/mirrors/p74-5.webp": [
     361,
     556
   ],
-  "/catalogue/img/mirrors/p74-6.png": [
+  "/catalogue/img/mirrors/p74-6.webp": [
     353,
     609
   ],
-  "/catalogue/img/mirrors/p74-8.png": [
+  "/catalogue/img/mirrors/p74-8.webp": [
     292,
     411
   ],
-  "/catalogue/img/mirrors/p74-7.png": [
+  "/catalogue/img/mirrors/p74-7.webp": [
     806,
     1267
   ],
-  "/catalogue/img/p76/p76-instruments-trays-01-252x181.png": [
+  "/catalogue/img/p76/p76-instruments-trays-01-252x181.webp": [
     252,
     181
   ],
-  "/catalogue/img/p76/p76-instruments-trays-02-265x167.png": [
+  "/catalogue/img/p76/p76-instruments-trays-02-265x167.webp": [
     265,
     167
   ],
-  "/catalogue/img/p76/p76-instruments-trays-03-244x177.jpg": [
+  "/catalogue/img/p76/p76-instruments-trays-03-244x177.webp": [
     244,
     177
   ],
-  "/catalogue/img/p76/p76-instruments-trays-04-217x178.jpg": [
+  "/catalogue/img/p76/p76-instruments-trays-04-217x178.webp": [
     217,
     178
   ],
-  "/catalogue/img/p76/p76-instruments-trays-05-227x208.png": [
+  "/catalogue/img/p76/p76-instruments-trays-05-227x208.webp": [
     227,
     208
   ],
-  "/catalogue/img/p77/p77-dressing-container-01-174x225.png": [
+  "/catalogue/img/p77/p77-dressing-container-01-174x225.webp": [
     174,
     225
   ],
-  "/catalogue/img/p77/p77-dressing-container-02-230x230.jpg": [
+  "/catalogue/img/p77/p77-dressing-container-02-230x230.webp": [
     230,
     230
   ],
-  "/catalogue/img/p77/p77-dressing-container-06-217x276.jpg": [
+  "/catalogue/img/p77/p77-dressing-container-06-217x276.webp": [
     217,
     276
   ],
-  "/catalogue/img/p77/p77-dressing-container-03-278x129.png": [
+  "/catalogue/img/p77/p77-dressing-container-03-278x129.webp": [
     278,
     129
   ],
-  "/catalogue/img/p77/p77-dressing-container-04-249x211.jpg": [
+  "/catalogue/img/p77/p77-dressing-container-04-249x211.webp": [
     249,
     211
   ],
-  "/catalogue/img/p77/p77-dressing-container-05-253x202.jpg": [
+  "/catalogue/img/p77/p77-dressing-container-05-253x202.webp": [
     253,
     202
   ],
-  "/catalogue/img/extras/cxwdt-1001.jpg": [
+  "/catalogue/img/extras/cxwdt-1001.webp": [
     834,
     834
   ],
-  "/catalogue/img/extras/cxwct-1001.jpg": [
+  "/catalogue/img/extras/cxwct-1001.webp": [
     1317,
     1317
   ],
-  "/catalogue/img/extras/cxwcd-1001.jpg": [
+  "/catalogue/img/extras/cxwcd-1001.webp": [
     1491,
     1491
   ],
-  "/catalogue/img/extras/cxwmb-1001.jpg": [
+  "/catalogue/img/extras/cxwmb-1001.webp": [
     863,
     863
   ],
-  "/catalogue/img/extras/cxwnb-1001.jpg": [
+  "/catalogue/img/extras/cxwnb-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxwbp-1001.jpg": [
+  "/catalogue/img/extras/cxwbp-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxwbp-1002.jpg": [
+  "/catalogue/img/extras/cxwbp-1002.webp": [
     936,
     936
   ],
-  "/catalogue/img/extras/cxwsb-1001.jpg": [
+  "/catalogue/img/extras/cxwsb-1001.webp": [
     555,
     510
   ],
-  "/catalogue/img/p81/p81-silicon-strip-group-1-vectorrender-2344x201.png": [
+  "/catalogue/img/p81/p81-silicon-strip-group-1-vectorrender-2344x201.webp": [
     2344,
     201
   ],
-  "/catalogue/img/p81/p81-silicon-strip-group-2-vectorrender-2344x201.png": [
+  "/catalogue/img/p81/p81-silicon-strip-group-2-vectorrender-2344x201.webp": [
     2344,
     201
   ],
-  "/catalogue/img/p82/p82-silicon-strip-group-2-vectorrender-2476x230.png": [
+  "/catalogue/img/p82/p82-silicon-strip-group-2-vectorrender-2476x230.webp": [
     2476,
     230
   ],
-  "/catalogue/img/p81/p81-silicon-strip-group-3-vectorrender-2350x158.png": [
+  "/catalogue/img/p81/p81-silicon-strip-group-3-vectorrender-2350x158.webp": [
     2350,
     158
   ],
-  "/catalogue/img/p82/p82-silicon-strip-group-1-vectorrender-2350x146.png": [
+  "/catalogue/img/p82/p82-silicon-strip-group-1-vectorrender-2350x146.webp": [
     2350,
     146
   ],
-  "/catalogue/img/p82/p82-silicon-strip-group-3-vectorrender-2856x145.png": [
+  "/catalogue/img/p82/p82-silicon-strip-group-3-vectorrender-2856x145.webp": [
     2856,
     145
   ],
-  "/catalogue/img/p83/p83-strip-endoscope-left-vectorrender-989x170.png": [
+  "/catalogue/img/p83/p83-strip-endoscope-left-vectorrender-989x170.webp": [
     989,
     170
   ],
-  "/catalogue/img/p83/p83-strip-endoscope-right-vectorrender-1182x142.png": [
+  "/catalogue/img/p83/p83-strip-endoscope-right-vectorrender-1182x142.webp": [
     1182,
     142
   ],
-  "/catalogue/img/p83/p83-endoscope-baskets-parts-vectorrender-2011x292.png": [
+  "/catalogue/img/p83/p83-endoscope-baskets-parts-vectorrender-2011x292.webp": [
     2011,
     292
   ],
-  "/catalogue/img/p83/p83-implants-burrholder-parts-vectorrender-2722x255.png": [
+  "/catalogue/img/p83/p83-implants-burrholder-parts-vectorrender-2722x255.webp": [
     2722,
     255
   ],
-  "/catalogue/img/extras/cxar-1001.jpg": [
+  "/catalogue/img/extras/cxar-1001.webp": [
     1500,
     1500
   ],
-  "/catalogue/img/extras/cxal-1001.jpg": [
+  "/catalogue/img/extras/cxal-1001.webp": [
     878,
     878
   ]

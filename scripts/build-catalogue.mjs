@@ -29,6 +29,9 @@ const ROOT = '/Users/Hassan/Documents/Website';
 const PAGEHTML = path.join(ROOT, 'catalogue/page-html');
 const SRCIMG = path.join(ROOT, 'images');
 const OUTIMG = path.join(ROOT, 'site/public/catalogue/img');
+/* WebP versions of the catalogue photos, written by scripts/optimise-images.py.
+   They live outside OUTIMG because the copy step below wipes that folder. */
+const WEBPCACHE = path.join(ROOT, 'site/.image-cache');
 const SIZESRC = path.join(ROOT, 'research/pre-restructure/catalogue.ts');
 const DATA = path.join(ROOT, 'site/src/data/catalogue.ts');
 // Extra products that do NOT come from the printed catalogue (competitor
@@ -89,7 +92,7 @@ const PRODUCTS = [
     variants: [{ code: 'CXPR', label: 'Round corner' }, { code: 'CXPU', label: 'Chamfer corner' }] },
 
   /* 3 ── Universal Trays ─────────────────────────────────────────────── */
-  // page 24 prints Steel and Aluminium as two blocks, each with its own photos
+  // page 24 prints Steel and Aluminum as two blocks, each with its own photos
   // and table -> groups, not article-number columns.
   { slug: 'transportation-baskets', section: 'Universal Trays', pages: [24],
     name: 'Transportation Baskets', groups: true },
@@ -97,7 +100,7 @@ const PRODUCTS = [
   { slug: 'universal-trays-boxes', section: 'Universal Trays', pages: [28], name: 'Universal Trays & Sterilization Boxes' },
   { slug: 'dilator-set-boxes', section: 'Universal Trays', pages: [29], name: 'Universal Trays — Boxes for Dilator Sets' },
   { slug: 'transport-trays-racks', section: 'Universal Trays', pages: [30], name: 'Universal / Transportation Trays & Racks' },
-  /* page 25 "Universal Trays — Aluminium" (CXUTM) removed from the website on
+  /* page 25 "Universal Trays — Aluminum" (CXUTM) removed from the website on
      Hassan's instruction, 2026-09-12. Data is still in the snapshot if needed. */
 
   /* 4 ── Cassette Trays ──────────────────────────────────────────────── */
@@ -152,7 +155,7 @@ const PRODUCTS = [
   { slug: 'female-urinal', section: 'Hollow Wares', pages: [77], only: ['CXWUF'], blockScoped: true, name: 'Female urinal' },
 
   /* 9 ── Accessories ─────────────────────────────────────────────────── */
-  { slug: 'silicon-colour-codes', section: 'Trays Accessories / Silicon Holding System', pages: [81, 82], name: 'Silicon Holding System — Colour Codes', groups: true },
+  { slug: 'silicon-color-codes', section: 'Trays Accessories / Silicon Holding System', pages: [81, 82], name: 'Silicon Holding System — Color Codes', groups: true },
   { slug: 'silicon-strips-parts', section: 'Trays Accessories / Silicon Holding System', pages: [83], name: 'Silicon Holding System — Strips & Part Sets', groups: true },
 ];
 
@@ -320,7 +323,7 @@ for (const cfg of PRODUCTS) {
       .map(f => ({ src: `/catalogue/img/${f.src}`, caption: f.caption, flag: imgSize(f.src) < 200 ? 'low_res' : 'ok' }));
 
   // Sub-sections: a page that prints each variant as its own block with its own
-  // photos and table (transportation baskets: Steel / Aluminium; bur holders:
+  // photos and table (transportation baskets: Steel / Aluminum; bur holders:
   // four holder families). Shown separately on the product page, not combined.
   const groups = [];
   // Each captioned figure is its own product (PRF surgical set, p42).
@@ -347,7 +350,7 @@ for (const cfg of PRODUCTS) {
       const gImgs = figs.filter(f => !f.caption).map(f => f.src);
       if (!gSizes.length && !gImgs.length) continue;
       for (const s of gImgs) wanted.add(s);
-      // The same heading can repeat across two pages (silicon "Colour E — Blue"
+      // The same heading can repeat across two pages (silicon "Color E — Blue"
       // is on both p62 and p63) — Hassan asked for those combined, not listed twice.
       const existing = groups.find(g => g.label === b.head);
       if (existing) {
@@ -548,6 +551,121 @@ for (const f of out) {
   if (a) { f.imageAspect = a; shaped++; }
 }
 console.log(`photo shapes: ${shaped}/${out.length} measured`);
+
+/* ─────────────── spelling ───────────────
+   Hassan, 2026-09-14: American spelling across the site. The printed catalogue
+   and the scraped page-html use British forms, and those files stay untouched —
+   they are the record of what is actually printed. Normalise on the way OUT
+   instead, so a re-scrape can never reintroduce a mixed catalogue. */
+const SPELLING = [
+  ['Sterilisation', 'Sterilization'], ['sterilisation', 'sterilization'],
+  ['Sterilised', 'Sterilized'],       ['sterilised', 'sterilized'],
+  ['Sterilising', 'Sterilizing'],     ['sterilising', 'sterilizing'],
+  ['Colour', 'Color'],                ['colour', 'color'],
+  ['Aluminium', 'Aluminum'],          ['aluminium', 'aluminum'],
+  ['Anodised', 'Anodized'],           ['anodised', 'anodized'],
+  ['Organisation', 'Organization'],   ['organisation', 'organization'],
+  ['Recognised', 'Recognized'],       ['recognised', 'recognized'],
+  ['Millimetre', 'Millimeter'],       ['millimetre', 'millimeter'],
+  ['Standardised', 'Standardized'],   ['standardised', 'standardized'],
+];
+let spelled = 0;
+function americanise(v) {
+  if (typeof v === 'string') {
+    let t = v;
+    for (const [b, a] of SPELLING) if (t.includes(b)) { t = t.split(b).join(a); }
+    if (t !== v) spelled++;
+    return t;
+  }
+  if (Array.isArray(v)) return v.map(americanise);
+  if (v && typeof v === 'object') {
+    for (const k of Object.keys(v)) v[k] = americanise(v[k]);
+    return v;
+  }
+  return v;
+}
+/* Slugs are URLs and are already American (set in the PRODUCTS table above);
+   normalise everything else a reader can see. */
+for (const f of out) {
+  const slug = f.slug;
+  americanise(f);
+  f.slug = slug;
+}
+console.log(`spelling: ${spelled} strings normalised to American`);
+
+/* ─────────────── WebP ───────────────
+   scripts/optimise-images.py writes a .webp beside each catalogue photo and
+   keeps the PNG/JPEG master. Point the site at the .webp wherever one exists —
+   19.3 MB of photography became 5.8 MB (audit 2026-09-14, H-09).
+   Run the Python script first; re-running this generator picks up whatever is
+   on disk, so a missing .webp simply falls back to the original. */
+/* Restore the cached .webp files alongside the originals we just copied. */
+let webpRestored = 0;
+if (fs.existsSync(WEBPCACHE)) {
+  const walk = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) { walk(full); continue; }
+      if (!e.name.endsWith('.webp')) continue;
+      const rel = path.relative(WEBPCACHE, full);
+      const dest = path.join(OUTIMG, rel);
+      /* Only restore a .webp whose original actually made it into this build. */
+      const hasOriginal = ['.png', '.jpg', '.jpeg'].some((x) =>
+        fs.existsSync(dest.replace(/\.webp$/, x)));
+      if (!hasOriginal) continue;
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      fs.copyFileSync(full, dest);
+      webpRestored++;
+    }
+  };
+  walk(WEBPCACHE);
+  console.log(`webp cache: ${webpRestored} files restored from site/.image-cache`);
+}
+
+let webpSwaps = 0;
+function preferWebp(p) {
+  if (typeof p !== 'string' || !p.startsWith('/catalogue/img/')) return p;
+  if (!/\.(png|jpe?g)$/i.test(p)) return p;
+  const alt = p.replace(/\.(png|jpe?g)$/i, '.webp');
+  if (fs.existsSync(path.join(ROOT, 'site/public', alt))) { webpSwaps++; return alt; }
+  return p;
+}
+for (const f of out) {
+  f.image = preferWebp(f.image);
+  f.imageAlt = preferWebp(f.imageAlt);
+  if (f.images) f.images = f.images.map(preferWebp);
+  (f.details || []).forEach((d) => { d.src = preferWebp(d.src); });
+  (f.groups || []).forEach((g) => {
+    if (g.images) g.images = g.images.map(preferWebp);
+    (g.sizes || []).forEach((sz) => { if (sz.image) sz.image = preferWebp(sz.image); });
+  });
+  (f.sizes || []).forEach((sz) => { if (sz.image) sz.image = preferWebp(sz.image); });
+}
+console.log(`webp: ${webpSwaps} image paths switched to .webp`);
+
+/* Once every reference points at the .webp, the PNG/JPEG in public/ is dead
+   weight that still gets uploaded — it was 19.7 MB of a 29 MB build. Drop it
+   from the DEPLOY COPY only. The masters in images/ and catalogue/ are never
+   touched, and deleting site/.image-cache re-creates the originals on the next
+   run of this script. */
+let pruned = 0, prunedBytes = 0;
+if (webpRestored) {
+  const prune = (dir) => {
+    if (!fs.existsSync(dir)) return;
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) { prune(full); continue; }
+      if (!/\.(png|jpe?g)$/i.test(e.name)) continue;
+      const webp = full.replace(/\.(png|jpe?g)$/i, '.webp');
+      if (!fs.existsSync(webp)) continue;
+      prunedBytes += fs.statSync(full).size;
+      fs.rmSync(full);
+      pruned++;
+    }
+  };
+  prune(OUTIMG);
+  console.log(`pruned: ${pruned} originals removed from the deploy copy (${(prunedBytes / 1048576).toFixed(1)} MB)`);
+}
 
 const imageDims = collectImageDims(out);
 console.log(`image dimensions: ${Object.keys(imageDims).length} files measured`);

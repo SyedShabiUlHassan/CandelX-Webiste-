@@ -1,9 +1,9 @@
 # CandelX Website — working folder
 
-Marketing + catalogue site for CandelX Surgicals (sterilisation trays and surgical instruments).
+Marketing + catalogue site for CandelX Surgicals (sterilization trays and surgical instruments).
 Brochure and enquiry only — no e-commerce.
 
-**Last updated 2026-09-12.** Full decision history: **[`DESIGN-DECISIONS.md`](DESIGN-DECISIONS.md)**.
+**Last updated 2026-09-14.** Full decision history: **[`DESIGN-DECISIONS.md`](DESIGN-DECISIONS.md)**.
 
 ---
 
@@ -18,7 +18,7 @@ cd ~/Documents/Website/site && npx astro dev --background
 > If a CSS or data change doesn't show, the dev server is serving a stale module graph —
 > `npx astro dev stop && npx astro dev --background`. Check uptime with `status` first.
 
-Production build: `cd site && npm run build` → `site/dist/` (86 pages).
+Production build: `cd site && npm run build` → `site/dist/` (**87 pages, 13 MB**).
 
 ---
 
@@ -32,8 +32,8 @@ and the Capabilities / Quality / Support pages.
 |---|---|
 | Products | **79** — 47 from the printed catalogue, 32 derived from competitor research |
 | Descriptions | **79 / 79**, 14–26 words each |
-| Photography | 47 real · **32 on placeholder photos that must be reshot** (see `LOW-QUALITY-IMAGES.md`) |
-| Dimensions | present for the 47 printed products; **the 32 new ones have none — never invent them** |
+| Photography | 47 real · **32 Chaplet reference images, shipping as-is by Hassan's decision** (`LOW-QUALITY-IMAGES.md`) |
+| Dimensions | 32 products publish none. Their size column is now **dropped**, not filled with dashes — the page says "Sizes on request" instead. Never invent one. |
 
 ---
 
@@ -69,8 +69,11 @@ silently does nothing.
 
 Locked-in choices (all recorded in `DESIGN-DECISIONS.md`):
 
+- **American spelling throughout** (Hassan, 2026-09-14). The printed catalogue and the scraped
+  `page-html` keep their British forms — they are the record of what is printed — and
+  `build-catalogue.mjs` normalizes on the way out, so a re-scrape can't reintroduce a mix.
 - **Product pages are pure white**; every other page is `--surface-page` `#fbfcfd`.
-- **A photo area always matches the colour of whatever contains it** — the product photos carry
+- **A photo area always matches the color of whatever contains it** — the product photos carry
   their own white, so any tint draws a visible box around them.
 - **`--border-photo: var(--teal-200)` `#cbe5ed`** — the 1px line around all product photography.
   Change the line once, there.
@@ -87,19 +90,47 @@ Locked-in choices (all recorded in `DESIGN-DECISIONS.md`):
 | `brand/` | Design system source, logos, header/footer masters |
 | `catalogue/` | The PDF, per-page HTML, extracted data, `summaries.json`, `extras/` |
 | `images/` | Product photography `p01`–`p85`, category heroes, dividers |
-| `scripts/` | `build-catalogue.mjs` — the catalogue generator |
+| `scripts/` | `build-catalogue.mjs` (catalogue), `optimise-images.py` (WebP), `fetch-fonts.py` (webfonts) |
 | `research/chaplet/` | Competitor research + the split pipeline. See its `PROVENANCE.md` |
 | `research/_labs-archive/` | Decision labs and retired pages, kept out of the site so they never upload |
 
 ---
 
+## The image pipeline (added 2026-09-14)
+
+Catalogue photos ship as WebP — 19.3 MB of PNG/JPEG became 5.8 MB, and the whole
+build went 28 MB → 13 MB.
+
+```bash
+node    scripts/build-catalogue.mjs   # copies the masters into site/public
+python3 scripts/optimise-images.py    # fills site/.image-cache with .webp
+node    scripts/build-catalogue.mjs   # emits .webp paths, prunes the originals
+```
+
+The cache persists, so after that first pass one generator run is enough.
+Replaced a master photo? `python3 scripts/optimise-images.py --force`.
+**The masters in `images/` are never touched** — only the deploy copy is pruned.
+
+Fonts are self-hosted in `site/public/fonts`; regenerate with
+`python3 scripts/fetch-fonts.py`. The site now loads **nothing** from a third party.
+
+---
+
 ## Still open
 
-- **Quote form backend** — `/quote` collects everything but cannot send. Wiring it to Hostinger
-  (or any form service) is the last functional gap; see `DESIGN-DECISIONS.md`.
-- **Photography** — 32 products are on competitor reference images. **They must never ship on
-  candelx.com** (`research/chaplet/PROVENANCE.md`); 34 of the real photos are also under 340×250.
+**Two constants in `site/src/data/site.ts` unblock everything else:**
+
+| Constant | What it turns on |
+|---|---|
+| `FORM_ENDPOINT` | The quote form actually sends. Empty = it says so honestly instead of pretending. |
+| `CONTACT` | Phone, email and address appear on /support, in the footer and in the structured data. |
+
+- **Quote form backend** — set `FORM_ENDPOINT`. Netlify Forms, Formspree, Web3Forms, or a PHP
+  handler on Hostinger; the form posts a normal `FormData`, so anything works.
+- **Photography** — 32 products still use the Chaplet reference images. **Hassan decided on
+  2026-09-14 to ship them as they are**; see `research/chaplet/PROVENANCE.md` for what they are
+  and the exposure that carries. 34 of the real photos are also under 340×250 — those no longer
+  offer "click to enlarge", since enlarging them showed nothing more.
 - **Dimensions** for the 43 new article numbers.
-- Certificate PDFs for the Quality page, and a telephone + email for Support (currently `—`).
-- Mobile nav hamburger (below 680px the nav is hidden), real quote-form backend, self-hosted fonts.
-- `site/src/pages/audit.astro` is an internal review sheet — delete once signed off.
+- Certificate PDFs for the Quality page — drop the path into `document` in `src/data/certifications.ts`
+  and the card becomes a link on its own. Hassan holds all four; scans to follow.

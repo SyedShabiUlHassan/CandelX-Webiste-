@@ -767,3 +767,68 @@ to a screen reader. Desktop output verified unchanged.
 kept in the session scratchpad; it loads all 7 pages at 360/390/430/768 and checks sideways
 scroll, 44px tap targets, the 12px text floor and the 16px input floor.
 Final run: **28/28 clean.** Home is now **6.0 phone screens**, down from 8.0 at the start.
+
+---
+
+## 2026-09-14 — Pre-launch audit, fixes applied
+
+Full findings report: https://claude.ai/code/artifact/a0dcbf78-deac-47b9-bd0b-478dbce0c4f2
+36 findings (6 blockers, 12 high, 13 medium, 5 housekeeping). What changed, and why.
+
+### Decisions Hassan made this session
+
+| Question | Decision |
+|---|---|
+| Domain | **candelxsurgicals.com**, non-www canonical. One place: `site` in `astro.config.mjs` |
+| Brand in text | **CandelX** (capital X, matching the logo mark) |
+| Homepage figures | **2010** manufacturing since · **14** countries. The "2× rated-load" and "14 d lead time" claims were **removed** — not evidenced |
+| Certifications | Holds **all four** (ISO 13485, ISO 9001:2015, CE, cGMP); scans to follow. Page and footer unchanged |
+| Competitor photography | **Ship the 32 as they are.** Raised twice, decided twice — do not re-raise |
+| Spelling | **American everywhere.** Normalized on output by the generator, not in the scraped sources |
+| Products with no sizes | **Drop the dimension column entirely** and say "Sizes on request" — not a column of dashes |
+
+### Structural things worth not rediscovering
+
+- **`src/data/site.ts` is the new single source of truth** for brand, domain, contact, the form
+  endpoint and the PDF link. Two empty constants gate real functionality:
+  `FORM_ENDPOINT` (the quote form sends) and `CONTACT` (phone/email appear everywhere at once).
+  Empty is deliberate — the form says it cannot send rather than pretending.
+
+- **`current` is no longer passed to `<Site>` for nav state.** `Header.astro` derives it from
+  `Astro.url.pathname`. It was hand-passed from seven files and was wrong on 80 pages.
+
+- **`min-width: 0` on every grid child** in `[slug].astro`. A grid item defaults to
+  `min-width: auto`, so the sizes table grew its own track past the container — 24 of 79 product
+  pages scrolled sideways at 375px. `.pd-grid`, `.pd-group__grid`, `.pd-thumbs` and
+  `.pd-inst__grid` ALL need it; fixing only `.pd-grid` left 3 pages broken.
+
+- **`--text-faint` was 2.16:1** and used as real reading text in 16 places. New `--n-450 #647580`
+  (4.65:1). `--text-muted` moved to `--n-600` (5.97:1). Mirrored into `tokens.css`.
+
+- **The image pipeline needs the generator run TWICE the first time** — see README. The generator
+  wipes `site/public/catalogue/img`, so the WebP lives in `site/.image-cache/` and is restored
+  after the copy step, then the originals are pruned from the deploy copy only.
+
+- **Google serves VARIABLE Archivo *and* IBM Plex Sans** — all weights share one URL. Deduplicate
+  font downloads on URL, not on weight, or the CSS points at files that were never written.
+  IBM Plex Mono is still static, one file per weight.
+
+- **Hero frames load in three stages**: 16 to arm the scrub, plus the last frame (the silhouette is
+  read off it specifically), then the remaining ~127 on idle — and on scroll only when
+  `navigator.connection` reports saveData or 2g/3g. Critical path: 3.3 MB → ~216 KB.
+
+- **"Click to enlarge" is now graded at runtime** against `naturalWidth` vs the rendered box
+  (1.25× threshold). 34 products have photos smaller than the box they are drawn in.
+
+### Verified, not assumed
+
+0 of 79 product pages overflow at 375px (was 24) · 87/87 unique meta descriptions · 87/87 canonical,
+og and icons · 0 third-party requests · 0 broken links across 179 hrefs · 0 missing assets ·
+build 28 MB → 13 MB · 0 British spellings · em-dash cells 227 → 84 (the rest are variant columns,
+where a dash means "not made in that variant" and IS information).
+
+### The trap that nearly cost time again
+
+Measuring 79 pages by writing HTML into an iframe with `document.write` **silently lies in dev
+mode** — Vite injects scoped CSS via JS modules that do not run on a written document, and every
+page reported an identical +107px. Use `iframe.src` (a real navigation) or navigate the tab.

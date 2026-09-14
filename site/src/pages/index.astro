@@ -75,8 +75,8 @@ const schema = [
 
 <Site
   current="home"
-  title={`Sterilisation containers and instrument trays — ${BRAND}`}
-  description="Stainless steel sterilisation containers, perforated and wire mesh trays, and instrument cassettes from Sialkot. 304 and 316L, DIN and custom footprints, made to your instrument set."
+  title={`Sterilization containers and instrument trays — ${BRAND}`}
+  description="Stainless steel sterilization containers, perforated and wire mesh trays, and instrument cassettes from Sialkot. 304 and 316L, DIN and custom footprints, made to your instrument set."
   schema={schema}
 >
   <!-- ===== Hero — pinned scroll-explode ===== -->
@@ -93,7 +93,7 @@ const schema = [
       </div>
       <div class="hero-vis">
         <img class="hero-poster" src="/hero/f000.webp" width="560" height="1002" fetchpriority="high"
-             alt="CandelX sterilisation container with a teal perforated lid" />
+             alt="CandelX sterilization container with a teal perforated lid" />
         <canvas class="hero-canvas" width="560" height="1002" aria-hidden="true"></canvas>
       </div>
       <div class="hero-calls" aria-hidden="true">
@@ -126,7 +126,7 @@ const schema = [
       <div class="tsteps__spine" aria-hidden="true"></div>
       <ol class="tsteps__list">
         <li class="tstep"><span class="tstep__node" aria-hidden="true">1</span><div><h3>Select your tray</h3><p>Start from a DIN size or a blank footprint.</p></div></li>
-        <li class="tstep"><span class="tstep__node" aria-hidden="true">2</span><div><h3>Define dimensions</h3><p>Length, width and depth, to the millimetre.</p></div></li>
+        <li class="tstep"><span class="tstep__node" aria-hidden="true">2</span><div><h3>Define dimensions</h3><p>Length, width and depth, to the millimeter.</p></div></li>
         <li class="tstep"><span class="tstep__node" aria-hidden="true">3</span><div><h3>Choose material</h3><p>304 or 316L stainless, and the perforation pattern.</p></div></li>
         <li class="tstep"><span class="tstep__node" aria-hidden="true">4</span><div><h3>Refine the details</h3><p>Handles, feet, silicone inserts, laser marking.</p></div></li>
         <li class="tstep"><span class="tstep__node" aria-hidden="true">5</span><div><h3>Approve &amp; confirm</h3><p>Review the drawing and release it to production.</p></div></li>
@@ -187,7 +187,7 @@ const schema = [
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const COUNT = 144, CW = 560, CH = 1002;
-    const FADE_END = 0.22;   // headline gone + tray centred by here
+    const FADE_END = 0.22;   // headline gone + tray centered by here
     const BLOW_END = 0.82;   // explode finished by here; it holds until 1
     const ARM_AT   = 16;     // start scrubbing once this many frames are in
 
@@ -207,21 +207,61 @@ const schema = [
     const frames: HTMLImageElement[] = [];
     let armed = false, last = -1;
 
-    // Load in order and arm early: frame 0 is already on screen as the poster, so the
-    // rest can keep arriving while the visitor reads the headline.
+    /* Frame loading, staged.
+       All 144 frames used to be requested the instant the page parsed — 3.3 MB
+       before the visitor had scrolled a pixel (audit 2026-09-14, H-08). Frame 0
+       is already on screen as the poster, so only enough to start scrubbing is
+       urgent; the rest arrive once the page is quiet or the visitor starts to
+       scroll, whichever comes first. draw() already falls back to the newest
+       frame that has arrived, so a part-loaded sequence scrubs correctly. */
     let loaded = 0;
-    for (let i = 0; i < COUNT; i++) {
+
+    function load(i: number) {
+      if (frames[i]) return;
       const img = new Image();
       img.decoding = "async";
       img.src = `/hero/f${String(i).padStart(3, "0")}.webp`;
       img.onload = img.onerror = () => {
-        if (++loaded === ARM_AT || loaded === COUNT) {
-          if (!armed) { armed = true; vis.classList.add("is-ready"); }
-          if (loaded === COUNT) buildSil();
+        loaded++;
+        if (!armed && loaded >= ARM_AT) {
+          armed = true;
+          vis.classList.add("is-ready");
           last = -1; draw();
         }
+        /* The silhouette is read off the final frame specifically, not off
+           "all of them" — it must not wait for the whole sequence. */
+        if (i === COUNT - 1) { buildSil(); last = -1; draw(); }
       };
       frames[i] = img;
+    }
+
+    // Urgent: enough to arm the scrub, plus the last frame for the silhouette.
+    for (let i = 0; i < ARM_AT; i++) load(i);
+    load(COUNT - 1);
+
+    // The remaining ~127 frames (about 3 MB) can wait.
+    let restStarted = false;
+    function loadRest() {
+      if (restStarted) return;
+      restStarted = true;
+      for (let i = ARM_AT; i < COUNT - 1; i++) load(i);
+    }
+    addEventListener("scroll", loadRest, { passive: true, once: true });
+    addEventListener("pointerdown", loadRest, { passive: true, once: true });
+
+    /* On a metered or slow connection, 3 MB of frames the visitor may never
+       scroll to is their money. Wait for a real scroll there; prefetch on idle
+       only where bandwidth is cheap. */
+    const conn = (navigator as any).connection;
+    const thrifty = !!conn && (conn.saveData === true ||
+      /^(slow-)?2g$|^3g$/.test(conn.effectiveType || ""));
+
+    if (!thrifty) {
+      if ("requestIdleCallback" in window) {
+        (window as any).requestIdleCallback(loadRest, { timeout: 2500 });
+      } else {
+        setTimeout(loadRest, 1200);
+      }
     }
 
     /* Where each part REALLY ends. Read once off the last frame: a per-row scan
@@ -361,7 +401,7 @@ const schema = [
      TO RETUNE, change these five numbers — that is what the lab's sliders drove:
        --hero-pin   how long the hero holds, in screen-heights
        --hero-rest  tray height before you scroll, in vh
-       --hero-big   tray height once centred, in vh  (>94vh gets clipped by the stage)
+       --hero-big   tray height once centered, in vh  (>94vh gets clipped by the stage)
        --hero-x/y   nudge the RESTING tray sideways / up-down, in % of the stage
      plus FADE_END and BLOW_END in the script below (fractions of the pinned run).
 
@@ -407,7 +447,7 @@ const schema = [
   /* One <h1>, two line-break patterns. Desktop reads "Trays that survive /
      the cycle count" with "the cycle count" teal. The phone (idea B, locked by
      Hassan 2026-09-14) reads "Trays that / survive the / cycle count" with only
-     "cycle count" teal — a different break AND a different colour boundary, so
+     "cycle count" teal — a different break AND a different color boundary, so
      the words are split into four spans and the <br>s are switched per width.
      The space after each <br> is stripped when it starts a line and separates
      the words when the <br> is hidden, so one source serves both. */
@@ -532,7 +572,7 @@ const schema = [
   }
 
   /* ===== Customize your tray — scroll section (Variant B: focus + recede) =====
-     Chosen in _tray-steps-v2.html + _tray-b-colours.html. Template "Teal line": navy text, teal-600 line,
+     Chosen in _tray-steps-v2.html + _tray-b-colors.html. Template "Teal line": navy text, teal-600 line,
      teal-600 outline on the focused node. NO line track — the line only exists where you've scrolled
      (nothing ahead is revealed). Reveal is scroll-linked and reverses on scroll-up. See DESIGN-DECISIONS.md */
   .tsteps { background: var(--surface-card); padding: clamp(88px, 12vh, 128px) 32px clamp(112px, 16vh, 168px); }
@@ -578,7 +618,7 @@ const schema = [
     .tstep, .tstep:nth-of-type(odd), .tstep:nth-of-type(even) {
       width: auto; left: 0; text-align: left;
       padding: 0 0 clamp(48px, 8vh, 72px) calc(var(--railx) + var(--node) / 2 + 16px); }
-    /* Node keeps left:0 and is centred on the rail with a margin — the scroll
+    /* Node keeps left:0 and is centered on the rail with a margin — the scroll
        script writes transform on it, so transform cannot be used to position. */
     .tstep__node, .tstep:nth-of-type(odd) .tstep__node, .tstep:nth-of-type(even) .tstep__node {
       left: 0; right: auto; margin-left: calc(var(--railx) - var(--node) / 2);

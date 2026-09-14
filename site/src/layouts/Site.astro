@@ -45,7 +45,7 @@ const ogImage = new URL(image, Astro.site).href;
 const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 <!doctype html>
-<html lang="en-GB">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -72,16 +72,19 @@ const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" />
+    <!-- Fonts are served from our own origin (audit 2026-09-14, M-11). Linking
+         Google's CDN blocked the first paint AND handed every EU visitor's IP to
+         Google before consent. Regenerate with scripts/fetch-fonts.py. -->
+    <link rel="preload" href="/fonts/archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ibm-plex-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
 
     {schemaList.map((s) => (
       <script type="application/ld+json" set:html={JSON.stringify(s)} />

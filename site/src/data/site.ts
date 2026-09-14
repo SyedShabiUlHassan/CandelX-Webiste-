@@ -19,7 +19,7 @@ export const TITLE_SUFFIX_SHORT = ` — ${BRAND}`;
 /** Default description. Deliberately does NOT assert a certification —
     certification claims live only on /quality, where the documents go. */
 export const DEFAULT_DESCRIPTION =
-  "Stainless steel sterilisation containers, instrument trays and cassettes for hospitals, dental clinics and surgical distributors. 79 product families, 598 article numbers.";
+  "Stainless steel sterilization containers, instrument trays and cassettes for hospitals, dental clinics and surgical distributors. 79 product families, 598 article numbers.";
 
 /** Contact details. Hassan supplies these once the domain and hosting land.
     An em dash means "not held yet" — never invent one. When the real values

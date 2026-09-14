@@ -63,7 +63,7 @@ const items = families.map((f) => {
           <div class="q-two">
             <label class="cx-field"><span class="cx-field__label">Name</span>
               <span class="cx-field__box"><input type="text" name="name" autocomplete="name" required /></span></label>
-            <label class="cx-field"><span class="cx-field__label">Organisation</span>
+            <label class="cx-field"><span class="cx-field__label">Organization</span>
               <span class="cx-field__box"><input type="text" name="org" autocomplete="organization" /></span></label>
           </div>
           <div class="q-two">
@@ -279,7 +279,7 @@ const items = families.map((f) => {
     { items: P[]; sections: string[] };
   const bySlug = new Map(items.map((p) => [p.slug, p]));
 
-  /* Step 1 groups the four tray sections plus Aluminium, which is made to order
+  /* Step 1 groups the four tray sections plus Aluminum, which is made to order
      and not in the catalogue. Everything else stands on its own. */
   const TRAY_SECTIONS = ["Wire Mesh Trays", "Perforated Trays", "Cassette Trays", "Universal Trays"];
   const TRAY_TYPES = [
@@ -287,29 +287,29 @@ const items = families.map((f) => {
     { id: "Perforated Trays", t: "Perforated", d: "Punched sheet — square or round pattern" },
     { id: "Cassette Trays",   t: "Cassette",   d: "Closed, latched, holds a set together" },
     { id: "Universal Trays",  t: "Universal",  d: "Transport trays, boxes and racks" },
-    { id: "__alu",            t: "Aluminium",  d: "Made to order — anodised or plain" },
+    { id: "__alu",            t: "Aluminum",  d: "Made to order — anodized or plain" },
   ];
   const TOP = [
-    { id: "trays", t: "Trays", d: "Wire mesh, perforated, cassette, universal or aluminium" },
+    { id: "trays", t: "Trays", d: "Wire mesh, perforated, cassette, universal or aluminum" },
     ...sections.filter((s) => !TRAY_SECTIONS.includes(s)).map((s) => ({ id: s, t: s, d: "" })),
   ];
   /* Only ask what the product can answer. Nothing here is ever required. */
   const ASK = {
     lid: (s: string) => [...TRAY_SECTIONS, "__alu", "PRF & GRF System", "Hollow Wares", "Implantology / Bur Holders"].includes(s),
     finish: (s: string) => !/Silicon|Mirror/.test(s),
-    colour: (s: string) => !/Silicon|Mirror/.test(s),
+    color: (s: string) => !/Silicon|Mirror/.test(s),
   };
   const FINISH = [{ t: "Brush", d: "Matt, hides handling marks" }, { t: "Mirror", d: "Polished bright" }, { t: "Sand", d: "Blasted, non-reflective" }];
   const COLOUR = [{ t: "None", d: "Plain stainless" }, { t: "Teflon", d: "PTFE coated" }, { t: "Titanium Nitride", d: "TiN, gold finish" }];
 
   type Draft = {
-    top: string | null; type: string | null; anodised: string | null; slug: string | null;
+    top: string | null; type: string | null; anodized: string | null; slug: string | null;
     size: string | null; custom: { l: string; w: string; h: string };
-    lid: string | null; finish: string | null; colour: string | null;
+    lid: string | null; finish: string | null; color: string | null;
     qty: string; note: string; shots: { name: string; src: string }[];
   };
-  const blank = (): Draft => ({ top: null, type: null, anodised: null, slug: null, size: null,
-    custom: { l: "", w: "", h: "" }, lid: null, finish: null, colour: null, qty: "", note: "", shots: [] });
+  const blank = (): Draft => ({ top: null, type: null, anodized: null, slug: null, size: null,
+    custom: { l: "", w: "", h: "" }, lid: null, finish: null, color: null, qty: "", note: "", shots: [] });
 
   let draft = blank();
   let step = 1;
@@ -322,13 +322,13 @@ const items = families.map((f) => {
 
   const STEPS = [
     { k: "top",    lbl: "Product family",  val: () => draft.top ? (TOP.find((x) => x.id === draft.top) || { t: "" }).t : null },
-    { k: "type",   lbl: "Type",            val: () => draft.type ? (TRAY_TYPES.find((x) => x.id === draft.type) || { t: "" }).t + (draft.anodised ? ` · ${draft.anodised}` : "") : null,
+    { k: "type",   lbl: "Type",            val: () => draft.type ? (TRAY_TYPES.find((x) => x.id === draft.type) || { t: "" }).t + (draft.anodized ? ` · ${draft.anodized}` : "") : null,
                    when: () => draft.top === "trays" },
-    { k: "prod",   lbl: "Product",         val: () => draft.slug ? bySlug.get(draft.slug)!.name : (draft.type === "__alu" ? "Aluminium — made to order" : null) },
+    { k: "prod",   lbl: "Product",         val: () => draft.slug ? bySlug.get(draft.slug)!.name : (draft.type === "__alu" ? "Aluminum — made to order" : null) },
     { k: "size",   lbl: "Size",            val: () => draft.size },
     { k: "lid",    lbl: "Lid",             val: () => draft.lid,    when: () => ASK.lid(sectionOf()) },
     { k: "finish", lbl: "Surface finish",  val: () => draft.finish, when: () => ASK.finish(sectionOf()) },
-    { k: "colour", lbl: "Colour",          val: () => draft.colour, when: () => ASK.colour(sectionOf()) },
+    { k: "color", lbl: "Color",          val: () => draft.color, when: () => ASK.color(sectionOf()) },
     { k: "notes",  lbl: "Quantity & notes", val: () => draft.qty ? `${draft.qty} units` : null },
   ];
   const live = () => STEPS.filter((s) => !s.when || s.when());
@@ -378,14 +378,14 @@ const items = families.map((f) => {
       <div class="q-opts q-opts--2">${TOP.map((o) => optBtn(o, draft.top === o.id, `data-top="${esc(o.id)}"`)).join("")}</div>`;
 
     else if (k === "type") st.innerHTML = `<h2 class="q-h1">Which type of tray?</h2>
-      <p class="q-sub">Aluminium is made to order — it isn't in the printed catalogue.</p>
+      <p class="q-sub">Aluminum is made to order — it isn't in the printed catalogue.</p>
       <div class="q-opts">${TRAY_TYPES.map((o) => optBtn(o, draft.type === o.id, `data-type="${o.id}"`)).join("")}</div>
-      ${draft.type === "__alu" ? `<div class="q-custom"><h3>Anodised?</h3>
-        <div class="q-opts q-opts--2">${[{ t: "Anodised" }, { t: "Not anodised" }].map((o) => optBtn(o, draft.anodised === o.t, `data-ano="${o.t}"`)).join("")}</div></div>` : ""}
+      ${draft.type === "__alu" ? `<div class="q-custom"><h3>Anodized?</h3>
+        <div class="q-opts q-opts--2">${[{ t: "Anodized" }, { t: "Not anodized" }].map((o) => optBtn(o, draft.anodized === o.t, `data-ano="${o.t}"`)).join("")}</div></div>` : ""}
       <div class="q-nav">${back}${draft.type === "__alu" ? `<button class="q-btn" data-next>Continue</button>` : ""}</div>`;
 
     else if (k === "prod") {
-      if (draft.type === "__alu") st.innerHTML = `<h2 class="q-h1">Aluminium tray</h2>
+      if (draft.type === "__alu") st.innerHTML = `<h2 class="q-h1">Aluminum tray</h2>
         <p class="q-sub">Nothing to pick from yet — give us the size you need next and we'll quote it made to order.</p>
         <div class="q-nav">${back}<button class="q-btn" data-next>Continue</button></div>`;
       else {
@@ -432,9 +432,9 @@ const items = families.map((f) => {
       <div class="q-opts">${FINISH.map((o) => optBtn(o, draft.finish === o.t, `data-fin="${o.t}"`)).join("")}</div>
       <div class="q-nav">${back}${draft.finish ? "" : skip}</div>`;
 
-    else if (k === "colour") st.innerHTML = `<h2 class="q-h1">Colour or coating</h2>
-      <div class="q-opts">${COLOUR.map((o) => optBtn(o, draft.colour === o.t, `data-col="${o.t}"`)).join("")}</div>
-      <div class="q-nav">${back}${draft.colour ? "" : skip}</div>`;
+    else if (k === "color") st.innerHTML = `<h2 class="q-h1">Color or coating</h2>
+      <div class="q-opts">${COLOUR.map((o) => optBtn(o, draft.color === o.t, `data-col="${o.t}"`)).join("")}</div>
+      <div class="q-nav">${back}${draft.color ? "" : skip}</div>`;
 
     else st.innerHTML = `<h2 class="q-h1">Quantity, notes and drawings</h2>
       <p class="q-sub">Anything specific — marking, insert layout, a delivery date, a drawing to match.</p>
@@ -457,12 +457,12 @@ const items = families.map((f) => {
       document.querySelectorAll<HTMLElement>(sel).forEach((e) => e.onclick = () => fn(e));
     on("[data-top]", (e) => { draft.top = e.dataset.top!; draft.type = null; draft.slug = null; step = 2; render(); });
     on("[data-type]", (e) => { draft.type = e.dataset.type!; draft.slug = null; if (e.dataset.type !== "__alu") step++; render(); });
-    on("[data-ano]", (e) => { draft.anodised = e.dataset.ano!; render(); });
+    on("[data-ano]", (e) => { draft.anodized = e.dataset.ano!; render(); });
     on("[data-slug]", (e) => { draft.slug = e.dataset.slug!; step++; render(); });
     on("[data-size]", (e) => { draft.size = e.dataset.size!; draft.custom = { l: "", w: "", h: "" }; step++; render(); });
     on("[data-lid]", (e) => { draft.lid = e.dataset.lid!; step++; render(); });
     on("[data-fin]", (e) => { draft.finish = e.dataset.fin!; step++; render(); });
-    on("[data-col]", (e) => { draft.colour = e.dataset.col!; step++; render(); });
+    on("[data-col]", (e) => { draft.color = e.dataset.col!; step++; render(); });
     on("[data-next]", () => { step++; render(); });
     on("[data-skip]", () => { step++; render(); });
     on("[data-back]", () => { step = Math.max(1, step - 1); render(); });
@@ -517,9 +517,9 @@ const items = families.map((f) => {
     box.innerHTML = `<div class="q-req__h"><h2>Your request</h2><em>${request.length} product${request.length === 1 ? "" : "s"}</em></div>`
       + request.map((r, i) => {
         const p = r.slug ? bySlug.get(r.slug) : null;
-        const name = p ? p.name : (r.type === "__alu" ? `Aluminium tray${r.anodised ? ` — ${r.anodised}` : ""}` : "—");
+        const name = p ? p.name : (r.type === "__alu" ? `Aluminum tray${r.anodized ? ` — ${r.anodized}` : ""}` : "—");
         const tags = [r.size && `Size: ${r.size}`, r.lid, r.finish && `${r.finish} finish`,
-          r.colour && r.colour !== "None" && r.colour,
+          r.color && r.color !== "None" && r.color,
           r.shots.length && `${r.shots.length} drawing${r.shots.length === 1 ? "" : "s"}`].filter(Boolean) as string[];
         return `<div class="q-item">
           <i>${p && p.image ? `<img src="${p.image}" alt="" loading="lazy">` : ""}</i>
@@ -534,8 +534,8 @@ const items = families.map((f) => {
   function asText() {
     return "Quote request\n\n" + request.map((r) => {
       const p = r.slug ? bySlug.get(r.slug) : null;
-      const name = p ? p.name : `Aluminium tray${r.anodised ? ` — ${r.anodised}` : ""}`;
-      const bits = [r.size, r.lid, r.finish && `${r.finish} finish`, r.colour && r.colour !== "None" && r.colour,
+      const name = p ? p.name : `Aluminum tray${r.anodized ? ` — ${r.anodized}` : ""}`;
+      const bits = [r.size, r.lid, r.finish && `${r.finish} finish`, r.color && r.color !== "None" && r.color,
         r.qty && `qty ${r.qty}`].filter(Boolean).join(" · ");
       return `• ${name}${bits ? ` — ${bits}` : ""}${r.note ? `\n  note: ${r.note}` : ""}`;
     }).join("\n");
