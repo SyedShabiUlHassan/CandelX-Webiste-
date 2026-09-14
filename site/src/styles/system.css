@@ -441,6 +441,14 @@ main:focus { outline: none; }
 [data-open] .cx-burger__bars i:nth-child(3) { transform: translateY(-6.4px) rotate(-45deg); }
 @media (prefers-reduced-motion: reduce) { .cx-burger__bars i { transition: none; } }
 
+/* Phone-panel-only parts of the nav. Hidden here so they never reach the desktop
+   bar, and so the no-JS fallback (nav stays in the bar) does not show them either. */
+.cx-nav__chev, .cx-nav__cta { display: none; }
+
+/* The scrim behind the phone menu. display:none by default — it only ever exists
+   below 820px with JavaScript on. See the mobile block for the rest. */
+.cx-scrim { display: none; }
+
 .cx-header__right { margin-left: 22px; display: flex; align-items: center; gap: 20px; }
 
 /* Quote button — animated pill: the teal circle expands from the left on hover */
@@ -512,24 +520,86 @@ main:focus { outline: none; }
      cramped, but every link still reachable. */
   [data-js] .cx-burger { display: inline-flex; }
 
+  /* ── The phone menu ("M1 · sheet + blur", chosen 2026-09-14) ──────────────
+     Was: display:none -> flex. No motion, no backdrop, the page sitting visible
+     under a hairline, and it scrolled behind the open panel.
+
+     Now it is a sheet that slides out of the bar over a blurred page. Open/close
+     is visibility + opacity + transform rather than display, for two reasons:
+     display:none cannot transition, and `visibility: hidden` still takes the
+     links out of the accessibility tree AND the tab order — which is what the
+     old display:none was there for. */
   [data-js] .cx-header nav {
     position: absolute; left: 0; right: 0; top: 100%;
-    margin: 0; padding: 8px 0 12px;
+    margin: 0; padding: 6px 0 10px;
     flex-direction: column; gap: 0;
     background: var(--surface-card);
-    border-bottom: 1px solid var(--border-hairline);
-    box-shadow: var(--shadow-2);
-    /* Collapsed, but still in the accessibility tree only when open. */
-    display: none;
+    border-bottom-left-radius: 14px; border-bottom-right-radius: 14px;
+    box-shadow: 0 18px 40px -24px rgba(0, 26, 38, .55);
+    opacity: 0; visibility: hidden; transform: translateY(-10px);
+    transition: opacity .18s linear, transform .28s var(--ease-out), visibility 0s .28s;
   }
-  [data-js] [data-open] nav { display: flex; }
+  [data-js] [data-open] nav {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity .18s linear, transform .28s var(--ease-out), visibility 0s;
+  }
 
   [data-js] .cx-header nav a {
-    display: flex; align-items: center; min-height: 48px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    min-height: 56px;
     padding: 0 max(20px, calc((100vw - 1200px) / 2 + 20px));
-    font-size: 15px; border-radius: 0;
+    font-size: 16px; font-weight: var(--fw-semibold); border-radius: 0;
+    border-top: 1px solid var(--border-hairline);
   }
+  [data-js] .cx-header nav a:first-child { border-top: none; }
   [data-js] .cx-header nav a::before { border-radius: 0; }
+
+  /* The rows arrive one after another. Staggered on open only — on close the
+     whole sheet leaves together, which reads faster and is what you want when
+     you have changed your mind. */
+  [data-js] [data-open] nav a {
+    animation: cxNavRow .3s var(--ease-out) both;
+    animation-delay: calc(var(--i) * 40ms + 60ms);
+  }
+  @keyframes cxNavRow { from { opacity: 0; transform: translateY(-6px); } }
+
+  [data-js] .cx-nav__chev { display: block; width: 17px; height: 17px;
+    color: var(--text-faint); flex: none; }
+
+  /* The bar's quote button is a bare circle at this width, so the panel gets a
+     labelled one. justify-content overrides the space-between above. */
+  /* `nav a` carries two type selectors, so `.cx-nav__cta` alone loses to it and
+     the label sat left-aligned under space-between. Qualified, it wins. */
+  [data-js] .cx-header nav a.cx-nav__cta {
+    display: flex; justify-content: center; margin: 10px 20px 4px;
+    min-height: 50px; border-radius: 6px;
+    background: var(--brand-teal); color: var(--white);
+    border-top: none !important;
+  }
+  [data-js] .cx-nav__cta::before { display: none; }
+
+  /* ── The blur ────────────────────────────────────────────────────────────
+     backdrop-filter on an overlay, NOT filter on the page: filtering an ancestor
+     would break every position:fixed descendant, the sticky header included.
+     -webkit- prefix is required on iOS Safari. A browser too old for either
+     still gets the dim, which is a clean degrade. */
+  [data-js] .cx-scrim {
+    display: block; position: fixed; inset: 0; z-index: 29;
+    background: rgba(0, 26, 38, .34);
+    backdrop-filter: blur(7px) saturate(115%);
+    -webkit-backdrop-filter: blur(7px) saturate(115%);
+    opacity: 0; visibility: hidden;
+    transition: opacity .26s var(--ease-out), visibility 0s .26s;
+  }
+  [data-js] .cx-header[data-open] + .cx-scrim {
+    opacity: 1; visibility: visible;
+    transition: opacity .26s var(--ease-out), visibility 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-js] .cx-header nav, [data-js] .cx-scrim { transition: none; }
+    [data-js] [data-open] nav a { animation: none; }
+  }
 
   /* No-JS fallback: keep the old cramped-but-working bar layout. */
   .cx-header nav { gap: 2px; padding-left: 12px; }

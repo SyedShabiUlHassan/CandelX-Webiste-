@@ -48,13 +48,23 @@ const isPdf = (href: string) => href.endsWith(".pdf");
     </button>
 
     <nav id="cx-nav" class="cx-nav" aria-label="Main">
-      {links.map((l) => (
+      {links.map((l, i) => (
         <a
           href={l.href}
+          style={`--i:${i}`}
           aria-current={currentState(l)}
           {...(isPdf(l.href) ? { download: true } : {})}
-        >{l.label}</a>
+        >
+          {l.label}
+          {/* Phone panel only — hidden above 820px and with JS off. */}
+          <svg class="cx-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.6" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
       ))}
+      {/* The bar's quote button collapses to a bare circle under 820px, so the
+          panel carries a labelled one. Same destination, not a second action. */}
+      <a class="cx-nav__cta" href="/quote" style={`--i:${links.length}`}
+         aria-current={path === "/quote" ? "page" : undefined}>Request a quote</a>
     </nav>
 
     <div class="cx-header__right">
@@ -70,6 +80,13 @@ const isPdf = (href: string) => href.endsWith(".pdf");
   </div>
 </header>
 
+<!-- The blur/dim behind the phone menu. Sits BELOW the header (z-index 29 vs 30)
+     so the bar and the burger stay sharp and tappable while everything else
+     softens. Rendered in markup, not built in JS: scoped CSS never reaches a
+     createElement node, and this way it exists for the no-JS path too (where
+     CSS keeps it display:none). -->
+<div class="cx-scrim" data-scrim aria-hidden="true"></div>
+
 <script>
   /* Mobile menu. Progressive: with no JS the button is hidden by CSS
      (`.cx-burger { display: none }` until `[data-js]` is set) and the nav stays
@@ -81,9 +98,34 @@ const isPdf = (href: string) => href.endsWith(".pdf");
   if (header && burger && nav) {
     document.documentElement.setAttribute("data-js", "");
 
+    /* Scroll lock. The old panel let the page scroll away underneath it, which
+       is the tell that a menu is a box rather than a mode.
+
+       Fixing <body> is the only approach iOS Safari honours — overflow:hidden on
+       html/body does nothing there. Storing the offset and restoring it on close
+       is what stops the page jumping back to the top afterwards. */
+    let lockedAt = 0;
+
     const setOpen = (open: boolean) => {
+      const wasOpen = header.hasAttribute("data-open");
       header.toggleAttribute("data-open", open);
       burger.setAttribute("aria-expanded", String(open));
+      if (open === wasOpen) return;
+
+      const b = document.body.style;
+      if (open) {
+        lockedAt = window.scrollY;
+        b.position = "fixed";
+        b.top = `-${lockedAt}px`;
+        b.left = "0";
+        b.right = "0";
+      } else {
+        b.position = "";
+        b.top = "";
+        b.left = "";
+        b.right = "";
+        window.scrollTo(0, lockedAt);
+      }
     };
 
     burger.addEventListener("click", () => {

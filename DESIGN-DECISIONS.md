@@ -952,3 +952,59 @@ Rules the replacement keeps:
 - A third, already in the README: the **Vite dev module graph serves stale CSS**. It
   served round-1's stylesheet against round-2's markup — correct HTML, wrong CSS, no
   error. `astro dev stop && rm -rf node_modules/.vite` before believing a CSS change.
+
+---
+
+## 2026-09-14 — Phone menu: "M1 · sheet + blur"
+
+Hassan: the burger panel *"doesn't look classy"*, and — asked directly — yes, blur
+the page behind it. Four were drawn (sheet+blur, full-screen navy, frosted glass,
+side drawer); **M1 is locked for phones.**
+
+### What was actually wrong with the old one
+Not only the looks. It was `display: none` → `display: flex`: no transition could
+ever run on it, there was no backdrop, and **the page scrolled freely behind the
+open panel** — the tell that a menu is a box rather than a mode.
+
+### How it opens now
+`visibility` + `opacity` + `transform`, not `display`. Two reasons, both load-bearing:
+`display: none` cannot transition, and `visibility: hidden` still takes the links out
+of the accessibility tree **and** the tab order — which is the whole job the old
+`display: none` was doing. Rows stagger in at 40ms apart on open only; on close the
+sheet leaves in one piece, which reads faster when you have changed your mind.
+
+### The blur, and the one thing that makes or breaks it
+`backdrop-filter` on an overlay — **never `filter` on the page**. Filtering an
+ancestor creates a containing block for fixed descendants, which would break the
+sticky header itself.
+
+**The scrim sits at `z-index: 29`, under the header's 30, on purpose.** The first
+pass covered the whole viewport and blurred the bar too: the logo went soft and the
+burger — the thing you tap to close — went with it. Header sharp, everything else
+blurred.
+
+- `-webkit-backdrop-filter` is required for iOS Safari; both are set.
+- A browser too old for either still gets the 34% navy dim. Clean degrade, no fallback code.
+- It is GPU work across the viewport. If a cheap Android ever stutters on the open,
+  the fix is to drop the blur and keep the dim, not to remove the scrim.
+
+### Scroll lock
+`position: fixed` on `<body>` with the offset stored and restored. `overflow: hidden`
+on `html`/`body` does nothing on iOS Safari — this is the only approach it honours.
+Restoring the offset is what stops the page jumping to the top on close.
+
+### Kept, not broken
+- **No-JS fallback intact.** Every new rule is gated on `[data-js]`, which the header
+  script sets. With JavaScript off there is no burger, no scrim, no panel — the nav
+  stays in the bar and all four links work, exactly as before.
+- The panel carries a labelled "Request a quote" because the bar's quote button
+  collapses to a bare circle under 820px. Same destination, not a second action.
+- Measured after: rows 56px, CTA 50px, burger 44×44, text 16px, no horizontal scroll,
+  scroll position restored exactly. Desktop is untouched — burger, scrim, chevrons and
+  panel CTA are all `display: none` above 820px.
+
+### A CSS trap worth remembering
+`[data-js] .cx-header nav a` carries **two type selectors**, so `.cx-nav__cta` on its
+own loses to it and the button label sat left-aligned under the inherited
+`space-between`. Qualifying it as `nav a.cx-nav__cta` wins. Specificity counts types
+after classes — a class alone does not beat a class plus two elements.
