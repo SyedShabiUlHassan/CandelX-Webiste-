@@ -13,7 +13,6 @@ const PAGES: [path: string, priority: string, changefreq: string][] = [
   ["/", "1.0", "monthly"],
   ["/catalogue", "0.9", "weekly"],
   ["/quote", "0.8", "monthly"],
-  ["/faq", "0.7", "monthly"],
   ["/quality", "0.7", "monthly"],
   ["/capabilities", "0.7", "monthly"],
   ["/support", "0.6", "monthly"],

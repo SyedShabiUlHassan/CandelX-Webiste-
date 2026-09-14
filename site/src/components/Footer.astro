@@ -31,7 +31,6 @@ const cols: [string, Item[]][] = [
   ]],
   ["Contact", [
     { label: "Get in touch", href: "/support" },
-    { label: "Frequently asked questions", href: "/faq" },
     { label: "Request a quote", href: "/quote" },
     ...(CONTACT.email ? [{ label: CONTACT.email, href: `mailto:${CONTACT.email}` }] : []),
     ...(CONTACT.telephone ? [{ label: CONTACT.telephone, href: `tel:${CONTACT.telephone.replace(/[^\d+]/g, "")}` }] : []),
