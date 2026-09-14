@@ -462,26 +462,34 @@ main:focus { outline: none; }
 .cx-qbtn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 126, 167, .35); }
 @media (prefers-reduced-motion: reduce) { .cx-qbtn__circle, .cx-qbtn__icon, .cx-qbtn__label { transition: none; } }
 
-.cx-footer { background: var(--surface-inverse-deep); padding: 72px 0 40px; color: rgba(255,255,255,.82); }
-.cx-footer__grid { display: grid; grid-template-columns: 1.4fr repeat(3,1fr); gap: 48px; }
-.cx-footer__blurb { margin-top: 20px; color: rgba(255,255,255,.62); max-width: 34ch; }
-.cx-footer__links { display: flex; flex-direction: column; gap: 11px; margin-top: 18px; }
-.cx-footer h4 { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: rgba(255,255,255,.60); font-family: var(--font-sans); }
-.cx-footer a { display: block; font-size: 13.5px; color: rgba(255,255,255,.82); border: none; }
-.cx-footer a:hover { color: #fff; }
-.cx-footer__legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border-inverse);
-  display: flex; justify-content: space-between; gap: var(--s-5); flex-wrap: wrap;
-  font-size: 12px; color: rgba(255,255,255,.58); }
-/* Certification line — reads from src/data/certifications.ts, links to the Quality page. */
-.cx-footer a.cx-footer__certs { display: inline; font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: var(--t-mono-ls); color: rgba(255,255,255,.58); padding: 0;
+/* Footer — "colophon" (variant A1, chosen 2026-09-14; see DESIGN-DECISIONS.md).
+   Two rows inside the container, ~150px total instead of the old 407px four-column
+   sitemap. It carries NO navigation on purpose: every link the old footer listed
+   (Products, Quality, Capabilities, Contact, Request a quote) is in the header since
+   audit H-10, so repeating it here bought height and nothing else. What is left is
+   what the header cannot say — who made it, where, since when, and the certification
+   names. Facts come from src/data/site.ts; the certification line from
+   src/data/certifications.ts. Do not hardcode either here. */
+.cx-footer { background: var(--surface-inverse-deep); color: rgba(255,255,255,.82); }
+.cx-footer__in { display: flex; align-items: center; justify-content: space-between; gap: 48px;
+  flex-wrap: wrap; padding-top: 30px; padding-bottom: 26px; }
+.cx-footer__mark { flex: none; display: inline-flex; border: none; }
+.cx-footer__fact { margin: 0; max-width: 62ch; text-align: right; font-size: 13.5px;
+  line-height: 1.62; color: rgba(255,255,255,.66); }
+.cx-footer__legal { display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  border-top: 1px solid var(--border-inverse); padding-top: 14px; padding-bottom: 18px;
+  font-size: 12px; color: rgba(255,255,255,.52); }
+.cx-footer a { font-size: 12px; color: rgba(255,255,255,.52); border: none;
   transition: var(--transition-control); }
-.cx-footer a.cx-footer__certs:hover { color: rgba(255,255,255,.78); }
+.cx-footer a:hover { color: rgba(255,255,255,.82); }
+/* Certification line — reads from src/data/certifications.ts, links to the Quality page.
+   Pushed to the right end of the legal row; drops below it under 560px. */
+.cx-footer a.cx-footer__certs { margin-left: auto; font-family: var(--font-mono);
+  letter-spacing: var(--t-mono-ls); }
 
 /* Responsive ------------------------------------------- */
 @media (max-width: 900px) {
   .cx-section { padding: 64px 0; }
-  .cx-footer__grid { grid-template-columns: 1fr 1fr; }
 }
 
 /* ============================================================================
@@ -542,15 +550,17 @@ main:focus { outline: none; }
   .cx-qbtn:hover .cx-qbtn__circle, .cx-qbtn:focus-visible .cx-qbtn__circle { width: auto; }
   .cx-qbtn:hover .cx-qbtn__icon, .cx-qbtn:focus-visible .cx-qbtn__icon { transform: translate(-50%, -50%); }
 
-  /* Footer links were 326x22.  Stacking all groups in one column while giving
-     each link a 44px row added ~300px to every page, so the groups go two-up. */
-  .cx-footer__grid { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
-  .cx-footer__grid > div:first-child { grid-column: 1 / -1; }
-  .cx-footer__grid a,
+  /* The fact line stops being a right-hand column and sits under the logo. */
+  .cx-footer__in { gap: 22px; }
+  /* 62ch is wider than the container below ~820px, and a flex item will happily
+     overflow its row rather than shrink — that pushed the fact line off the right
+     edge at 390px. Cap it to the container. */
+  .cx-footer__fact { text-align: left; max-width: 100%; }
+  .cx-footer__mark,
   .cx-footer__legal a { display: inline-flex; align-items: center; min-height: 44px; }
 
   /* Text under 12px — below the comfortable reading floor on a phone. */
-  .cx-eyebrow, .cx-footer h4, .cx-badge, .cx-field__label, .cx-footer__certs { font-size: 12px; }
+  .cx-eyebrow, .cx-badge, .cx-field__label, .cx-footer__certs { font-size: 12px; }
 
   /* iOS zooms the whole page when a focused field is under 16px. */
   input, select, textarea { font-size: 16px; }
@@ -561,5 +571,6 @@ main:focus { outline: none; }
 
 @media (max-width: 680px) {
   .cx-display-1 { font-size: 40px; }
-  .cx-footer__grid { grid-template-columns: 1fr 1fr; }
+  /* The certification line no longer fits beside the copyright — give it its own row. */
+  .cx-footer a.cx-footer__certs { margin-left: 0; width: 100%; }
 }

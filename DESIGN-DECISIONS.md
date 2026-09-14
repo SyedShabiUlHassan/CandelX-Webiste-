@@ -892,3 +892,63 @@ Verified against the built site: 0 external scripts, 0 external images, 0 iframe
 0 `object`/`embed`, 0 `javascript:` hrefs, 0 `@import`, 0 `data:` URIs in CSS. The
 87 external `<link>`s are `rel="canonical"`, which is not a resource load. Nothing
 the CSP would block.
+
+---
+
+## 2026-09-14 — Home section order, and the footer cut from 407px to 153px
+
+### Capabilities now sits above "Customize your tray"
+Hassan's call. Homepage order is hero → Capabilities → Customize your tray → Proof.
+Both bands use `--surface-card`, so they were already adjacent on the same white and
+the swap needed no CSS. The step animation binds by selector
+(`document.querySelectorAll(".tsteps")`), not by position, so it moved with the section.
+
+### Footer: "colophon", chosen from three rounds
+The old footer was **407px** — a four-column sitemap with the brand blurb, five
+catalogue sections, three company links and two contact links. On an 87-page site that
+is 407px of nothing, repeated 87 times.
+
+**Round 1 was rejected, and the reason is the useful part.** Three sizes were offered
+(145 / 225 / 306px) and Hassan rejected all three: *"they gave same info that is already
+in header"*. He was right. Audit H-10 had moved Quality, Capabilities and Contact into
+the header; the footer had never been revisited, so by then it was the header again in
+a darker bar. **Height was never the real problem — duplication was.** A footer variant
+is only worth drawing if it carries something the header cannot.
+
+Round 2 offered three at A's size, built only from what the header does not have:
+
+| | | |
+|---|---|---|
+| **A1 Colophon** | 153px | What is made, where, since when, how many countries. No nav. |
+| A2 Catalogue index | 129px | The five `?section=` filtered views — URLs that exist nowhere else. |
+| A3 Credentials | 132px | The four certification names as the closing statement. |
+
+**Hassan chose A1** ("good for now" — so this is a floor, not a monument).
+
+What that costs, knowingly: the five filtered-catalogue deep links are now unreachable
+below the fold, and the footer contributes no internal linking. If that ever matters for
+SEO, **A2 is the variant to bring back** — it was 129px, smaller than A1.
+
+Rules the replacement keeps:
+- Facts come from `src/data/site.ts`, the certification line from
+  `src/data/certifications.ts`. Nothing in `Footer.astro` is hand-written, so it still
+  cannot contradict the Quality page.
+- Design-system §3 holds: certification **names** in the footer, mark artwork only on
+  `/quality`. A3 was drawn to respect this too.
+- 44px tap targets at ≤820px — now on the logo link as well, which is new: the old
+  footer's logo was an image, not a link.
+
+### Two traps this cost time on
+- **Astro trims whitespace at a line break before `{`.** Writing
+  `manufactured in\n{CONTACT.addressLocality}` renders "manufactured inSialkot".
+  Keep the expression on the same line as the word before it. There is a comment in
+  `Footer.astro` saying so.
+- **Headless Chrome screenshots lie about text width.** `--headless --screenshot` did not
+  load the local webfont, fell back to a wider face, and made the footer's fact line look
+  like it was overflowing the right edge at 360/390px. It is not: measured in a real
+  browser the paragraph is 326px inside a 326px box and `documentElement.scrollWidth`
+  equals the viewport at every width. Use headless for composition, a real browser for
+  anything measured.
+- A third, already in the README: the **Vite dev module graph serves stale CSS**. It
+  served round-1's stylesheet against round-2's markup — correct HTML, wrong CSS, no
+  error. `astro dev stop && rm -rf node_modules/.vite` before believing a CSS change.
