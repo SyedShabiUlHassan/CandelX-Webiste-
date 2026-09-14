@@ -1,0 +1,7 @@
+# candelxsurgicals.com
+# Brochure and enquiry site — everything here is meant to be indexed.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://candelxsurgicals.com/sitemap.xml

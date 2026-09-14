@@ -1,0 +1,5 @@
+---
+const { tone = "muted", class: cls = "" } = Astro.props;
+const t = tone === "accent" ? "cx-eyebrow--accent" : tone === "invert" ? "cx-eyebrow--invert" : "";
+---
+<div class:list={["cx-eyebrow", t, cls]}><slot /></div>

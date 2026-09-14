@@ -1,0 +1,5 @@
+---
+const { tone = "neutral", dot = false, class: cls = "" } = Astro.props;
+const t = ["accent","ok","warn","alert"].includes(tone) ? `cx-badge--${tone}` : "";
+---
+<span class:list={["cx-badge", t, cls]}>{dot && <span class="cx-badge__dot" />}<slot /></span>

@@ -1,0 +1,64 @@
+---
+/* Certifications come from the shared list so the footer can never contradict the Quality page.
+   Do not hardcode a certification name here. See src/data/certifications.ts
+
+   Audit 2026-09-14, H-12: this footer used to carry two href="#" links that went
+   nowhere, and five invented product categories ("DIN containers", "Lids and
+   filters") that all resolved to the same unfiltered /catalogue. The categories
+   are now the REAL catalogue sections, read from the data, each deep-linking to
+   its own filtered view. Nothing here is written by hand any more. */
+import { certificationLine } from "../data/certifications.ts";
+import { sections, families } from "../data/catalogue.ts";
+import { BRAND_FULL, DEFAULT_DESCRIPTION, CONTACT } from "../data/site.ts";
+
+/* The five largest sections, so the footer shows range rather than a full index. */
+const topSections = [...sections]
+  .map((s) => ({ name: s, n: families.filter((f) => f.section === s).length }))
+  .sort((a, b) => b.n - a.n)
+  .slice(0, 5);
+
+type Item = { label: string; href: string };
+
+const cols: [string, Item[]][] = [
+  ["Products", topSections.map((s) => ({
+    label: s.name,
+    href: `/catalogue?section=${encodeURIComponent(s.name)}`,
+  }))],
+  ["Company", [
+    { label: "Manufacturing capability", href: "/capabilities" },
+    { label: "Quality and certification", href: "/quality" },
+    { label: "Full catalogue", href: "/catalogue" },
+  ]],
+  ["Contact", [
+    { label: "Get in touch", href: "/support" },
+    { label: "Request a quote", href: "/quote" },
+    ...(CONTACT.email ? [{ label: CONTACT.email, href: `mailto:${CONTACT.email}` }] : []),
+    ...(CONTACT.telephone ? [{ label: CONTACT.telephone, href: `tel:${CONTACT.telephone.replace(/[^\d+]/g, "")}` }] : []),
+  ]],
+];
+
+const year = new Date().getFullYear();
+---
+<footer class="cx-footer">
+  <div class="cx-container">
+    <div class="cx-footer__grid">
+      <div>
+        <img src="/brand/logo-candelx-white.png" alt={BRAND_FULL} width="115" height="28" loading="lazy" decoding="async" />
+        <p class="cx-body-sm cx-footer__blurb">{DEFAULT_DESCRIPTION}</p>
+      </div>
+      {cols.map(([h, ls]) => (
+        <nav aria-label={h}>
+          <h4>{h}</h4>
+          <div class="cx-footer__links">
+            {ls.map((l) => <a href={l.href}>{l.label}</a>)}
+          </div>
+        </nav>
+      ))}
+    </div>
+    <div class="cx-footer__legal">
+      <span>© {year} {BRAND_FULL}</span>
+      <a href="/privacy">Privacy</a>
+      <a class="cx-footer__certs" href="/quality">{certificationLine}</a>
+    </div>
+  </div>
+</footer>

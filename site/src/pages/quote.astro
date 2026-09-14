@@ -1,0 +1,608 @@
+---
+import Site from "../layouts/Site.astro";
+import Section from "../components/ds/Section.astro";
+import Eyebrow from "../components/ds/Eyebrow.astro";
+import Icon from "../components/ds/Icon.astro";
+import { families, sections } from "../data/catalogue.ts";
+import { TITLE_SUFFIX, FORM_ENDPOINT, CONTACT } from "../data/site.ts";
+
+/* Built from the real catalogue, so a new product appears in the form the
+   moment the generator runs. */
+function dims(s: any) {
+  if (s.L && s.W && s.H) return `${s.L} × ${s.W} × ${s.H} mm`;
+  if (s.L && s.W) return `${s.L} × ${s.W} mm`;
+  return s.sizeText || s.raw || "";
+}
+const items = families.map((f) => {
+  const grp: Record<string, string> = {};
+  for (const g of f.groups || []) for (const s of (g as any).sizes || []) grp[s.sku] = g.label;
+  return {
+    slug: f.slug, name: f.name, section: f.section, image: f.image, n: f.sizes.length,
+    variants: f.sizes.filter((s) => !s.isLid).map((s) => ({
+      sku: s.sku, dims: dims(s), label: s.note || "", group: grp[s.sku] || "",
+      img: (s as any).image || "",
+    })),
+  };
+});
+---
+
+<Site
+  current="quote"
+  title={`Request a quote${TITLE_SUFFIX}`}
+  description="Build your enquiry: choose the tray family, size and options, add as many products as you need, and send it to CandelX for a quotation and lead time."
+>
+  <Section pad={56}>
+    <div class="q-top">
+      <Eyebrow>Request quote</Eyebrow>
+      <h1 class="cx-display-3" style="margin-top:14px">Request a quote</h1>
+      <p class="q-lede">
+        Answer as much or as little as you like — only the first questions are needed.
+        Anything you skip, we'll ask about when we reply.
+      </p>
+    </div>
+
+    <noscript>
+      <div class="q-noscript">
+        <p><b>This form needs JavaScript to build your request.</b></p>
+        <p>
+          If you can't enable it, send us the article numbers and quantities directly —
+          our contact details are on the <a href="/support">contact page</a>, and every
+          product page lists its article numbers in full.
+        </p>
+      </div>
+    </noscript>
+
+    <div class="q-layout">
+      <div class="q-rail" data-rail></div>
+      <div>
+        <div data-stage></div>
+        <div class="q-req" data-req></div>
+
+        <form class="q-details" data-details hidden method="post" action={FORM_ENDPOINT || undefined}>
+          <h2 class="q-h2">Your details</h2>
+          <div class="q-two">
+            <label class="cx-field"><span class="cx-field__label">Name</span>
+              <span class="cx-field__box"><input type="text" name="name" autocomplete="name" required /></span></label>
+            <label class="cx-field"><span class="cx-field__label">Organisation</span>
+              <span class="cx-field__box"><input type="text" name="org" autocomplete="organization" /></span></label>
+          </div>
+          <div class="q-two">
+            <label class="cx-field"><span class="cx-field__label">Email</span>
+              <span class="cx-field__box"><input type="email" name="email" autocomplete="email" required /></span></label>
+            {/* Most enquiries in this trade are answered on WhatsApp, so the number
+                matters more than the postal country (audit 2026-09-14, M-09). */}
+            <label class="cx-field"><span class="cx-field__label">Phone or WhatsApp</span>
+              <span class="cx-field__box"><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+92 …" /></span></label>
+          </div>
+          <div class="q-two">
+            <label class="cx-field"><span class="cx-field__label">Country</span>
+              <span class="cx-field__box"><input type="text" name="country" autocomplete="country-name" /></span></label>
+            <label class="cx-field"><span class="cx-field__label">Estimated quantity</span>
+              <span class="cx-field__box"><input type="text" name="quantity" placeholder="Even a rough figure helps" /></span></label>
+          </div>
+          <label class="cx-field"><span class="cx-field__label">Anything else we should know?</span>
+            <span class="cx-field__box"><textarea name="notes" rows="4" placeholder="Drawings, deadlines, a requirement not covered above…"></textarea></span></label>
+
+          {/* Honeypot. A real person never sees or fills this; a bot fills every
+              field it finds. Kept out of the tab order and off the a11y tree. */}
+          <div class="q-hp" aria-hidden="true">
+            <label>Company website<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+          <input type="hidden" name="request" data-request-field />
+          <input type="hidden" name="started_at" data-started-field />
+
+          <p class="q-consent">
+            By sending this you agree we may use your details to answer your enquiry.
+            See our <a href="/privacy">privacy notice</a>.
+          </p>
+
+          <div class="q-actions">
+            <button class="q-btn" type="submit">Send request</button>
+            <button class="q-link" type="button" data-copy>Copy the list instead</button>
+          </div>
+          <p class="q-msg" data-msg role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </Section>
+
+  <script type="application/json" id="q-data" set:html={JSON.stringify({ items, sections })} />
+  <script type="application/json" id="q-cfg" set:html={JSON.stringify({ endpoint: FORM_ENDPOINT, email: CONTACT.email })} />
+</Site>
+
+<!-- is:global — the form is built by the script below, and JS-injected markup
+     never carries Astro's data-astro-cid attribute, so scoped rules miss it. -->
+<style is:global>
+  .q-top { max-width: 60ch; }
+  .q-noscript { margin-top: var(--s-7); padding: var(--s-5) var(--s-6); max-width: 60ch;
+    background: var(--surface-accent); border-radius: var(--r-2); }
+  .q-noscript p { margin: 0; font-size: 14.5px; color: var(--text-body); }
+  .q-noscript p + p { margin-top: 8px; }
+  /* Honeypot — off-screen rather than display:none, which some bots skip. */
+  .q-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .q-consent { margin: var(--s-5) 0 0; font-size: 13px; color: var(--text-muted); max-width: 56ch; }
+  .q-details textarea { width: 100%; resize: vertical; font: inherit; }
+  .q-lede { margin-top: 13px; font-size: var(--t-body-size); line-height: var(--t-body-lh); color: var(--text-muted); }
+  .q-layout { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 40px; align-items: start; margin-top: 30px; }
+
+  .q-rail { position: sticky; top: 70px; border-left: 2px solid var(--border-hairline); }
+  .q-step { position: relative; padding: 0 0 19px 19px; margin-left: -2px; border-left: 2px solid transparent; }
+  .q-step.is-done { border-left-color: var(--status-ok); cursor: pointer; }
+  .q-step.is-on { border-left-color: var(--brand-teal); }
+  .q-step b { display: block; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    font-weight: var(--fw-semibold); color: var(--text-faint); }
+  .q-step.is-on b, .q-step.is-done b { color: var(--text-muted); }
+  .q-step span { display: block; margin-top: 3px; font-size: 13.5px; line-height: 1.4; color: var(--text-faint); }
+  .q-step.is-done span { color: var(--text-strong); }
+  .q-step.is-on span { color: var(--brand-teal); font-weight: var(--fw-semibold); }
+
+  .q-h1 { font-family: var(--font-display); font-size: 22px; font-weight: var(--fw-bold);
+    letter-spacing: -.012em; color: var(--text-strong); margin: 0; }
+  .q-sub { color: var(--text-muted); margin: 8px 0 0; font-size: 14px; }
+
+  .q-opts { display: grid; gap: 12px; margin-top: 20px; grid-template-columns: repeat(3, 1fr); }
+  .q-opts--2 { grid-template-columns: repeat(2, 1fr); }
+  .q-opt { cursor: pointer; text-align: left; background: var(--surface-card); border: 1px solid var(--border-hairline);
+    border-radius: var(--r-2); padding: 15px 17px; font: inherit;
+    transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+  .q-opt:hover { border-color: var(--brand-teal); box-shadow: 0 2px 14px rgba(0,50,73,.07); }
+  .q-opt.is-on { border-color: var(--brand-teal); background: var(--surface-accent); }
+  .q-opt b { display: block; font-family: var(--font-display); font-size: 15px; font-weight: var(--fw-semibold); color: var(--text-strong); }
+  .q-opt span { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.45; color: var(--text-muted); }
+
+  .q-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; }
+  .q-card { cursor: pointer; text-align: left; background: var(--surface-card); border: 1px solid var(--border-hairline);
+    border-radius: var(--r-2); padding: 0; overflow: hidden; font: inherit;
+    transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+  .q-card:hover { border-color: var(--brand-teal); box-shadow: 0 2px 14px rgba(0,50,73,.07); }
+  .q-card.is-on { border-color: var(--brand-teal); background: var(--surface-accent); }
+  .q-card i { display: flex; align-items: center; justify-content: center; height: 122px; padding: 11px;
+    background: var(--surface-card); border-bottom: 1px solid var(--border-photo); }
+  .q-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .q-card u { display: block; padding: 10px 12px 12px; text-decoration: none; }
+  .q-card u b { display: block; font-size: 13.5px; font-weight: var(--fw-medium); color: var(--text-strong); line-height: 1.35; }
+  .q-card u span { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+
+  .q-sizes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 18px;
+    max-height: 260px; overflow-y: auto; padding-right: 4px; }
+  .q-size { cursor: pointer; background: var(--surface-card); border: 1px solid var(--border-hairline);
+    border-radius: var(--r-1); padding: 9px 12px; font-family: var(--font-mono); font-size: 12.5px;
+    color: var(--text-strong); text-align: left; }
+  .q-size:hover { border-color: var(--brand-teal); }
+  .q-size.is-on { border-color: var(--brand-teal); background: var(--surface-accent); }
+
+  .q-custom { margin-top: 18px; border: 1px solid var(--border-hairline); border-radius: var(--r-2); padding: 15px 17px; }
+  .q-custom h3 { font-family: var(--font-display); font-size: 14px; font-weight: var(--fw-semibold);
+    color: var(--text-strong); margin: 0 0 11px; }
+  .q-dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+  .q-f { display: block; }
+  .q-f > span { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 5px; }
+  .q-f input, .q-f textarea { width: 100%; font-family: var(--font-sans); font-size: 13.5px; padding: 9px 12px;
+    border: 1px solid var(--border-hairline); border-radius: var(--r-1); color: var(--text-strong);
+    background: var(--surface-card); }
+  .q-f textarea { resize: vertical; line-height: 1.55; }
+  .q-f input:focus, .q-f textarea:focus { outline: none; border-color: var(--brand-teal); box-shadow: var(--shadow-focus); }
+
+  .q-drop { margin-top: 12px; border: 1.5px dashed var(--border-photo); border-radius: var(--r-2);
+    padding: 20px; text-align: center; background: var(--surface-accent); cursor: pointer; }
+  .q-drop:hover { border-color: var(--brand-teal); }
+  .q-drop b { display: block; font-family: var(--font-display); font-size: 14px; font-weight: var(--fw-semibold); color: var(--text-strong); }
+  .q-drop span { display: block; font-size: 12.5px; color: var(--text-muted); margin-top: 4px; }
+  .q-shots { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 12px; }
+  .q-shot { position: relative; width: 82px; height: 82px; border: 1px solid var(--border-photo);
+    border-radius: var(--r-1); overflow: hidden; background: var(--surface-card);
+    display: flex; align-items: center; justify-content: center; }
+  .q-shot img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .q-shot button { position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; border-radius: 50%;
+    border: none; cursor: pointer; background: rgba(0,25,35,.72); color: #fff; font-size: 11px; line-height: 1; padding: 0; }
+  .q-pending { margin-top: 11px; font-size: 12.5px; color: var(--status-warn);
+    background: var(--status-warn-surface); border-radius: var(--r-1); padding: 9px 12px; }
+
+  .q-nav { display: flex; gap: 11px; margin-top: 24px; align-items: center; flex-wrap: wrap; }
+  .q-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--action-primary); color: #fff;
+    border: none; border-radius: var(--r-2); font-family: var(--font-sans); font-size: 15px;
+    font-weight: var(--fw-semibold); padding: 12px 22px; cursor: pointer; }
+  .q-btn:hover { background: var(--action-primary-hover); }
+  .q-btn--ghost { background: var(--surface-card); color: var(--text-strong); border: 1px solid var(--border-default); }
+  .q-btn--ghost:hover { border-color: var(--brand-teal); }
+  .q-link { background: none; border: none; cursor: pointer; font-family: var(--font-sans); font-size: 13.5px;
+    color: var(--text-link); padding: 0; }
+  .q-link:hover { color: var(--text-strong); }
+
+  .q-req { margin-top: 30px; border: 1px solid var(--border-hairline); border-radius: var(--r-2); }
+  .q-req__h { display: flex; align-items: baseline; gap: 10px; padding: 13px 16px; border-bottom: 1px solid var(--border-hairline); }
+  .q-req__h h2 { font-family: var(--font-display); font-size: 15px; font-weight: var(--fw-bold); color: var(--text-strong); margin: 0; }
+  .q-req__h em { font-family: var(--font-mono); font-size: 11.5px; font-style: normal; color: var(--text-muted); margin-left: auto; }
+  .q-item { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 14px; padding: 14px 16px;
+    border-bottom: 1px solid var(--n-100); }
+  .q-item:last-child { border-bottom: none; }
+  .q-item i { display: flex; align-items: center; justify-content: center; height: 62px; padding: 5px;
+    border: 1px solid var(--border-photo); border-radius: var(--r-1); background: var(--surface-card); }
+  .q-item img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .q-item h3 { font-family: var(--font-display); font-size: 14.5px; font-weight: var(--fw-semibold);
+    color: var(--text-strong); margin: 0; }
+  .q-item__top { display: flex; align-items: baseline; gap: 10px; }
+  .q-rm { background: none; border: none; cursor: pointer; color: var(--text-faint); font-size: 12px; padding: 0; margin-left: auto; }
+  .q-rm:hover { color: var(--status-alert); }
+  .q-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .q-tags b { font-family: var(--font-mono); font-size: 11px; font-weight: 400; background: var(--surface-sunken);
+    border: 1px solid var(--border-hairline); border-radius: var(--r-1); padding: 3px 8px; color: var(--text-body); }
+  .q-tags b.is-qty { background: var(--surface-accent); border-color: var(--teal-200); color: var(--teal-700); }
+  .q-item p { margin: 8px 0 0; font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+  .q-empty { padding: 20px 16px; margin: 0; font-size: 13.5px; color: var(--text-muted); }
+
+  .q-details { margin-top: 28px; }
+  .q-h2 { font-family: var(--font-display); font-size: 15px; font-weight: var(--fw-bold); color: var(--text-strong); margin: 0 0 15px; }
+  .q-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .q-actions { display: flex; align-items: center; gap: 14px; margin-top: 18px; flex-wrap: wrap; }
+  .q-msg { margin: 12px 0 0; font-size: 13px; color: var(--text-muted); min-height: 20px; }
+
+  @media (max-width: 960px) {
+    .q-layout { grid-template-columns: 1fr; gap: 22px; }
+    .q-rail { position: static; display: flex; gap: 14px; overflow-x: auto; border-left: none;
+      border-top: 2px solid var(--border-hairline); }
+    .q-step { padding: 13px 0 0; border-left: none; border-top: 2px solid transparent; margin: 0; white-space: nowrap; }
+    .q-step.is-done { border-top-color: var(--status-ok); }
+    .q-step.is-on { border-top-color: var(--brand-teal); }
+    .q-cards { grid-template-columns: repeat(2, 1fr); }
+    .q-opts, .q-opts--2 { grid-template-columns: 1fr; }
+    .q-sizes { grid-template-columns: repeat(2, 1fr); }
+  }
+  /* Mobile, approved 2026-09-14. Measured faults: 9 elements reached 447-529px
+     inside a 390px viewport, and the inputs were 14px so iOS zoomed on focus
+     (the 16px fix is site-wide in system.css). */
+  @media (max-width: 820px) {
+    /* The step rail scrolls sideways by design but nothing said so — fade the
+       cut edge and snap, so the clipped step reads as "there is more". */
+    .q-rail { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+              mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+      scroll-snap-type: x proximity; }
+    .q-step { scroll-snap-align: start; }
+    .q-step b, .q-step span { font-size: 12px; }
+    .q-req__h em { font-size: 12px; }
+    /* Anything with an intrinsic min-width drags the page sideways. */
+    .q-layout, .q-cards, .q-opts, .q-sizes, .q-two, .q-dims { min-width: 0; }
+    .q-layout > *, .q-cards > *, .q-opts > * { min-width: 0; }
+  }
+  @media (max-width: 560px) {
+    .q-two, .q-dims { grid-template-columns: 1fr; }
+    .q-cards, .q-sizes { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  type V = { sku: string; dims: string; label: string; group: string; img: string };
+  type P = { slug: string; name: string; section: string; image: string | null; n: number; variants: V[] };
+
+  const { items, sections } = JSON.parse(document.getElementById("q-data")!.textContent || "{}") as
+    { items: P[]; sections: string[] };
+  const bySlug = new Map(items.map((p) => [p.slug, p]));
+
+  /* Step 1 groups the four tray sections plus Aluminium, which is made to order
+     and not in the catalogue. Everything else stands on its own. */
+  const TRAY_SECTIONS = ["Wire Mesh Trays", "Perforated Trays", "Cassette Trays", "Universal Trays"];
+  const TRAY_TYPES = [
+    { id: "Wire Mesh Trays",  t: "Wire mesh",  d: "Open woven mesh — drains and dries fastest" },
+    { id: "Perforated Trays", t: "Perforated", d: "Punched sheet — square or round pattern" },
+    { id: "Cassette Trays",   t: "Cassette",   d: "Closed, latched, holds a set together" },
+    { id: "Universal Trays",  t: "Universal",  d: "Transport trays, boxes and racks" },
+    { id: "__alu",            t: "Aluminium",  d: "Made to order — anodised or plain" },
+  ];
+  const TOP = [
+    { id: "trays", t: "Trays", d: "Wire mesh, perforated, cassette, universal or aluminium" },
+    ...sections.filter((s) => !TRAY_SECTIONS.includes(s)).map((s) => ({ id: s, t: s, d: "" })),
+  ];
+  /* Only ask what the product can answer. Nothing here is ever required. */
+  const ASK = {
+    lid: (s: string) => [...TRAY_SECTIONS, "__alu", "PRF & GRF System", "Hollow Wares", "Implantology / Bur Holders"].includes(s),
+    finish: (s: string) => !/Silicon|Mirror/.test(s),
+    colour: (s: string) => !/Silicon|Mirror/.test(s),
+  };
+  const FINISH = [{ t: "Brush", d: "Matt, hides handling marks" }, { t: "Mirror", d: "Polished bright" }, { t: "Sand", d: "Blasted, non-reflective" }];
+  const COLOUR = [{ t: "None", d: "Plain stainless" }, { t: "Teflon", d: "PTFE coated" }, { t: "Titanium Nitride", d: "TiN, gold finish" }];
+
+  type Draft = {
+    top: string | null; type: string | null; anodised: string | null; slug: string | null;
+    size: string | null; custom: { l: string; w: string; h: string };
+    lid: string | null; finish: string | null; colour: string | null;
+    qty: string; note: string; shots: { name: string; src: string }[];
+  };
+  const blank = (): Draft => ({ top: null, type: null, anodised: null, slug: null, size: null,
+    custom: { l: "", w: "", h: "" }, lid: null, finish: null, colour: null, qty: "", note: "", shots: [] });
+
+  let draft = blank();
+  let step = 1;
+  let request: Draft[] = [];
+  const KEY = "cx-quote-request";
+  try { request = JSON.parse(sessionStorage.getItem(KEY) || "[]"); } catch { request = []; }
+  const save = () => { try { sessionStorage.setItem(KEY, JSON.stringify(request)); } catch {} };
+
+  const sectionOf = () => (draft.top === "trays" ? draft.type || "" : draft.top || "");
+
+  const STEPS = [
+    { k: "top",    lbl: "Product family",  val: () => draft.top ? (TOP.find((x) => x.id === draft.top) || { t: "" }).t : null },
+    { k: "type",   lbl: "Type",            val: () => draft.type ? (TRAY_TYPES.find((x) => x.id === draft.type) || { t: "" }).t + (draft.anodised ? ` · ${draft.anodised}` : "") : null,
+                   when: () => draft.top === "trays" },
+    { k: "prod",   lbl: "Product",         val: () => draft.slug ? bySlug.get(draft.slug)!.name : (draft.type === "__alu" ? "Aluminium — made to order" : null) },
+    { k: "size",   lbl: "Size",            val: () => draft.size },
+    { k: "lid",    lbl: "Lid",             val: () => draft.lid,    when: () => ASK.lid(sectionOf()) },
+    { k: "finish", lbl: "Surface finish",  val: () => draft.finish, when: () => ASK.finish(sectionOf()) },
+    { k: "colour", lbl: "Colour",          val: () => draft.colour, when: () => ASK.colour(sectionOf()) },
+    { k: "notes",  lbl: "Quantity & notes", val: () => draft.qty ? `${draft.qty} units` : null },
+  ];
+  const live = () => STEPS.filter((s) => !s.when || s.when());
+  const cur = () => live()[Math.min(step, live().length) - 1];
+
+  /* A product page links here with ?add=<slug>. Don't just drop it in the
+     basket — open the same questions with the product already answered. */
+  const params = new URLSearchParams(location.search);
+  const add = params.get("add");
+  if (add && bySlug.has(add)) {
+    const p = bySlug.get(add)!;
+    draft.top = TRAY_SECTIONS.includes(p.section) ? "trays" : p.section;
+    draft.type = TRAY_SECTIONS.includes(p.section) ? p.section : null;
+    draft.slug = p.slug;
+    const sku = params.get("sku");
+    if (sku) { const v = p.variants.find((x) => x.sku === sku); if (v) draft.size = [v.group, v.label, v.dims].filter(Boolean).join(" · "); }
+    step = live().findIndex((s) => s.k === "size") + 1;       // straight to the size question
+    history.replaceState({}, "", location.pathname);
+  }
+
+  const $ = (s: string) => document.querySelector(s) as HTMLElement;
+  const esc = (s: string) => s.replace(/"/g, "&quot;");
+  const optBtn = (o: { t: string; d?: string }, on: boolean, attr: string) =>
+    `<button class="q-opt${on ? " is-on" : ""}" ${attr}><b>${o.t}</b>${o.d ? `<span>${o.d}</span>` : ""}</button>`;
+  const prodCard = (p: P) => `<button class="q-card" data-slug="${p.slug}">
+      <i>${p.image ? `<img src="${p.image}" alt="" loading="lazy">` : ""}</i>
+      <u><b>${p.name}</b><span>${p.n} size${p.n === 1 ? "" : "s"}</span></u></button>`;
+
+  function rail() {
+    const L = live();
+    $(".q-rail").innerHTML = L.map((s, i) => {
+      const v = s.val();
+      const cls = i + 1 === step ? "is-on" : v ? "is-done" : "";
+      return `<div class="q-step ${cls}" data-go="${i + 1}"><b>${i + 1} · ${s.lbl}</b><span>${v || "—"}</span></div>`;
+    }).join("");
+    $(".q-rail").querySelectorAll<HTMLElement>(".q-step.is-done").forEach((el) =>
+      el.onclick = () => { step = Number(el.dataset.go); render(); });
+  }
+
+  function stage() {
+    const k = cur().k, st = $("[data-stage]");
+    const back = step > 1 ? `<button class="q-btn q-btn--ghost" data-back>Back</button>` : "";
+    const skip = `<button class="q-btn q-btn--ghost" data-skip>Continue without choosing</button>`;
+
+    if (k === "top") st.innerHTML = `<h2 class="q-h1">What are you looking for?</h2>
+      <p class="q-sub">The questions after this adapt to what you choose.</p>
+      <div class="q-opts q-opts--2">${TOP.map((o) => optBtn(o, draft.top === o.id, `data-top="${esc(o.id)}"`)).join("")}</div>`;
+
+    else if (k === "type") st.innerHTML = `<h2 class="q-h1">Which type of tray?</h2>
+      <p class="q-sub">Aluminium is made to order — it isn't in the printed catalogue.</p>
+      <div class="q-opts">${TRAY_TYPES.map((o) => optBtn(o, draft.type === o.id, `data-type="${o.id}"`)).join("")}</div>
+      ${draft.type === "__alu" ? `<div class="q-custom"><h3>Anodised?</h3>
+        <div class="q-opts q-opts--2">${[{ t: "Anodised" }, { t: "Not anodised" }].map((o) => optBtn(o, draft.anodised === o.t, `data-ano="${o.t}"`)).join("")}</div></div>` : ""}
+      <div class="q-nav">${back}${draft.type === "__alu" ? `<button class="q-btn" data-next>Continue</button>` : ""}</div>`;
+
+    else if (k === "prod") {
+      if (draft.type === "__alu") st.innerHTML = `<h2 class="q-h1">Aluminium tray</h2>
+        <p class="q-sub">Nothing to pick from yet — give us the size you need next and we'll quote it made to order.</p>
+        <div class="q-nav">${back}<button class="q-btn" data-next>Continue</button></div>`;
+      else {
+        const list = items.filter((p) => p.section === sectionOf());
+        st.innerHTML = `<h2 class="q-h1">Which one?</h2><p class="q-sub">${list.length} products in ${sectionOf()}.</p>
+          <div class="q-cards">${list.map(prodCard).join("")}</div><div class="q-nav">${back}</div>`;
+      }
+    }
+
+    else if (k === "size") {
+      const p = draft.slug ? bySlug.get(draft.slug)! : null;
+      const vs = p ? p.variants : [];
+      const hasDims = vs.some((v) => v.dims), hasPix = vs.some((v) => v.img);
+      const hasLabel = vs.some((v) => v.label || v.group);
+      const show = vs.filter((v) => v.dims || v.label || v.group || v.img);
+      const text = (v: V) => [v.group, v.label, v.dims].filter(Boolean).join(" · ");
+      const head = hasDims ? "What size?" : (hasLabel || hasPix) ? "Which one?" : "What size?";
+      const sub = hasDims ? "Pick one of ours, or give us your own measurements."
+        : hasPix ? "Pick the one you mean — or give us your own measurements below."
+        : hasLabel ? "These are the versions we make. Or give us your own measurements."
+        : "We don't list fixed sizes for this one — tell us what you need.";
+      let chips = "";
+      if (hasPix) chips = `<div class="q-cards">${show.map((v) => {
+          const t = text(v) || v.sku;
+          return `<button class="q-card${draft.size === t ? " is-on" : ""}" data-size="${esc(t)}">
+            <i>${v.img ? `<img src="${v.img}" alt="" loading="lazy">` : ""}</i><u><b>${t}</b></u></button>`;
+        }).join("")}</div>`;
+      else if (show.length) chips = `<div class="q-sizes">${show.map((v) =>
+          `<button class="q-size${draft.size === text(v) ? " is-on" : ""}" data-size="${esc(text(v))}">${text(v)}</button>`).join("")}</div>`;
+      st.innerHTML = `<h2 class="q-h1">${head}</h2><p class="q-sub">${sub}</p>${chips}
+        <div class="q-custom"><h3>${show.length ? "Or a custom size" : "Custom size"}</h3><div class="q-dims">
+          <label class="q-f"><span>Length mm</span><input data-d="l" value="${draft.custom.l}" inputmode="numeric"></label>
+          <label class="q-f"><span>Width mm</span><input data-d="w" value="${draft.custom.w}" inputmode="numeric"></label>
+          <label class="q-f"><span>Height mm</span><input data-d="h" value="${draft.custom.h}" inputmode="numeric"></label>
+        </div></div>
+        <div class="q-nav">${back}${draft.size ? `<button class="q-btn" data-next>Continue</button>` : skip}</div>`;
+    }
+
+    else if (k === "lid") st.innerHTML = `<h2 class="q-h1">With a lid?</h2>
+      <div class="q-opts">${[{ t: "With lid" }, { t: "Without lid" }, { t: "Lid only" }].map((o) => optBtn(o, draft.lid === o.t, `data-lid="${o.t}"`)).join("")}</div>
+      <div class="q-nav">${back}${draft.lid ? "" : skip}</div>`;
+
+    else if (k === "finish") st.innerHTML = `<h2 class="q-h1">Surface finish</h2>
+      <div class="q-opts">${FINISH.map((o) => optBtn(o, draft.finish === o.t, `data-fin="${o.t}"`)).join("")}</div>
+      <div class="q-nav">${back}${draft.finish ? "" : skip}</div>`;
+
+    else if (k === "colour") st.innerHTML = `<h2 class="q-h1">Colour or coating</h2>
+      <div class="q-opts">${COLOUR.map((o) => optBtn(o, draft.colour === o.t, `data-col="${o.t}"`)).join("")}</div>
+      <div class="q-nav">${back}${draft.colour ? "" : skip}</div>`;
+
+    else st.innerHTML = `<h2 class="q-h1">Quantity, notes and drawings</h2>
+      <p class="q-sub">Anything specific — marking, insert layout, a delivery date, a drawing to match.</p>
+      <div class="q-two" style="grid-template-columns:150px minmax(0,1fr);margin-top:18px">
+        <label class="q-f"><span>Quantity</span><input data-qty inputmode="numeric" placeholder="e.g. 12" value="${esc(draft.qty)}"></label>
+        <label class="q-f"><span>Instructions</span><textarea data-note rows="3" placeholder="Engraving, insert layout, lid type, delivery window…">${draft.note}</textarea></label>
+      </div>
+      <label class="q-f" style="margin-top:16px"><span>Design reference</span></label>
+      <div class="q-drop" data-drop><b>Attach a drawing or photo</b><span>Click to choose images</span>
+        <input type="file" data-file accept="image/*" multiple hidden></div>
+      <div class="q-shots" data-shots></div>
+      <p class="q-pending" data-pending hidden></p>
+      <div class="q-nav">${back}<button class="q-btn" data-commit>Add to my request</button></div>`;
+
+    wire();
+  }
+
+  function wire() {
+    const on = (sel: string, fn: (el: HTMLElement) => void) =>
+      document.querySelectorAll<HTMLElement>(sel).forEach((e) => e.onclick = () => fn(e));
+    on("[data-top]", (e) => { draft.top = e.dataset.top!; draft.type = null; draft.slug = null; step = 2; render(); });
+    on("[data-type]", (e) => { draft.type = e.dataset.type!; draft.slug = null; if (e.dataset.type !== "__alu") step++; render(); });
+    on("[data-ano]", (e) => { draft.anodised = e.dataset.ano!; render(); });
+    on("[data-slug]", (e) => { draft.slug = e.dataset.slug!; step++; render(); });
+    on("[data-size]", (e) => { draft.size = e.dataset.size!; draft.custom = { l: "", w: "", h: "" }; step++; render(); });
+    on("[data-lid]", (e) => { draft.lid = e.dataset.lid!; step++; render(); });
+    on("[data-fin]", (e) => { draft.finish = e.dataset.fin!; step++; render(); });
+    on("[data-col]", (e) => { draft.colour = e.dataset.col!; step++; render(); });
+    on("[data-next]", () => { step++; render(); });
+    on("[data-skip]", () => { step++; render(); });
+    on("[data-back]", () => { step = Math.max(1, step - 1); render(); });
+    on("[data-commit]", () => { request.push(JSON.parse(JSON.stringify(draft))); save(); draft = blank(); step = 1; render(); });
+
+    document.querySelectorAll<HTMLInputElement>("[data-d]").forEach((i) => i.oninput = () => {
+      draft.custom[i.dataset.d as "l" | "w" | "h"] = i.value;
+      const c = draft.custom;
+      draft.size = (c.l || c.w || c.h) ? [c.l, c.w, c.h].filter(Boolean).join(" × ") + " mm (custom)" : null;
+      rail();
+    });
+    const q = document.querySelector<HTMLInputElement>("[data-qty]");
+    if (q) q.oninput = () => { draft.qty = q.value; rail(); };
+    const n = document.querySelector<HTMLTextAreaElement>("[data-note]");
+    if (n) n.oninput = () => { draft.note = n.value; };
+
+    const drop = document.querySelector<HTMLElement>("[data-drop]");
+    const file = document.querySelector<HTMLInputElement>("[data-file]");
+    if (drop && file) {
+      drop.onclick = () => file.click();
+      file.onchange = () => [...(file.files || [])].forEach((f) => {
+        const r = new FileReader();
+        r.onload = () => { draft.shots.push({ name: f.name, src: String(r.result) }); shots(); };
+        r.readAsDataURL(f);
+      });
+      shots();
+    }
+  }
+
+  function shots() {
+    const box = document.querySelector<HTMLElement>("[data-shots]");
+    if (!box) return;
+    box.innerHTML = draft.shots.map((s, i) =>
+      `<figure class="q-shot" style="margin:0"><img src="${s.src}" alt=""><button data-x="${i}" aria-label="Remove">×</button></figure>`).join("");
+    box.querySelectorAll<HTMLElement>("[data-x]").forEach((b) =>
+      b.onclick = () => { draft.shots.splice(Number(b.dataset.x), 1); shots(); });
+    const p = document.querySelector<HTMLElement>("[data-pending]");
+    if (p) {
+      p.hidden = !draft.shots.length;
+      p.textContent = `${draft.shots.length} image${draft.shots.length === 1 ? "" : "s"} attached — they'll be sent with your request once the site is connected to your hosting.`;
+    }
+  }
+
+  function reqList() {
+    const box = $("[data-req]"), form = $("[data-details]");
+    form.hidden = request.length === 0;
+    if (!request.length) {
+      box.innerHTML = `<div class="q-req__h"><h2>Your request</h2><em>0 products</em></div>
+        <p class="q-empty">Nothing added yet — answer the questions above and press "Add to my request".</p>`;
+      return;
+    }
+    box.innerHTML = `<div class="q-req__h"><h2>Your request</h2><em>${request.length} product${request.length === 1 ? "" : "s"}</em></div>`
+      + request.map((r, i) => {
+        const p = r.slug ? bySlug.get(r.slug) : null;
+        const name = p ? p.name : (r.type === "__alu" ? `Aluminium tray${r.anodised ? ` — ${r.anodised}` : ""}` : "—");
+        const tags = [r.size && `Size: ${r.size}`, r.lid, r.finish && `${r.finish} finish`,
+          r.colour && r.colour !== "None" && r.colour,
+          r.shots.length && `${r.shots.length} drawing${r.shots.length === 1 ? "" : "s"}`].filter(Boolean) as string[];
+        return `<div class="q-item">
+          <i>${p && p.image ? `<img src="${p.image}" alt="" loading="lazy">` : ""}</i>
+          <div><div class="q-item__top"><h3>${name}</h3><button class="q-rm" data-del="${i}">Remove</button></div>
+            <div class="q-tags">${r.qty ? `<b class="is-qty">Qty ${r.qty}</b>` : ""}${tags.map((t) => `<b>${t}</b>`).join("")}</div>
+            ${r.note ? `<p>"${r.note}"</p>` : ""}</div></div>`;
+      }).join("");
+    box.querySelectorAll<HTMLElement>("[data-del]").forEach((b) =>
+      b.onclick = () => { request.splice(Number(b.dataset.del), 1); save(); render(); });
+  }
+
+  function asText() {
+    return "Quote request\n\n" + request.map((r) => {
+      const p = r.slug ? bySlug.get(r.slug) : null;
+      const name = p ? p.name : `Aluminium tray${r.anodised ? ` — ${r.anodised}` : ""}`;
+      const bits = [r.size, r.lid, r.finish && `${r.finish} finish`, r.colour && r.colour !== "None" && r.colour,
+        r.qty && `qty ${r.qty}`].filter(Boolean).join(" · ");
+      return `• ${name}${bits ? ` — ${bits}` : ""}${r.note ? `\n  note: ${r.note}` : ""}`;
+    }).join("\n");
+  }
+
+  function render() { if (step > live().length) step = live().length; rail(); stage(); reqList(); }
+
+  document.querySelector<HTMLElement>("[data-copy]")!.onclick = () => {
+    navigator.clipboard.writeText(asText()).then(() => { $("[data-msg]").textContent = "Copied — paste it into an email."; });
+  };
+  /* ── Submit ───────────────────────────────────────────────────────────────
+     With FORM_ENDPOINT set in src/data/site.ts the form posts for real. With it
+     empty it says so plainly rather than pretending to have sent (audit B-01). */
+  const cfg = JSON.parse(document.getElementById("q-cfg")!.textContent || "{}") as
+    { endpoint?: string; email?: string };
+
+  const form = document.querySelector<HTMLFormElement>("[data-details]")!;
+  const startedField = form.querySelector<HTMLInputElement>("[data-started-field]")!;
+  startedField.value = String(Date.now());
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const msg = $("[data-msg]");
+
+    /* Two cheap spam checks before anything leaves the page (M-10). */
+    const hp = form.querySelector<HTMLInputElement>('input[name="company_website"]');
+    if (hp && hp.value.trim()) return;                       // bot filled the honeypot
+    if (Date.now() - Number(startedField.value || 0) < 2500) {
+      msg.textContent = "That was quick — give it a moment and press send again.";
+      return;
+    }
+
+    /* Carry the configured request itself, not just the contact fields. */
+    form.querySelector<HTMLInputElement>("[data-request-field]")!.value = asText();
+
+    if (!cfg.endpoint) {
+      msg.textContent = cfg.email
+        ? `Sending isn't switched on yet. Use “Copy the list instead” and email it to ${cfg.email}.`
+        : "Sending isn't switched on yet — use “Copy the list instead” and paste it into an email.";
+      return;
+    }
+
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const label = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+    msg.textContent = "";
+
+    try {
+      const res = await fetch(cfg.endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      startedField.value = String(Date.now());
+      msg.textContent = "Sent. We'll reply with a quotation and lead time — usually within one working day.";
+    } catch {
+      msg.textContent = cfg.email
+        ? `That didn't send. Please try again, or email us at ${cfg.email}.`
+        : "That didn't send. Please try again in a moment, or use “Copy the list instead”.";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = label;
+    }
+  });
+
+  render();
+</script>

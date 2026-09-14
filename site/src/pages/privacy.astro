@@ -1,0 +1,125 @@
+---
+/* Privacy notice. Required the moment the quote form collects anything or
+   analytics runs — audit 2026-09-14, Phase 5.
+
+   This is written from what the site ACTUALLY does today. Two things must be
+   revisited before it is accurate in production:
+     1. Company registration details — fill in CONTACT in src/data/site.ts.
+     2. Analytics — the ANALYTICS section below is written for GA4 via GTM with
+        consent mode. Until GTM is installed, the site sets no cookies at all,
+        which is what this page currently says. Update it the same day you add
+        the tag, not after.
+   Have a lawyer in your export market read this before you rely on it. */
+import Site from "../layouts/Site.astro";
+import Section from "../components/ds/Section.astro";
+import Eyebrow from "../components/ds/Eyebrow.astro";
+import { BRAND_FULL, CONTACT, TITLE_SUFFIX } from "../data/site.ts";
+
+const updated = "14 September 2026";
+const contactLine = CONTACT.email || "the address on our contact page";
+---
+
+<Site
+  title={`Privacy notice${TITLE_SUFFIX}`}
+  description="How CandelX Surgicals collects, uses and stores the personal information you send through the quote form, and how to ask for it to be deleted."
+>
+  <Section pad={80}>
+    <Eyebrow>Legal</Eyebrow>
+    <h1 class="cx-display-3" style="margin-top:16px">Privacy notice</h1>
+    <p class="lg-meta">Last updated {updated}</p>
+
+    <div class="lg">
+      <h2>Who we are</h2>
+      <p>
+        {BRAND_FULL} manufactures stainless steel sterilisation containers, instrument trays and
+        cassettes in {CONTACT.addressLocality}, Pakistan. This notice covers
+        candelxsurgicals.com and the enquiries sent through it.
+      </p>
+
+      <h2>What we collect</h2>
+      <p>We only collect what you type into the quote form:</p>
+      <ul>
+        <li><b>Your name</b> and, if you give it, your <b>organisation</b></li>
+        <li>Your <b>email address</b>, and your <b>phone or WhatsApp number</b> if you provide one</li>
+        <li>Your <b>country</b>, and any <b>quantity or notes</b> you add</li>
+        <li>The <b>list of products</b> you built in the form</li>
+      </ul>
+      <p>
+        We do not ask for payment details, identification documents or any special category of
+        personal data, and you should not send them through this form.
+      </p>
+
+      <h2>Why we use it</h2>
+      <p>
+        To answer your enquiry — to prepare a quotation, confirm specifications and arrange
+        shipping. In UK and EU terms, our lawful basis is your consent when you send the form,
+        and our legitimate interest in responding to a business enquiry. We do not sell your
+        details, and we do not share them with anyone outside the suppliers below.
+      </p>
+
+      <h2>Who else sees it</h2>
+      <p>
+        The people who host this site and carry our email see your message in the course of
+        delivering it. We use them only for that purpose, and they are bound to keep it
+        confidential. We do not use your enquiry for advertising.
+      </p>
+
+      <h2>How long we keep it</h2>
+      <p>
+        Enquiries are kept for as long as we are in contact about them and for up to
+        <b>24 months</b> afterwards, so we can pick up a repeat order without asking you for
+        everything again. After that they are deleted. Where an order results, the commercial
+        records are kept for as long as tax and export law requires.
+      </p>
+
+      <h2>Cookies and analytics</h2>
+      <p>
+        <b>This site currently sets no cookies and runs no analytics or tracking scripts.</b>
+        Nothing about your visit is recorded beyond the ordinary server logs kept by our host
+        for security and troubleshooting.
+      </p>
+      <p>
+        If we add analytics in future, we will ask for your consent first through a banner, and
+        nothing will be set until you accept. This page will be updated on the same day.
+      </p>
+
+      <h2>Fonts and other third parties</h2>
+      <p>
+        Our typefaces are loaded from Google Fonts, which means your browser contacts Google to
+        fetch them and Google receives your IP address in the process. We are moving these fonts
+        onto our own server to remove that.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        You can ask us to show you what we hold about you, correct it, delete it, or stop using
+        it. Write to {contactLine} and we will respond within 30 days. If you are in the UK or
+        EU and are not satisfied with our answer, you may complain to your national data
+        protection authority.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If this notice changes we will update the date at the top. Material changes will be
+        flagged on the page itself.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about this notice, or about anything we hold: {contactLine}. Our postal address
+        is on the <a href="/support">contact page</a>.
+      </p>
+    </div>
+  </Section>
+</Site>
+
+<style>
+  .lg-meta { margin-top: 12px; font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted); }
+  .lg { margin-top: var(--s-10); max-width: 68ch; }
+  .lg h2 { font-size: 18px; margin-top: var(--s-9); color: var(--text-strong); }
+  .lg h2:first-child { margin-top: 0; }
+  .lg p { margin-top: var(--s-3); color: var(--text-body); font-size: 15px; line-height: 1.68; }
+  .lg ul { margin: var(--s-3) 0 0; padding-left: 20px; color: var(--text-body); font-size: 15px; line-height: 1.68; }
+  .lg li { margin-top: 5px; }
+  .lg b { color: var(--text-strong); font-weight: var(--fw-semibold); }
+</style>

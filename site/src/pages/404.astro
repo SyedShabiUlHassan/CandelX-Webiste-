@@ -1,0 +1,60 @@
+---
+/* 404. Before the 2026-09-14 audit (H-04) a mistyped URL landed on the host's
+   own grey error page, unbranded and with no route back into the site. */
+import Site from "../layouts/Site.astro";
+import Section from "../components/ds/Section.astro";
+import Eyebrow from "../components/ds/Eyebrow.astro";
+import Button from "../components/ds/Button.astro";
+import { sections, families } from "../data/catalogue.ts";
+import { TITLE_SUFFIX } from "../data/site.ts";
+
+/* The three largest sections, as a way back in rather than a dead end. */
+const top = [...sections]
+  .map((s) => ({ name: s, n: families.filter((f) => f.section === s).length }))
+  .sort((a, b) => b.n - a.n)
+  .slice(0, 3);
+---
+
+<Site title={`Page not found${TITLE_SUFFIX}`} description="That page doesn't exist. Browse the CandelX catalogue of sterilisation containers, trays and cassettes instead." noindex>
+  <Section pad={96}>
+    <Eyebrow>Error 404</Eyebrow>
+    <h1 class="cx-display-2" style="margin-top:16px;max-width:16ch">That page isn't here</h1>
+    <p class="cx-body-lg nf-lede">
+      The link may be out of date, or the address mistyped. Everything we make is in
+      the catalogue — {families.length} product families across {sections.length} sections.
+    </p>
+
+    <div class="nf-actions">
+      <Button href="/catalogue">Browse the catalogue</Button>
+      <a class="nf-link" href="/quote">Request a quote</a>
+      <a class="nf-link" href="/support">Contact us</a>
+    </div>
+
+    <div class="nf-secs">
+      <h2 class="cx-h3">Or start with a section</h2>
+      <div class="nf-secs__list">
+        {top.map((s) => (
+          <a href={`/catalogue?section=${encodeURIComponent(s.name)}`}>
+            <span>{s.name}</span>
+            <span class="nf-secs__n">{s.n}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </Section>
+</Site>
+
+<style>
+  .nf-lede { margin-top: 18px; max-width: 52ch; color: var(--text-body); }
+  .nf-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-6);
+    margin-top: var(--s-8); }
+  .nf-link { font-size: 14.5px; display: inline-flex; align-items: center; min-height: 44px; }
+  .nf-secs { margin-top: var(--s-12); padding-top: var(--s-8); border-top: 1px solid var(--border-hairline);
+    max-width: 520px; }
+  .nf-secs__list { display: flex; flex-direction: column; margin-top: var(--s-5); }
+  .nf-secs__list a { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+    min-height: 48px; padding: 0 2px; border: none;
+    border-bottom: 1px solid var(--border-hairline); font-size: 14.5px; color: var(--text-strong); }
+  .nf-secs__list a:hover { color: var(--brand-teal); }
+  .nf-secs__n { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+</style>

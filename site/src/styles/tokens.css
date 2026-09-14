@@ -1,0 +1,176 @@
+/* ==========================================================================
+   Candelx Design System — tokens
+   Carried over verbatim from CandelxDesignSystem.md. No new values invented.
+   ========================================================================== */
+:root {
+  /* Brand core */
+  --brand-teal: #007ea7;
+  --brand-navy: #003249;
+  --white: #ffffff;
+
+  /* Teal ramp */
+  --teal-50: #f1f8fa;
+  --teal-100: #daecf2;
+  --teal-200: #cbe5ed;
+  --teal-300: #9bcfde;
+  --teal-400: #5dadc7;
+  --teal-500: #2c94b6;
+  --teal-600: #007ea7;
+  --teal-700: #006485;
+  --teal-800: #004b64;
+  --teal-900: #003249;
+
+  /* Navy ramp */
+  --navy-500: #0a4f6e;
+  --navy-600: #00415d;
+  --navy-700: #003249;
+  --navy-800: #002536;
+  --navy-900: #001923;
+
+  /* Neutrals */
+  --n-25: #fbfcfd;
+  --n-50: #f6f8f9;
+  --n-100: #eef1f3;
+  --n-200: #e2e7ea;
+  --n-300: #ccd4d9;
+  --n-400: #a3b0b8;
+  --n-450: #647580;
+  --n-500: #78878f;
+  --n-600: #55646c;
+  --n-700: #3a474e;
+  --n-800: #232d33;
+  --n-900: #121a1f;
+
+  /* Semantic status */
+  --status-ok: #1f7a5c;
+  --status-ok-surface: #eef6f2;
+  --status-warn: #8a6320;
+  --status-warn-surface: #faf4e8;
+  --status-alert: #9a3535;
+  --status-alert-surface: #faf0f0;
+  --status-info: #006485;
+  --status-info-surface: #f1f8fa;
+
+  /* Surface aliases */
+  --surface-page: var(--n-25);
+  --surface-card: var(--white);
+  --surface-sunken: var(--n-50);
+  --surface-subtle: var(--n-100);
+  --surface-accent: var(--teal-50);
+  --surface-inverse: var(--navy-700);
+  --surface-inverse-deep: var(--navy-900);
+
+  /* Text aliases */
+  --text-strong: var(--navy-700);
+  --text-body: var(--n-700);
+  --text-muted: var(--n-600);   /* AA 5.97:1 — see system.css */
+  --text-faint: var(--n-450);   /* AA 4.65:1 — see system.css */
+  --text-invert: var(--white);
+  --text-accent: var(--brand-teal);
+  --text-link: var(--teal-700);
+  --text-link-hover: var(--navy-700);
+
+  /* Border aliases */
+  --border-hairline: var(--n-200);
+  --border-default: var(--n-300);
+  --border-strong: var(--n-400);
+  --border-accent: var(--brand-teal);
+  /* Line around product photography. Alias only — teal-200 is an existing ramp value. */
+  --border-photo: var(--teal-200);
+  --border-inverse: rgba(255, 255, 255, .16);
+
+  /* Action aliases */
+  --action-primary: var(--brand-teal);
+  --action-primary-hover: var(--teal-700);
+  --action-primary-press: var(--teal-800);
+  --action-secondary: var(--navy-700);
+  --action-secondary-hover: var(--navy-800);
+  --focus-ring: rgba(0, 126, 167, .38);
+
+  /* Elevation */
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgba(0, 50, 73, .06), 0 0 0 1px rgba(0, 50, 73, .05);
+  --shadow-2: 0 2px 6px rgba(0, 50, 73, .07), 0 0 0 1px rgba(0, 50, 73, .04);
+  --shadow-3: 0 6px 18px rgba(0, 50, 73, .09), 0 1px 2px rgba(0, 50, 73, .05);
+  --shadow-4: 0 16px 40px rgba(0, 50, 73, .12), 0 2px 6px rgba(0, 50, 73, .05);
+  --shadow-inset: inset 0 1px 0 rgba(0, 50, 73, .05);
+  --shadow-focus: 0 0 0 3px var(--focus-ring);
+
+  /* Borders & rules */
+  --bw-hair: 1px;
+  --bw-thick: 2px;
+  --rule-accent-width: 3px;
+
+  /* Layout widths */
+  --container-max: 1200px;
+  --container-narrow: 720px;
+  --gutter: 32px;
+  --field-h: 44px;
+  --field-h-sm: 36px;
+  --field-h-lg: 52px;
+
+  /* Corner radii */
+  --r-0: 0px;
+  --r-1: 2px;
+  --r-2: 3px;
+  --r-3: 4px;
+  --r-4: 6px;
+  --r-pill: 999px;
+  --radius-card: var(--r-2);
+  --radius-control: var(--r-2);
+  --radius-tag: var(--r-1);
+
+  /* Section rhythm */
+  --space-section: 96px;
+  --space-section-lg: 128px;
+  --space-block: 32px;
+
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* Type families */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Font weight tokens */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 800;
+
+  /* Letter spacing tokens */
+  --ls-tight: -.02em;
+  --ls-normal: 0;
+  --ls-wide: .06em;
+  --ls-label: .18em;
+
+  /* Display scale */
+  --t-display-1-size: 64px; --t-display-1-lh: 1.02; --t-display-1-ls: -.028em;
+  --t-display-2-size: 48px; --t-display-2-lh: 1.06; --t-display-2-ls: -.024em;
+  --t-display-3-size: 36px; --t-display-3-lh: 1.12; --t-display-3-ls: -.02em;
+  --t-h1-size: 28px; --t-h1-lh: 1.2; --t-h1-ls: -.016em;
+  --t-h2-size: 22px; --t-h2-lh: 1.28; --t-h2-ls: -.012em;
+  --t-h3-size: 18px; --t-h3-lh: 1.36; --t-h3-ls: -.008em;
+
+  /* Body scale */
+  --t-body-lg-size: 18px; --t-body-lg-lh: 1.62;
+  --t-body-size: 15px; --t-body-lh: 1.65;
+  --t-body-sm-size: 13px; --t-body-sm-lh: 1.55;
+  --t-label-size: 11px; --t-label-lh: 1.2; --t-label-ls: .18em;
+  --t-label-lg-size: 13px; --t-label-lg-lh: 1.2; --t-label-lg-ls: .14em;
+  --t-mono-size: 13px; --t-mono-lh: 1.5; --t-mono-ls: .01em;
+}

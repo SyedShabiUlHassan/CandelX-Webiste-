@@ -1,0 +1,6 @@
+---
+const { rows = [] } = Astro.props;
+---
+<dl class="cx-spec">
+  {rows.map((r) => (<><dt>{r.label}</dt><dd class={r.plain ? "plain" : undefined}>{r.value}</dd></>))}
+</dl>

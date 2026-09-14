@@ -1,0 +1,5 @@
+---
+const { label = "Photography", height = 220, ratio, class: cls = "" } = Astro.props;
+const style = ratio ? `aspect-ratio:${ratio}` : `height:${height}px`;
+---
+<div class:list={["cx-photo", cls]} style={style}><span>{label}</span></div>

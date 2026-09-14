@@ -1,0 +1,149 @@
+/* ==========================================================================
+   CandelX — global base styles
+   Consumes tokens.css (the design-system source of truth). Adds only a reset
+   and base element styling mapped from the design system's type scale.
+   ========================================================================== */
+
+@import "./tokens.css";
+
+/* ---- Reset ---------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--t-body-size);
+  line-height: var(--t-body-lh);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+svg,
+video,
+canvas { display: block; max-width: 100%; }
+
+input,
+button,
+textarea,
+select { font: inherit; color: inherit; }
+
+/* ---- Headings / display ------------------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  color: var(--text-strong);
+  letter-spacing: var(--ls-tight);
+  line-height: 1.15;
+}
+
+.display-1 { font-size: var(--t-display-1-size); line-height: var(--t-display-1-lh); letter-spacing: var(--t-display-1-ls); }
+.display-2 { font-size: var(--t-display-2-size); line-height: var(--t-display-2-lh); letter-spacing: var(--t-display-2-ls); }
+.display-3 { font-size: var(--t-display-3-size); line-height: var(--t-display-3-lh); letter-spacing: var(--t-display-3-ls); }
+.t-h1 { font-size: var(--t-h1-size); line-height: var(--t-h1-lh); letter-spacing: var(--t-h1-ls); }
+.t-h2 { font-size: var(--t-h2-size); line-height: var(--t-h2-lh); letter-spacing: var(--t-h2-ls); }
+.t-h3 { font-size: var(--t-h3-size); line-height: var(--t-h3-lh); letter-spacing: var(--t-h3-ls); }
+
+/* ---- Text helpers --------------------------------------------------------- */
+.t-body-lg { font-size: var(--t-body-lg-size); line-height: var(--t-body-lg-lh); }
+.t-body    { font-size: var(--t-body-size);    line-height: var(--t-body-lh); }
+.t-body-sm { font-size: var(--t-body-sm-size); line-height: var(--t-body-sm-lh); }
+.t-label {
+  font-size: var(--t-label-size);
+  line-height: var(--t-label-lh);
+  letter-spacing: var(--t-label-ls);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+}
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-size);
+  line-height: var(--t-mono-lh);
+  letter-spacing: var(--t-mono-ls);
+}
+
+p { max-width: var(--container-narrow); }
+
+a {
+  color: var(--text-link);
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease-standard);
+}
+a:hover { color: var(--text-link-hover); }
+
+/* ---- Focus ------------------------------------------------------------------- */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--r-2);
+}
+
+/* ---- Layout primitive --------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- Buttons (baseline — final button design comes with the component pass) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  height: var(--field-h);
+  padding-inline: var(--s-6);
+  border: var(--bw-hair) solid transparent;
+  border-radius: var(--radius-control);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--t-body-sm-size);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-1) var(--ease-standard),
+    color var(--dur-1) var(--ease-standard),
+    border-color var(--dur-1) var(--ease-standard),
+    box-shadow var(--dur-2) var(--ease-standard);
+}
+.btn--primary {
+  background: var(--action-primary);
+  color: var(--text-invert);
+}
+.btn--primary:hover { background: var(--action-primary-hover); }
+.btn--primary:active { background: var(--action-primary-press); }
+.btn--secondary {
+  background: transparent;
+  color: var(--action-secondary);
+  border-color: var(--border-strong);
+}
+.btn--secondary:hover {
+  border-color: var(--action-secondary);
+  background: var(--surface-subtle);
+}
+
+/* ---- Reduced motion -------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

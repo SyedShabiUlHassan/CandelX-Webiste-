@@ -1,0 +1,496 @@
+/* ==========================================================================
+   Candelx Surgicals — catalog page system
+   Built on tokens.css. Header/footer geometry, colors and copy are carried
+   over verbatim from "Master Head+Foot.html" (locked). Do not change shape,
+   color, proportion or position of the header/footer blocks below.
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--n-200);
+  font-family: var(--font-sans);
+  color: var(--text-body);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* -------------------------------------------------- page sheet (A4) ---- */
+.sheet {
+  width: 210mm;
+  height: 297mm;
+  margin: 24px auto;
+  background: var(--white);
+  box-shadow: var(--shadow-4);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: var(--white); }
+  .sheet { margin: 0; box-shadow: none; }
+  /* 2026-09-07: internal build/provenance note — kept in the files & on-screen,
+     hidden from the printed PDF at the owner's request. */
+  .cx-methodology { display: none !important; }
+}
+
+/* -------------------------------------------------- locked header ------ */
+.cx-header {
+  height: 81px;
+  flex: none;
+  position: relative;
+  background: var(--white);
+  overflow: hidden;
+}
+.cx-header img.banner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.cx-header .logo-wrap {
+  position: absolute;
+  left: 44px;
+  top: 34px;                       /* 2026-09-07: logo enlarged + dropped clear of the banner strip (was 38px) */
+}
+.cx-header .logo-wrap img {
+  height: 56px;                    /* 2026-09-07: was 43px. bigger, with a clear gap under the banner strip */
+  width: auto;                     /* was 160px (forced) — removed the ~38% horizontal stretch */
+  display: block;
+}
+
+/* -------------------------------------------------- content well ------- */
+.cx-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 48px 12px;
+}
+
+/* -------------------------------------------------- locked footer ------ */
+.cx-tribar { height: 5px; flex: none; display: flex; }
+.cx-tribar span:nth-child(1) { flex: 0 0 30%; background: var(--teal-300); }
+.cx-tribar span:nth-child(2) { flex: 0 0 24%; background: var(--teal-600); }
+.cx-tribar span:nth-child(3) { flex: 1; background: var(--navy-900); }
+
+.cx-footer {
+  height: 38px;
+  flex: none;
+  background: var(--navy-700);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .9);
+}
+.cx-footer .page-chip {
+  font-family: var(--font-mono);
+  letter-spacing: .04em;
+  background: var(--teal-600);
+  color: var(--white);
+  padding: 3px 9px;
+}
+
+/* ==========================================================================
+   Shared page-content components (all three archetypes)
+   ========================================================================== */
+
+/* Eyebrow / title block -------------------------------------------------- */
+.cx-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--t-label-size);
+  line-height: var(--t-label-lh);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-accent);
+  font-weight: var(--fw-semibold);
+  margin: 0;
+}
+.cx-title {
+  font-family: var(--font-display);
+  font-size: var(--t-h1-size);
+  line-height: var(--t-h1-lh);
+  letter-spacing: var(--t-h1-ls);
+  color: var(--text-strong);
+  font-weight: var(--fw-bold);
+  margin: 2px 0 0;
+}
+.cx-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--t-body-size);
+  line-height: var(--t-body-lh);
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+/* Spec strip -------------------------------------------------------------- */
+.cx-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-6);
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-accent);
+  border: var(--bw-hair) solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-size);
+  line-height: var(--t-mono-lh);
+  letter-spacing: var(--t-mono-ls);
+  color: var(--text-strong);
+}
+.cx-specs .spec-item b {
+  font-weight: var(--fw-semibold);
+  color: var(--text-accent);
+  font-style: normal;
+}
+
+/* Feature tag list (verbatim heading labels — text only, no fabricated
+   image pairing; see build notes) ------------------------------------------ */
+.cx-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.cx-tag {
+  font-family: var(--font-sans);
+  font-size: var(--t-label-size);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  font-weight: var(--fw-medium);
+  color: var(--text-strong);
+  background: var(--surface-subtle);
+  border: var(--bw-hair) solid var(--border-default);
+  border-radius: var(--radius-tag);
+  padding: var(--s-1) var(--s-3);
+}
+
+/* Photo gallery ------------------------------------------------------------
+   HARD RULE (2026-09-05): images render at their true native aspect ratio,
+   full size, always. No fixed-aspect-ratio crop box, no forced grid cell that
+   could squeeze or crop a thin/elongated photo. object-fit is intentionally
+   NOT used here — an object-fit box still implies a crop/letterbox frame,
+   which is exactly what a rigid photo shouldn't get. If a page's images and
+   table together don't fit the printed sheet, the table gets more compact
+   (see .cx-table below) — the image never does. */
+.cx-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-3);
+}
+.cx-gallery figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+}
+.cx-gallery figure img {
+  display: block;
+  height: var(--gallery-row-h, 130px);
+  width: auto;
+  max-width: 100%;
+}
+.cx-gallery figure.hero img { height: var(--gallery-hero-h, 190px); }
+.cx-gallery figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--t-label-size);
+  letter-spacing: var(--t-label-ls);
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 160px;
+}
+.cx-gallery figcaption b { color: var(--text-strong); font-weight: var(--fw-semibold); }
+
+/* Missing-image placeholder -------------------------------------------- */
+.cx-missing-img {
+  border: var(--bw-thick) dashed var(--border-strong);
+  border-radius: var(--radius-card);
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-size);
+  letter-spacing: var(--t-mono-ls);
+  aspect-ratio: 4 / 3;
+}
+
+/* Data tables --------------------------------------------------------------- */
+.cx-table-group { display: flex; flex-direction: column; gap: var(--s-2); }
+.cx-table-group h3 {
+  font-family: var(--font-display);
+  font-size: var(--t-h3-size);
+  line-height: var(--t-h3-lh);
+  letter-spacing: var(--t-h3-ls);
+  color: var(--text-strong);
+  font-weight: var(--fw-semibold);
+  margin: 0;
+}
+/* Compact by default (2026-09-05 rule: tables/text give up space before any
+   image ever shrinks) — tight row height and small type, data still fully
+   legible. --table-density:"cozy" on a wrapper loosens it back up for a page
+   with few enough rows that room allows it. */
+table.cx-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  line-height: 1.1;
+  letter-spacing: var(--t-mono-ls);
+}
+table.cx-table thead th {
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 8px;
+  letter-spacing: var(--t-label-ls);
+  text-transform: uppercase;
+  color: var(--text-invert);
+  background: var(--navy-700);
+  font-weight: var(--fw-semibold);
+  padding: 2px var(--s-2);
+}
+table.cx-table tbody td {
+  padding: 0.5px 6px;
+  border-bottom: var(--bw-hair) solid var(--border-hairline);
+  color: var(--text-body);
+}
+[style*="--table-density:cozy"] table.cx-table,
+.cx-table-density-cozy table.cx-table { font-size: var(--t-mono-size); line-height: var(--t-mono-lh); }
+.cx-table-density-cozy table.cx-table thead th { font-size: var(--t-label-size); padding: var(--s-2) var(--s-3); }
+.cx-table-density-cozy table.cx-table tbody td { padding: var(--s-2) var(--s-3); }
+table.cx-table tbody tr:nth-child(even) { background: var(--surface-sunken); }
+table.cx-table tbody tr:hover { background: var(--surface-accent); }
+table.cx-table td.art-no { color: var(--text-strong); font-weight: var(--fw-medium); }
+table.cx-table td.dash { color: var(--text-faint); text-align: center; }
+table.cx-table td.num { text-align: right; }
+
+.cx-needs-review {
+  display: inline-block;
+  margin-left: var(--s-1);
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--status-warn);
+  vertical-align: middle;
+}
+
+.cx-tables-row {
+  display: grid;
+  grid-template-columns: repeat(var(--group-cols, 2), 1fr);
+  gap: var(--s-6);
+  align-items: start;
+}
+
+/* Notes / footnotes ----------------------------------------------------- */
+.cx-notes {
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm-size);
+  line-height: var(--t-body-sm-lh);
+  color: var(--text-muted);
+  font-style: italic;
+}
+.cx-methodology {
+  font-family: var(--font-sans);
+  font-size: 8px;                 /* consolidated 2026-09-06: every page-NN sat at 8–8.5px / 1.25–1.3 */
+  line-height: 1.25;
+  color: var(--text-faint);
+  border-top: var(--bw-hair) dashed var(--border-hairline);
+  padding-top: var(--s-1);
+}
+
+/* ==========================================================================
+   Multi-Product Catalog Grid (Template B)
+   ========================================================================== */
+.cx-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(var(--card-cols, 2), 1fr);
+  gap: var(--s-5);
+}
+.cx-card {
+  border: var(--bw-hair) solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-1);
+  padding: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  background: var(--surface-card);
+}
+.cx-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--t-h3-size);
+  line-height: var(--t-h3-lh);
+  color: var(--text-strong);
+  font-weight: var(--fw-semibold);
+  margin: 0;
+  border-top: var(--rule-accent-width) solid var(--brand-teal);
+  padding-top: var(--s-2);
+}
+.cx-card .cx-card-meta {
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm-size);
+  color: var(--text-muted);
+  margin: -8px 0 0;
+}
+
+/* ==========================================================================
+   Technical Diagram Page (Template C) — no product photography exists for
+   these pages (vector line-art only, per EXTRACTION-RULES.md); each product
+   gets a labeled placeholder in place of a photo, never a fabricated image.
+   ========================================================================== */
+.cx-diagram-card { display: flex; gap: var(--s-4); align-items: flex-start; }
+.cx-diagram-card .cx-missing-img { flex: 0 0 140px; width: 140px; height: 105px; aspect-ratio: auto; }
+.cx-diagram-card .cx-diagram-body { flex: 1; display: flex; flex-direction: column; gap: var(--s-2); }
+
+.cx-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm-size);
+  color: var(--text-muted);
+}
+.cx-legend .cx-cc { display: inline-flex; align-items: center; gap: var(--s-1); }
+
+/* Vector line-art diagram group: strip render on top, CandelX data table
+   under it (2026-09-06 rebuild — replaces the rasterised SteriTrays table
+   that used to be baked into the diagram image). */
+.cx-diagram-group { display: flex; flex-direction: column; gap: var(--s-2); }
+.cx-diagram-group .cx-diagram-h {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-h3-size);
+  line-height: var(--t-h3-lh);
+  letter-spacing: var(--t-h3-ls);
+  color: var(--text-strong);
+  font-weight: var(--fw-semibold);
+}
+.cx-diagram-group .cx-diagram-art {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Line-art diagram + its data table laid side by side, so a tall reference
+   diagram plus a full CandelX table still fit one A4 sheet. The diagram is
+   reference; the table is authoritative. */
+.cx-split-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-5);
+}
+.cx-split-row .cx-diagram-art {
+  flex: 0 1 auto;
+  width: auto;
+  max-width: 58%;
+  max-height: var(--diagram-max-h, 320px);
+  height: auto;
+  display: block;
+}
+.cx-split-row > table.cx-table { flex: 1 1 auto; }
+.cx-swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: var(--r-1);
+  border: var(--bw-hair) solid var(--border-default);
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   Consolidated page-layout components (2026-09-06)
+   These were repeated verbatim across the per-page <style id="pNN-layout">
+   blocks (see PAGE-BUILD-GUIDE.md). New pages should use these classes
+   instead of re-declaring them; existing pages keep their local blocks,
+   which still win on equal specificity.
+   ========================================================================== */
+
+/* Section heading with the brand accent rule on top (was `.pNN-h`). */
+.cx-rule-h {
+  margin: 0 0 var(--s-2);
+  font-family: var(--font-display);
+  font-size: var(--t-h3-size);
+  line-height: var(--t-h3-lh);
+  letter-spacing: var(--t-h3-ls);
+  color: var(--text-strong);
+  font-weight: var(--fw-semibold);
+  border-top: var(--rule-accent-width) solid var(--brand-teal);
+  padding-top: var(--s-2);
+}
+/* Inline mono sub-label, e.g. `CXCC <span class="sub">— cassette series</span>`. */
+.cx-rule-h .sub {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-size);
+  color: var(--text-muted);
+  font-weight: var(--fw-regular);
+}
+
+/* Vertical-distribution wrapper: makes its children spread down to the footer.
+   Put it around the page's main stack of sections (was `.pNN-secs` / `.pNN-series`). */
+.cx-fill {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: var(--s-6);
+}
+
+/* Equal-height image frame: side-by-side content that follows lines up on one
+   baseline regardless of each photo's aspect. Height via --imgframe-h. */
+.cx-imgframe {
+  height: var(--imgframe-h, 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cx-imgframe img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+/* Bordered / sunken thumbnail row (was the per-page photo strips on 40/46/69…). */
+.cx-photo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-3);
+}
+.cx-photo-strip img {
+  display: block;
+  border: var(--bw-hair) solid var(--border-hairline);
+  border-radius: var(--r-2);
+  background: var(--surface-sunken);
+}
+
+/* Accent band, e.g. the "LIDs (optional)" strip under a two-column table page. */
+.cx-panel {
+  background: var(--surface-accent);
+  border: var(--bw-hair) solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--s-3) var(--s-5);
+}
+
+/* Opt-in numeric table: right-aligns every non-first header so `L / W / H`
+   sit over their (already right-aligned) `td.num` values. Add the class only
+   on tables whose 2nd+ columns are numeric — NOT on Note/Position/Application
+   columns. Column widths stay page-local (they vary by content). */
+table.cx-table.cx-num thead th:not(:first-child) { text-align: right; }

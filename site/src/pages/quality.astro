@@ -1,0 +1,104 @@
+---
+/* Quality — built to the design system's "Compliance" page archetype (Layout & Data Rules §1 + §3).
+   §3: certification marks appear ONLY on this page, never on individual product pages. Material/grade
+   specs (304/316L ASTM) are NOT compliance badges and stay in the product tables. See DESIGN-DECISIONS.md */
+import Site from "../layouts/Site.astro";
+import Section from "../components/ds/Section.astro";
+import Eyebrow from "../components/ds/Eyebrow.astro";
+import { TITLE_SUFFIX } from "../data/site.ts";
+
+/* The certification list lives in one place so this page and the footer can never disagree.
+   To attach a certificate document, or to add/remove a mark, edit src/data/certifications.ts. */
+import { certifications as certs } from "../data/certifications.ts";
+
+/* Rule §4: any value we do not hold renders as an em dash, never blank, never omitted. */
+const traceability: [string, string][] = [
+  ["Stainless grades", "304 / 316L (ASTM)"],
+  ["Sheet gauge", "0.8 – 1.2 mm"],
+  ["Mill certificate", "—"],
+  ["Batch marking", "—"],
+];
+
+const pending = certs.filter((c) => !c.document).length;
+---
+
+<Site
+  current="quality"
+  title={`Quality and certification${TITLE_SUFFIX}`}
+  description="CandelX certification and material traceability: ISO 13485, ISO 9001:2015, CE and cGMP, with 304 and 316L stainless to ASTM and 0.8–1.2 mm sheet gauge."
+>
+  <Section tone="sunken" pad={88}>
+    <Eyebrow tone="accent">Compliance</Eyebrow>
+    <h1 class="cx-display-2" style="margin-top:16px">Certification</h1>
+    <p class="cx-body-lg" style="margin-top:18px;max-width:56ch;color:var(--text-body)">
+      Every certification we hold, in one place. Certification marks appear on this page only — never
+      alongside individual products.
+    </p>
+
+    <div class="cert">
+      {certs.map((c) => {
+        const Tag = c.document ? "a" : "div";
+        return (
+          <Tag
+            class:list={["cert__c", c.document && "cert__c--link"]}
+            href={c.document ?? undefined}
+            target={c.document ? "_blank" : undefined}
+            rel={c.document ? "noopener" : undefined}
+          >
+            <span class="cert__m"><img src={c.mark} alt={`${c.name} mark`} width="120" height="120" loading="lazy" decoding="async" /></span>
+            <span class="cert__t">
+              <span class="cert__n">{c.name}</span>
+              <span class="cert__s">{c.scope}</span>
+            </span>
+            {c.document
+              ? <span class="cert__cta">View certificate</span>
+              : <span class="cert__pending">Certificate to follow</span>}
+          </Tag>
+        );
+      })}
+    </div>
+
+  </Section>
+
+  <Section tone="card" pad={88}>
+    <h2 class="cx-h2">Material traceability</h2>
+    <p class="cx-body-sm" style="margin-top:10px;max-width:60ch;color:var(--text-muted)">
+      Grade and sheet gauge are printed in the catalogue and confirmed on every order.
+      Mill certificates and batch marking are available on request.
+    </p>
+    <dl class="cx-spec" style="max-width:620px;margin-top:24px">
+      {traceability.map(([k, v]) => (<><dt>{k}</dt><dd>{v}</dd></>))}
+    </dl>
+  </Section>
+</Site>
+
+<style>
+  .cert { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px;
+    background: var(--border-hairline); border: 1px solid var(--border-hairline);
+    border-radius: var(--r-2); overflow: hidden; margin-top: var(--s-10); }
+  .cert__c { background: var(--surface-card); padding: var(--s-8) var(--s-6) var(--s-6);
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    text-decoration: none; border: none; }
+  .cert__m { height: 104px; display: flex; align-items: center; justify-content: center;
+    margin-bottom: var(--s-5); }
+  .cert__m img { max-height: 104px; max-width: 100%; width: auto; display: block; }
+  .cert__t { border-top: var(--bw-thick) solid var(--brand-teal); padding-top: var(--s-3); }
+  .cert__n { display: block; font-family: var(--font-sans); font-size: var(--t-body-sm-size);
+    font-weight: var(--fw-bold); letter-spacing: var(--ls-wide); color: var(--text-strong); }
+  .cert__s { display: block; margin-top: 5px; font-size: var(--t-body-sm-size);
+    line-height: var(--t-body-sm-lh); color: var(--text-muted); }
+  .cert__pending { margin-top: var(--s-4); font-family: var(--font-mono);
+    font-size: var(--t-label-size); letter-spacing: .06em; color: var(--text-faint); }
+  .cert__cta { margin-top: var(--s-4); font-family: var(--font-sans); font-size: var(--t-label-size);
+    font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide); text-transform: uppercase;
+    color: var(--brand-teal); }
+  /* Only the linked state is interactive — an unattached certificate must not look clickable. */
+  .cert__c--link { cursor: pointer; transition: var(--transition-control); }
+  .cert__c--link:hover { background: var(--surface-accent); }
+  .cert__c--link:hover .cert__cta { color: var(--teal-700); }
+  .cert__c--link:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+  @media (max-width: 820px) {
+    .cert__pending { font-size: 12px; }   /* was 11px — below the phone reading floor */
+  }
+</style>

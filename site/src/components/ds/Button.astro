@@ -1,0 +1,10 @@
+---
+const { variant = "primary", size = "md", href, iconLeft, iconRight, type = "button", class: cls = "", ...rest } = Astro.props;
+const c = ["cx-btn", `cx-btn--${variant}`, size !== "md" && `cx-btn--${size}`, cls].filter(Boolean);
+const Tag = href ? "a" : "button";
+---
+<Tag class:list={c} href={href} type={href ? undefined : type} {...rest}>
+  {iconLeft && <span class="cx-icon" set:html={iconLeft} />}
+  <slot />
+  {iconRight && <span class="cx-icon" set:html={iconRight} />}
+</Tag>

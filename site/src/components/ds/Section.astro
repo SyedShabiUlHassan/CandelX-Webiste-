@@ -1,0 +1,7 @@
+---
+const { tone = "page", pad = 96, class: cls = "" } = Astro.props;
+const t = tone === "inverse" ? "cx-section--inverse" : tone === "card" ? "cx-section--card" : tone === "sunken" ? "cx-section--sunken" : "";
+---
+<section class:list={["cx-section", t, cls]} style={`padding:${pad}px 0`}>
+  <div class="cx-container"><slot /></div>
+</section>

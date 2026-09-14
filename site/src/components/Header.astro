@@ -1,0 +1,116 @@
+---
+/* Site header.
+
+   Audit 2026-09-14:
+   - H-11: `current` used to be passed by hand from seven different files and was
+     wrong on 80 pages (every product page and /quote marked "Products" as the
+     page you were on). It is now derived from the URL, so it cannot drift.
+   - H-10: Quality, Capabilities and Contact were reachable only from the footer.
+     For a medical-device buyer, Quality is the page that converts.
+   - H-12: "Catalogue" used to point at /catalogue, the same place as "Products".
+     It appears only once the PDF actually exists.
+   - Adding those links overflowed the bar on a phone, so the nav collapses into
+     a menu below 820px — the hamburger the README had listed as outstanding. */
+import { CATALOGUE_PDF } from "../data/site.ts";
+
+const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+type Link = { label: string; href: string; /** also current inside these sections */ match?: string[] };
+
+const links: Link[] = [
+  { label: "Products", href: "/catalogue", match: ["/catalogue"] },
+  { label: "Quality", href: "/quality" },
+  { label: "Capabilities", href: "/capabilities" },
+  { label: "Contact", href: "/support" },
+  /* Hidden until CATALOGUE_PDF is set in src/data/site.ts — a nav link that goes
+     nowhere is worse than no link at all. */
+  ...(CATALOGUE_PDF ? [{ label: "Catalogue", href: CATALOGUE_PDF } as Link] : []),
+];
+
+/** "page" for an exact match, "true" for a page inside that section. */
+function currentState(l: Link): "page" | "true" | undefined {
+  if (path === l.href) return "page";
+  if (l.match?.some((m) => path.startsWith(m + "/"))) return "true";
+  return undefined;
+}
+
+const isPdf = (href: string) => href.endsWith(".pdf");
+---
+<header class="cx-header" data-header>
+  <div class="cx-container cx-header__inner">
+    <a href="/" class="cx-header__logo" aria-label="CandelX Surgicals — home">
+      <img src="/brand/logo-candelx.svg" alt="CandelX Surgicals" width="170" height="42" fetchpriority="high" decoding="async" />
+    </a>
+
+    <button class="cx-burger" type="button" data-burger
+      aria-label="Menu" aria-expanded="false" aria-controls="cx-nav">
+      <span class="cx-burger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+
+    <nav id="cx-nav" class="cx-nav" aria-label="Main">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          aria-current={currentState(l)}
+          {...(isPdf(l.href) ? { download: true } : {})}
+        >{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="cx-header__right">
+      <a href="/quote" class="cx-qbtn" aria-label="Request a quote"
+         aria-current={path === "/quote" ? "page" : undefined}>
+        <span class="cx-qbtn__circle" aria-hidden="true"></span>
+        <span class="cx-qbtn__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="cx-qbtn__label">Request a quote</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  /* Mobile menu. Progressive: with no JS the button is hidden by CSS
+     (`.cx-burger { display: none }` until `[data-js]` is set) and the nav stays
+     in normal flow, so every link is still reachable. */
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const burger = document.querySelector<HTMLButtonElement>("[data-burger]");
+  const nav = document.getElementById("cx-nav");
+
+  if (header && burger && nav) {
+    document.documentElement.setAttribute("data-js", "");
+
+    const setOpen = (open: boolean) => {
+      header.toggleAttribute("data-open", open);
+      burger.setAttribute("aria-expanded", String(open));
+    };
+
+    burger.addEventListener("click", () => {
+      setOpen(burger.getAttribute("aria-expanded") !== "true");
+    });
+
+    /* Escape closes and returns focus to the button, so keyboard users are not
+       stranded inside the panel. */
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && burger.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        burger.focus();
+      }
+    });
+
+    /* A tap outside the panel closes it. */
+    document.addEventListener("click", (e) => {
+      if (burger.getAttribute("aria-expanded") !== "true") return;
+      if (!header.contains(e.target as Node)) setOpen(false);
+    });
+
+    /* Following a link, or growing past the breakpoint, closes it. */
+    nav.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) setOpen(false);
+    });
+    matchMedia("(min-width: 821px)").addEventListener("change", (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

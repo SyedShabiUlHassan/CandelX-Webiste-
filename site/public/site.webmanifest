@@ -1,0 +1,13 @@
+{
+  "name": "CandelX Surgicals",
+  "short_name": "CandelX",
+  "description": "Stainless steel sterilisation containers, instrument trays and cassettes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfcfd",
+  "theme_color": "#003249",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "/brand/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}

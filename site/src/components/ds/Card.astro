@@ -1,0 +1,6 @@
+---
+const { href, padding, flat = false, interactive = false, class: cls = "", ...rest } = Astro.props;
+const c = ["cx-card", flat && "cx-card--flat", (interactive || href) && "cx-card--interactive", padding === 0 && "cx-card--p0", cls].filter(Boolean);
+const Tag = href ? "a" : "div";
+---
+<Tag class:list={c} href={href} style={padding !== undefined && padding !== 0 ? `padding:${padding}px` : undefined} {...rest}><slot /></Tag>

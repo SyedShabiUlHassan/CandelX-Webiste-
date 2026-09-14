@@ -1,0 +1,460 @@
+#!/usr/bin/env node
+// Rebuild site/src/data/catalogue.ts from catalogue/page-html/*.html.
+//
+// MODEL (2026-09-12, after Hassan's review): a product on the website is a
+// SUB-CATEGORY of the printed catalogue — i.e. one PDF page's title/subtitle
+// ("Light Pattern Cassettes — High quality, button lock & detachable hinges").
+// Grouping by article-number prefix was wrong: it split one product across
+// several cards and merged unrelated ones.
+//
+// The exception is a page that prints several products in a grid, each with its
+// own photo and table (hollow wares p76/p77, bur holders p69). Those are marked
+// `only:` + `blockScoped: true` and become one product per prefix.
+//
+// IMAGES, from the page markup:
+//   * a <figure> WITH a <figcaption> is a captioned detail shot ("Easy to lock")
+//     -> thumbnail strip, caption shown. A page with none gets NO thumbnail strip.
+//   * uncaptioned images are the main product shots -> first is the hero, a
+//     second one becomes the alternate view behind a toggle button.
+//
+// Size rows come from the pristine snapshot research/pre-restructure/catalogue.ts
+// and are assigned to a page via the article numbers printed in page-html.
+//
+// Run: node scripts/build-catalogue.mjs
+
+import fs from 'node:fs';
+import path from 'node:path';
+
+const ROOT = '/Users/Hassan/Documents/Website';
+const PAGEHTML = path.join(ROOT, 'catalogue/page-html');
+const SRCIMG = path.join(ROOT, 'images');
+const OUTIMG = path.join(ROOT, 'site/public/catalogue/img');
+const SIZESRC = path.join(ROOT, 'research/pre-restructure/catalogue.ts');
+const DATA = path.join(ROOT, 'site/src/data/catalogue.ts');
+
+const sections = [
+  'Wire Mesh Trays',
+  'Perforated Trays',
+  'Universal Trays',
+  'Cassette Trays',
+  'PRF & GRF System',
+  'Implantology / Bur Holders',
+  'IntraOral / Orthodontic Steel Mirrors',
+  'Hollow Wares',
+  'Trays Accessories / Silicon Holding System',
+];
+
+/* ─────────────── products, in display order ───────────────
+   pages       source PDF page(s) — also selects the size rows
+   only        restrict to these prefixes (pages that print several products)
+   blockScoped take the photo from the product's own heading block, not the page
+   variants    article-number columns in the size table
+   fromSlug    fallback when a page prints no article numbers (PRF pages 40-42)
+   figureGroups  a page whose captioned <figure>s are each a SEPARATE product
+                 (PRF surgical set, p42) — one block per figure, not thumbnails
+   ─────────────────────────────────────────────────────────── */
+const PRODUCTS = [
+  /* 1 ── Wire Mesh Trays ─────────────────────────────────────────────── */
+  { slug: 'wire-mesh-single-frame', section: 'Wire Mesh Trays', pages: [16],
+    name: 'Wire Mesh Trays — Single Frame',
+    variants: [{ code: 'CXMT', label: 'Tray' }, { code: 'CXML', label: 'Lid (optional)' }] },
+  { slug: 'wire-mesh-double-frame', section: 'Wire Mesh Trays', pages: [17],
+    name: 'Wire Mesh Trays — Double Frame Protection',
+    variants: [{ code: 'CXMT', label: 'Tray' }, { code: 'CXML', label: 'Lid (optional)' }] },
+  { slug: 'mesh-cassette-trays', section: 'Wire Mesh Trays', pages: [60],
+    name: 'Mesh Cassette Trays' },
+
+  /* 2 ── Perforated Trays ────────────────────────────────────────────── */
+  { slug: 'perforated-tray-square', section: 'Perforated Trays', pages: [8],
+    name: 'Perforated Trays — Square Pattern',
+    // page 8 prints the chamfer variant first; lead with the round-corner tray
+    hero: 'p08/p08-perforated-trays-punching-processed-01-466x294.png',
+    heroAlt: 'p08/p08-perforated-trays-punching-processed-02-495x272.png',
+    variants: [{ code: 'CXPS', label: 'Round corner' }, { code: 'CXPT', label: 'Chamfer corner' }] },
+  { slug: 'perforated-tray-round', section: 'Perforated Trays', pages: [9],
+    name: 'Perforated Trays — Round Pattern',
+    variants: [{ code: 'CXPR', label: 'Round corner' }, { code: 'CXPU', label: 'Chamfer corner' }] },
+
+  /* 3 ── Universal Trays ─────────────────────────────────────────────── */
+  // page 24 prints Steel and Aluminium as two blocks, each with its own photos
+  // and table -> groups, not article-number columns.
+  { slug: 'transportation-baskets', section: 'Universal Trays', pages: [24],
+    name: 'Transportation Baskets', groups: true },
+  { slug: 'universal-trays-silicon', section: 'Universal Trays', pages: [27], name: 'Universal Trays', groups: true },
+  { slug: 'universal-trays-boxes', section: 'Universal Trays', pages: [28], name: 'Universal Trays & Sterilization Boxes' },
+  { slug: 'dilator-set-boxes', section: 'Universal Trays', pages: [29], name: 'Universal Trays — Boxes for Dilator Sets' },
+  { slug: 'transport-trays-racks', section: 'Universal Trays', pages: [30], name: 'Universal / Transportation Trays & Racks' },
+  /* page 25 "Universal Trays — Aluminium" (CXUTM) removed from the website on
+     Hassan's instruction, 2026-09-12. Data is still in the snapshot if needed. */
+
+  /* 4 ── Cassette Trays ──────────────────────────────────────────────── */
+  { slug: 'light-pattern-cassettes', section: 'Cassette Trays', pages: [46, 47], name: 'Light Pattern Cassettes' },
+  { slug: 'instruments-plus-cassettes', section: 'Cassette Trays', pages: [48], name: 'Instruments Plus Cassette Trays', groups: true },
+  { slug: 'twin-cassette-trays', section: 'Cassette Trays', pages: [49], name: 'Twin Cassette Trays' },
+  { slug: 'bracket-lock-cassettes', section: 'Cassette Trays', pages: [50], name: 'Bracket-Lock Cassette Trays' },
+  { slug: 'four-lock-cassettes', section: 'Cassette Trays', pages: [51], name: 'Cassette Trays — Four Lock Types' },
+  { slug: 'round-bottom-cassettes', section: 'Cassette Trays', pages: [52], name: 'Round-Bottom Cassette Trays' },
+  { slug: 'square-pattern-cassettes', section: 'Cassette Trays', pages: [53], name: 'Square Pattern Cassette Trays' },
+  { slug: 'elongated-cassettes', section: 'Cassette Trays', pages: [54], name: 'Elongated Cassette Trays' },
+  { slug: 'elongated-single-lock', section: 'Cassette Trays', pages: [55], name: 'Elongated Single-Lock Cassette Trays' },
+  { slug: 'elongated-double-lock', section: 'Cassette Trays', pages: [56], name: 'Elongated Double-Lock Cassette Trays' },
+  { slug: 'elongated-round-click-lock', section: 'Cassette Trays', pages: [57], name: 'Elongated Round-Click-Lock Cassette Trays' },
+  { slug: 'unionjack-cassettes', section: 'Cassette Trays', pages: [58], name: 'UnionJack Cassette Trays' },
+  { slug: 'double-hinge-cassettes', section: 'Cassette Trays', pages: [59], name: 'Double-Hinge Cassette Trays' },
+  { slug: 'orthodontic-plier-cassettes', section: 'Cassette Trays', pages: [61, 62], name: 'Cassettes for Orthodontic Pliers', groups: true },
+  { slug: 'handpiece-small-parts-trays', section: 'Cassette Trays', pages: [63, 64], name: 'Trays for Hand Piece & Small Parts' },
+
+  /* 5 ── PRF & GRF System — these pages print article numbers as plain text,
+         not in table cells, so they are picked up by the SKU-pattern scan. ─── */
+  { slug: 'prf-grf-boxes', section: 'PRF & GRF System', pages: [40], name: 'PRF & GRF Boxes', groups: true },
+  { slug: 'prf-racks-dishes', section: 'PRF & GRF System', pages: [41], name: 'PRF System — Racks & Dishes', groups: true },
+  // p42 prints SEVEN separate instruments, each with its own photo and article
+  // number — not one product with detail shots (Hassan, 2026-09-12). One card,
+  // "PRF Surgical Set"; its page gives each instrument its own block.
+  { slug: 'prf-surgical-set', section: 'PRF & GRF System', pages: [42], name: 'PRF Surgical Set', figureGroups: true },
+  { slug: 'prf-cassettes', section: 'PRF & GRF System', pages: [43], name: 'PRF System Cassettes', groups: true },
+
+  /* 6 ── Implantology / Bur Holders — p69 prints 4 holder families ───── */
+  { slug: 'implant-surgical-box', section: 'Implantology / Bur Holders', pages: [68], name: 'Implant & Surgical Box' },
+  // Hassan: one category; each holder family shown separately inside it.
+  { slug: 'implantology-bur-holders', section: 'Implantology / Bur Holders', pages: [69],
+    name: 'Implantology & Burr Holders', groups: true },
+
+  /* 7 ── Mirrors ─────────────────────────────────────────────────────── */
+  { slug: 'orthodontic-mirror-set', section: 'IntraOral / Orthodontic Steel Mirrors', pages: [72], name: 'Steel Mirrors — Orthodontic Set of 7' },
+  { slug: 'intraoral-photo-mirrors-steel', section: 'IntraOral / Orthodontic Steel Mirrors', pages: [73], name: 'Steel Mirrors — IntraOral Photo, Stainless Steel', groups: true },
+  { slug: 'intraoral-photo-mirrors-glass', section: 'IntraOral / Orthodontic Steel Mirrors', pages: [74], name: 'Steel Mirrors — IntraOral Photo, Glass Two-Sided' },
+
+  /* 8 ── Hollow Wares — p76/p77 print one product per card ───────────── */
+  { slug: 'instruments-tray', section: 'Hollow Wares', pages: [76], only: ['CXWT'], blockScoped: true, name: 'Instruments tray' },
+  { slug: 'vomit-bowl', section: 'Hollow Wares', pages: [76], only: ['CXWV'], blockScoped: true, name: 'Vomit bowl' },
+  { slug: 'lotion-bowl', section: 'Hollow Wares', pages: [76], only: ['CXWB'], blockScoped: true, name: 'Lotion bowl' },
+  { slug: 'gallipot', section: 'Hollow Wares', pages: [76], only: ['CXWG'], blockScoped: true, name: 'Gallipot' },
+  { slug: 'kidney-dish', section: 'Hollow Wares', pages: [76], only: ['CXWK'], blockScoped: true, name: 'Kidney dish' },
+  { slug: 'forceps-jar', section: 'Hollow Wares', pages: [77], only: ['CXWF'], blockScoped: true, name: 'Forceps jar' },
+  { slug: 'dressing-container', section: 'Hollow Wares', pages: [77], only: ['CXWC'], blockScoped: true, name: 'Dressing container' },
+  { slug: 'dressing-drum', section: 'Hollow Wares', pages: [77], only: ['CXWD'], blockScoped: true, name: 'Sterilizing / dressing drum' },
+  { slug: 'scaler-tray', section: 'Hollow Wares', pages: [77], only: ['CXWS'], blockScoped: true, name: 'Scaler tray' },
+  { slug: 'male-urinal', section: 'Hollow Wares', pages: [77], only: ['CXWUM'], blockScoped: true, name: 'Male urinal' },
+  { slug: 'female-urinal', section: 'Hollow Wares', pages: [77], only: ['CXWUF'], blockScoped: true, name: 'Female urinal' },
+
+  /* 9 ── Accessories ─────────────────────────────────────────────────── */
+  { slug: 'silicon-colour-codes', section: 'Trays Accessories / Silicon Holding System', pages: [81, 82], name: 'Silicon Holding System — Colour Codes', groups: true },
+  { slug: 'silicon-strips-parts', section: 'Trays Accessories / Silicon Holding System', pages: [83], name: 'Silicon Holding System — Strips & Part Sets', groups: true },
+];
+
+/* ─────────────── parse page-html ─────────────── */
+const clean = s => s.replace(/<br\s*\/?>/gi, ' — ').replace(/<[^>]*>/g, '')
+  .replace(/&amp;/g, '&').replace(/&middot;/g, '·').replace(/&nbsp;/g, ' ')
+  .replace(/&mdash;/g, '—').replace(/&frac12;/g, '½')
+  .replace(/\s+/g, ' ').trim();
+
+const pageData = new Map(); // "16" -> { title, subtitle, specs, figures, blocks }
+const skuPage = new Map();  // sku -> ["16", ...]
+
+for (const file of fs.readdirSync(PAGEHTML).filter(f => /^page-.*\.html$/.test(f)).sort()) {
+  const html = fs.readFileSync(path.join(PAGEHTML, file), 'utf8');
+  const page = file.replace('page-', '').replace('.html', '');
+
+  const title = clean((html.match(/<h1 class="cx-title">([\s\S]*?)<\/h1>/) || [])[1] || '');
+  const subtitle = clean((html.match(/<p class="cx-subtitle">([\s\S]*?)<\/p>/) || [])[1] || '');
+  // The file names follow the old SteriTrays PDF; the page chip carries the real
+  // CandelX page number (page-16.html is CandelX page 10). Display THAT one.
+  const pdfPage = Number(clean((html.match(/class="page-chip">([\s\S]*?)</) || [])[1] || '')
+    .replace(/^Page\s*/i, '')) || null;
+
+  const specs = {};
+  for (const m of html.matchAll(/<span class="spec-item">([\s\S]*?)<\/span>/g)) {
+    const txt = clean(m[1]);
+    const i = txt.indexOf(':');
+    if (i > 0) specs[txt.slice(0, i).trim()] = txt.slice(i + 1).trim();
+  }
+
+  // <figure> units pair an image with its caption; a caption marks a detail shot.
+  const figures = [];
+  const seen = new Set();
+  for (const m of html.matchAll(/<figure\b[^>]*>([\s\S]*?)<\/figure>/g)) {
+    const src = (m[1].match(/src="images\/([^"]+)"/) || [])[1];
+    if (!src) continue;
+    const capHtml = (m[1].match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/) || [])[1] || '';
+    const cap = clean(capHtml);
+    // A caption may lead with <span class="code">CXGK-9910</span> — keep the
+    // article number and the printed description apart.
+    const code = clean((capHtml.match(/<span class="code">([\s\S]*?)<\/span>/) || [])[1] || '');
+    const capText = clean(capHtml.replace(/<span class="code">[\s\S]*?<\/span>/, ''));
+    figures.push({ i: m.index, src, caption: cap, code, capText });
+    seen.add(src);
+  }
+  // images outside any <figure>
+  for (const m of html.matchAll(/<img\b[^>]*>/g)) {
+    const src = (m[0].match(/src="images\/([^"]+)"/) || [])[1];
+    if (src && !seen.has(src)) { figures.push({ i: m.index, src, caption: '', code: '', capText: '' }); seen.add(src); }
+  }
+  figures.sort((a, b) => a.i - b.i);
+
+  // heading blocks, for pages that print several products
+  const toks = [];
+  for (const m of html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)) toks.push({ i: m.index, t: 'H', v: clean(m[1]) });
+  for (const f of figures) toks.push({ i: f.i, t: 'I', v: f.src });
+  for (const m of html.matchAll(/class="art-no">([^<]+)</g)) {
+    const sku = clean(m[1]);
+    toks.push({ i: m.index, t: 'A', v: sku });
+    if (!skuPage.has(sku)) skuPage.set(sku, []);
+    if (!skuPage.get(sku).includes(page)) skuPage.get(sku).push(page);
+  }
+  // The PRF pages print article numbers as plain text instead of in a table
+  // cell, so scan for the pattern too. Repeats are dropped per block below.
+  for (const m of html.matchAll(/\bCX[A-Z]+-\d+\b/g)) toks.push({ i: m.index, t: 'A', v: m[0] });
+
+  toks.sort((a, b) => a.i - b.i);
+
+  const blocks = [];
+  let cur = { head: null, imgs: [], arts: [] };
+  for (const t of toks) {
+    if (t.t === 'H') { blocks.push(cur); cur = { head: t.v, imgs: [], arts: [] }; }
+    else if (t.t === 'I') cur.imgs.push(t.v);
+    else if (!cur.arts.includes(t.v)) cur.arts.push(t.v);
+  }
+  blocks.push(cur);
+
+  pageData.set(page, { page, pdfPage, title, subtitle, specs, figures, blocks });
+}
+
+/* ─────────────── size rows from the pristine snapshot ─────────────── */
+const srcTs = fs.readFileSync(SIZESRC, 'utf8');
+const marker = 'export const families: CatFamily[] = [';
+const tail = srcTs.slice(srcTs.indexOf(marker) + marker.length - 1);
+const oldFamilies = JSON.parse(tail.slice(0, tail.lastIndexOf('];') + 1));
+const oldBySlug = new Map(oldFamilies.map(f => [f.slug, f]));
+const sizeBySku = new Map();
+for (const f of oldFamilies) for (const s of f.sizes) if (!sizeBySku.has(s.sku)) sizeBySku.set(s.sku, s);
+
+const lidSkus = new Set();
+for (const { blocks } of pageData.values())
+  for (const b of blocks) if (b.head && /\blids?\b/i.test(b.head)) for (const a of b.arts) lidSkus.add(a);
+
+const prefixOf = s => (s.match(/^([A-Z]+)/) || [])[1] || s;
+const imgSize = src => {
+  const m = src.match(/-(\d+)x(\d+)\.[a-z]+$/i);
+  return m ? Math.max(+m[1], +m[2]) : 9999;
+};
+const pad = p => String(p).padStart(2, '0');
+
+/* A figure caption prints whatever the catalogue has: sometimes a name and a
+   spec ("Goldman fox scissors" / "TC · 13 cm"), sometimes only a spec
+   ("1 × 2 teeth" / "12.5 cm"), often nothing at all. Nothing is invented — a
+   part that starts with a letter is the name, the rest is the spec line. */
+function splitCaption(capText) {
+  if (!capText) return { name: null, note: null };
+  const parts = capText.split('—').map(s => s.trim()).filter(Boolean);
+  if (!parts.length) return { name: null, note: null };
+  if (/^[A-Za-z]/.test(parts[0])) {
+    return { name: parts[0], note: parts.slice(1).join(' · ') || null };
+  }
+  return { name: null, note: parts.join(' · ') };
+}
+
+/* ─────────────── build ─────────────── */
+const wanted = new Set();
+const out = [];
+const report = [];
+const usedSkus = new Set();
+
+for (const cfg of PRODUCTS) {
+  const pages = cfg.pages.map(pad);
+  const pd = pages.map(p => pageData.get(p)).filter(Boolean);
+
+  // ---- sizes ----
+  let sizes = [];
+  if (cfg.fromSlug) {
+    const f = oldBySlug.get(cfg.fromSlug);
+    if (f) sizes = f.sizes.map(s => ({ ...s }));
+  } else {
+    const skus = [];
+    for (const p of pd) for (const b of p.blocks) for (const a of b.arts) {
+      if (cfg.only && !cfg.only.includes(prefixOf(a))) continue;
+      if (!skus.includes(a)) skus.push(a);
+    }
+    sizes = skus.map(sku => sizeBySku.get(sku)).filter(Boolean).map(s => ({ ...s }));
+  }
+  sizes = sizes.map(s => ({ ...s, variant: prefixOf(s.sku), isLid: lidSkus.has(s.sku) }));
+  for (const s of sizes) usedSkus.add(s.sku);
+
+  const prefixes = [...new Set(sizes.map(s => s.variant))];
+
+  // ---- images ----
+  let pool;
+  if (cfg.blockScoped) {
+    const blocks = pd.flatMap(p => p.blocks).filter(b =>
+      b.arts.some(a => cfg.only ? cfg.only.includes(prefixOf(a)) : prefixes.includes(prefixOf(a))));
+    const srcs = new Set(blocks.flatMap(b => b.imgs));
+    pool = pd.flatMap(p => p.figures).filter(f => srcs.has(f.src));
+  } else {
+    pool = pd.flatMap(p => p.figures);
+  }
+
+  const captioned = pool.filter(f => f.caption);
+  // Keep the catalogue's own order — the main shot is printed first. (Sorting by
+  // pixel size picked the wrong photo, e.g. the chamfer tray instead of the round.)
+  const plain = pool.filter(f => !f.caption);
+
+  const hero = cfg.hero || plain[0]?.src || captioned[0]?.src || null;
+  const heroAlt = cfg.heroAlt || (plain[1] ? plain[1].src : null);
+  // figureGroups pages have no detail shots — every captioned figure is a
+  // product in its own right and becomes a block below.
+  const details = cfg.figureGroups ? [] :
+    captioned.filter(f => f.src !== hero && f.src !== heroAlt)
+      .map(f => ({ src: `/catalogue/img/${f.src}`, caption: f.caption, flag: imgSize(f.src) < 200 ? 'low_res' : 'ok' }));
+
+  // Sub-sections: a page that prints each variant as its own block with its own
+  // photos and table (transportation baskets: Steel / Aluminium; bur holders:
+  // four holder families). Shown separately on the product page, not combined.
+  const groups = [];
+  // Each captioned figure is its own product (PRF surgical set, p42).
+  if (cfg.figureGroups) {
+    for (const f of captioned.filter(x => x.code)) {
+      const { name, note } = splitCaption(f.capText);
+      const s = sizeBySku.get(f.code);
+      groups.push({
+        label: name || f.code,
+        code: f.code,
+        note,
+        images: [`/catalogue/img/${f.src}`],
+        sizes: s ? [{ ...s, variant: prefixOf(s.sku), isLid: lidSkus.has(s.sku) }] : [],
+      });
+      wanted.add(f.src);
+    }
+  }
+  if (cfg.groups) {
+    for (const p of pd) for (const b of p.blocks) {
+      if (!b.head) continue;
+      const gSizes = b.arts.map(a => sizeBySku.get(a)).filter(Boolean)
+        .map(s => ({ ...s, variant: prefixOf(s.sku), isLid: lidSkus.has(s.sku) }));
+      const figs = p.figures.filter(f => b.imgs.includes(f.src));
+      const gImgs = figs.filter(f => !f.caption).map(f => f.src);
+      if (!gSizes.length && !gImgs.length) continue;
+      for (const s of gImgs) wanted.add(s);
+      // The same heading can repeat across two pages (silicon "Colour E — Blue"
+      // is on both p62 and p63) — Hassan asked for those combined, not listed twice.
+      const existing = groups.find(g => g.label === b.head);
+      if (existing) {
+        for (const im of gImgs.map(s => `/catalogue/img/${s}`)) {
+          if (!existing.images.includes(im)) existing.images.push(im);
+        }
+        for (const s of gSizes) if (!existing.sizes.some(x => x.sku === s.sku)) existing.sizes.push(s);
+        continue;
+      }
+      groups.push({
+        label: b.head,
+        code: null,
+        note: null,
+        images: gImgs.map(s => `/catalogue/img/${s}`),
+        sizes: gSizes,
+      });
+    }
+  }
+
+  if (hero) wanted.add(hero);
+  if (heroAlt) wanted.add(heroAlt);
+  for (const f of captioned) if (f.src !== hero && f.src !== heroAlt) wanted.add(f.src);
+
+  const specs = Object.assign({}, ...pd.map(p => p.specs));
+  const subtitle = cfg.subtitle ?? (pd[0]?.subtitle || '');
+  const flag = !hero ? 'missing' : imgSize(hero) < 200 ? 'low_res' : 'ok';
+
+  out.push({
+    slug: cfg.slug,
+    prefix: prefixes.join(' / '),
+    prefixes,
+    section: cfg.section,
+    name: cfg.name,
+    subtitle,
+    summary: '',
+    catalogueTitle: pd[0]?.title || '',
+    variants: (cfg.variants || []).filter(v => prefixes.includes(v.code)),
+    needsReview: Boolean(cfg.review) || flag !== 'ok' || sizes.length === 0,
+    notes: [],
+    specs,
+    image: hero ? `/catalogue/img/${hero}` : null,
+    imageAlt: heroAlt ? `/catalogue/img/${heroAlt}` : null,
+    imageFlag: flag,
+    details,
+    groups,
+    // "instruments" = a set whose members are separate products, shown as a
+    // grid of blocks rather than one photo with a size table.
+    groupLayout: cfg.figureGroups ? 'instruments' : null,
+    // The page-html FILE numbers follow the old SteriTrays PDF; show the CandelX
+    // page printed on the page chip instead (page-16.html is CandelX page 10).
+    sourcePages: pd.map(p => p.pdfPage).filter(Boolean),
+    sizes,
+  });
+
+  report.push(`${cfg.slug.padEnd(30)} ${cfg.section.slice(0, 22).padEnd(23)} p${String(pd.map(p => p.pdfPage).join(',')).padEnd(6)} ${String(sizes.length).padStart(3)} sizes ${String(details.length).padStart(2)} thumb ${groups.length ? String(groups.length) + ' grp' : '     '} ${heroAlt ? 'alt ' : '    '}${flag}`);
+}
+
+/* ─────────────── copy images ─────────────── */
+fs.rmSync(OUTIMG, { recursive: true, force: true });
+let copied = 0; const missing = [];
+for (const rel of wanted) {
+  const from = path.join(SRCIMG, rel), to = path.join(OUTIMG, rel);
+  if (!fs.existsSync(from)) { missing.push(rel); continue; }
+  fs.mkdirSync(path.dirname(to), { recursive: true });
+  fs.copyFileSync(from, to);
+  copied++;
+}
+
+/* ─────────────── emit ─────────────── */
+const total = out.reduce((a, f) => a + f.sizes.length, 0);
+fs.writeFileSync(DATA, `// Candelx catalogue data — GENERATED, do not hand-edit.
+// Source: scripts/build-catalogue.mjs + catalogue/page-html/*.html.
+// A product here = one SUB-CATEGORY of the printed catalogue (a PDF page's
+// title/subtitle), except pages that print several products in a grid.
+// Edit the PRODUCTS table in the script, then re-run it.
+// ${out.length} products · ${total} article numbers · ${sections.length} sections.
+
+export type CatSize = {
+  sku: string;
+  L: string | null; W: string | null; H: string | null;
+  sizeText: string | null; raw: string | null;
+  lid: string | null; note: string | null; needsReview: boolean;
+  variant: string; isLid: boolean;
+};
+export type CatVariant = { code: string; label: string };
+export type CatDetail = { src: string; caption: string; flag: string };
+/** A page that prints each variant as its own block with its own photos and
+ *  table — rendered as separate sections, never combined into one table. */
+export type CatGroup = {
+  label: string; images: string[]; sizes: CatSize[];
+  /** Set on "instruments" layouts: the article number and the printed spec
+   *  line, kept apart so each member can be labelled on its own. */
+  code: string | null; note: string | null;
+};
+export type CatFamily = {
+  slug: string; prefix: string; prefixes: string[]; section: string;
+  name: string; subtitle: string; summary: string; catalogueTitle: string;
+  variants: CatVariant[]; needsReview: boolean;
+  notes: string[];
+  specs: Record<string, string>;
+  image: string | null; imageAlt: string | null; imageFlag: string;
+  details: CatDetail[];
+  groups: CatGroup[];
+  groupLayout: "instruments" | null;
+  sourcePages: number[];
+  sizes: CatSize[];
+};
+
+export const sections: string[] = ${JSON.stringify(sections, null, 2)};
+
+export const families: CatFamily[] = ${JSON.stringify(out, null, 2)};
+`);
+
+console.log(report.join('\n'));
+console.log(`\n${out.length} products · ${total} article numbers · images ${copied}${missing.length ? `  MISSING: ${missing.join(', ')}` : ''}`);
+const dropped = [...sizeBySku.keys()].filter(s => !usedSkus.has(s));
+console.log(`needs review: ${out.filter(f => f.needsReview).length}`);
+if (dropped.length) {
+  const byPre = {};
+  for (const s of dropped) (byPre[prefixOf(s)] ??= []).push(s);
+  console.log(`\nNOT SHOWN (${dropped.length} article nos):`);
+  for (const [k, v] of Object.entries(byPre)) console.log(`   ${k.padEnd(7)} ${String(v.length).padStart(3)}  e.g. ${v.slice(0, 3).join(', ')}`);
+}

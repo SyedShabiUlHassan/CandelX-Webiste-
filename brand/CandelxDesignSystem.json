@@ -1,0 +1,236 @@
+{
+  "brand": {
+    "clear_space_and_minimum_size": {
+      "clear_space_rule": "Clear space on all four sides equals the cap height of the C in the wordmark",
+      "clear_space_example": { "reference_mark_height_px": 52, "clear_space_px": 26 },
+      "minimum_size": { "digital_min_height_px": 22 },
+      "note": "No standalone X mark exists — the X overlaps the L in the supplied artwork. Use the full lockup, or set \"Candelx\" in Archivo 800 where a mark alone is needed."
+    },
+    "reverse_lockup": {
+      "name": "Reverse lockup",
+      "usage": "White wordmark on navy 700 — dark sections only",
+      "asset": "assets/logo-candelx-reverse.png",
+      "background_color": { "token": "--navy-700", "hex": "#003249" },
+      "mark_color": { "hex": "#ffffff" },
+      "example_render_height_px": 78,
+      "container_height_px": 138,
+      "container_padding_px": "0 28"
+    },
+    "primary_lockup": {
+      "name": "Primary lockup",
+      "usage": "Full-colour wordmark on white — the default",
+      "asset": "assets/logo-candelx.png",
+      "background_color": { "hex": "#ffffff" },
+      "wordmark_color": { "hex": "#007ea7", "name": "brand teal", "applies_to": "CANDEL + Surgicals" },
+      "mark_color": { "hex": "#003249", "name": "brand navy", "applies_to": "the X" },
+      "example_render_height_px": 78,
+      "container_height_px": 138,
+      "container_padding_left_px": 6
+    }
+  },
+  "colors": {
+    "brand_core": [
+      { "token": "--brand-teal", "hex": "#007ea7", "name": "Brand teal", "usage": "CANDEL wordmark + \"Surgicals\"" },
+      { "token": "--brand-navy", "hex": "#003249", "name": "Brand navy", "usage": "the X" },
+      { "token": "--white", "hex": "#ffffff", "name": "White", "usage": "dominant background" }
+    ],
+    "teal_ramp": [
+      { "token": "--teal-50", "hex": "#f1f8fa" },
+      { "token": "--teal-100", "hex": "#daecf2" },
+      { "token": "--teal-200", "hex": "#cbe5ed" },
+      { "token": "--teal-300", "hex": "#9bcfde" },
+      { "token": "--teal-400", "hex": "#5dadc7" },
+      { "token": "--teal-500", "hex": "#2c94b6" },
+      { "token": "--teal-600", "hex": "#007ea7", "note": "equals --brand-teal" },
+      { "token": "--teal-700", "hex": "#006485" },
+      { "token": "--teal-800", "hex": "#004b64" },
+      { "token": "--teal-900", "hex": "#003249", "note": "equals --brand-navy" }
+    ],
+    "navy_ramp": [
+      { "token": "--navy-500", "hex": "#0a4f6e" },
+      { "token": "--navy-600", "hex": "#00415d" },
+      { "token": "--navy-700", "hex": "#003249", "note": "equals --brand-navy" },
+      { "token": "--navy-800", "hex": "#002536" },
+      { "token": "--navy-900", "hex": "#001923" }
+    ],
+    "neutrals": [
+      { "token": "--white", "hex": "#ffffff" },
+      { "token": "--n-25", "hex": "#fbfcfd" },
+      { "token": "--n-50", "hex": "#f6f8f9" },
+      { "token": "--n-100", "hex": "#eef1f3" },
+      { "token": "--n-200", "hex": "#e2e7ea" },
+      { "token": "--n-300", "hex": "#ccd4d9" },
+      { "token": "--n-400", "hex": "#a3b0b8" },
+      { "token": "--n-500", "hex": "#78878f" },
+      { "token": "--n-600", "hex": "#55646c" },
+      { "token": "--n-700", "hex": "#3a474e" },
+      { "token": "--n-800", "hex": "#232d33" },
+      { "token": "--n-900", "hex": "#121a1f" }
+    ],
+    "semantic_status": [
+      { "state": "ok", "fg_token": "--status-ok", "fg_hex": "#1f7a5c", "surface_token": "--status-ok-surface", "surface_hex": "#eef6f2" },
+      { "state": "warn", "fg_token": "--status-warn", "fg_hex": "#8a6320", "surface_token": "--status-warn-surface", "surface_hex": "#faf4e8" },
+      { "state": "alert", "fg_token": "--status-alert", "fg_hex": "#9a3535", "surface_token": "--status-alert-surface", "surface_hex": "#faf0f0" },
+      { "state": "info", "fg_token": "--status-info", "fg_hex": "#006485", "surface_token": "--status-info-surface", "surface_hex": "#f1f8fa" }
+    ],
+    "surface_aliases": [
+      { "token": "--surface-page", "maps_to": "--n-25", "hex": "#fbfcfd" },
+      { "token": "--surface-card", "maps_to": "--white", "hex": "#ffffff" },
+      { "token": "--surface-sunken", "maps_to": "--n-50", "hex": "#f6f8f9" },
+      { "token": "--surface-subtle", "maps_to": "--n-100", "hex": "#eef1f3" },
+      { "token": "--surface-accent", "maps_to": "--teal-50", "hex": "#f1f8fa" },
+      { "token": "--surface-inverse", "maps_to": "--navy-700", "hex": "#003249" },
+      { "token": "--surface-inverse-deep", "maps_to": "--navy-900", "hex": "#001923" }
+    ],
+    "text_aliases": [
+      { "token": "--text-strong", "maps_to": "--navy-700", "hex": "#003249" },
+      { "token": "--text-body", "maps_to": "--n-700", "hex": "#3a474e" },
+      { "token": "--text-muted", "maps_to": "--n-500", "hex": "#78878f" },
+      { "token": "--text-faint", "maps_to": "--n-400", "hex": "#a3b0b8" },
+      { "token": "--text-invert", "maps_to": "--white", "hex": "#ffffff" },
+      { "token": "--text-accent", "maps_to": "--brand-teal", "hex": "#007ea7" },
+      { "token": "--text-link", "maps_to": "--teal-700", "hex": "#006485" },
+      { "token": "--text-link-hover", "maps_to": "--navy-700", "hex": "#003249" }
+    ],
+    "border_aliases": [
+      { "token": "--border-hairline", "maps_to": "--n-200", "hex": "#e2e7ea" },
+      { "token": "--border-default", "maps_to": "--n-300", "hex": "#ccd4d9" },
+      { "token": "--border-strong", "maps_to": "--n-400", "hex": "#a3b0b8" },
+      { "token": "--border-accent", "maps_to": "--brand-teal", "hex": "#007ea7" },
+      { "token": "--border-inverse", "value": "rgba(255,255,255,.16)" }
+    ],
+    "action_aliases": [
+      { "token": "--action-primary", "maps_to": "--brand-teal", "hex": "#007ea7" },
+      { "token": "--action-primary-hover", "maps_to": "--teal-700", "hex": "#006485" },
+      { "token": "--action-primary-press", "maps_to": "--teal-800", "hex": "#004b64" },
+      { "token": "--action-secondary", "maps_to": "--navy-700", "hex": "#003249" },
+      { "token": "--action-secondary-hover", "maps_to": "--navy-800", "hex": "#002536" },
+      { "token": "--focus-ring", "value": "rgba(0,126,167,.38)" }
+    ]
+  },
+  "elevation": {
+    "shadow_ladder": [
+      { "token": "--shadow-0", "value": "none" },
+      { "token": "--shadow-1", "value": "0 1px 2px rgba(0,50,73,.06),0 0 0 1px rgba(0,50,73,.05)" },
+      { "token": "--shadow-2", "value": "0 2px 6px rgba(0,50,73,.07),0 0 0 1px rgba(0,50,73,.04)" },
+      { "token": "--shadow-3", "value": "0 6px 18px rgba(0,50,73,.09),0 1px 2px rgba(0,50,73,.05)" },
+      { "token": "--shadow-4", "value": "0 16px 40px rgba(0,50,73,.12),0 2px 6px rgba(0,50,73,.05)" },
+      { "token": "--shadow-inset", "value": "inset 0 1px 0 rgba(0,50,73,.05)" },
+      { "token": "--shadow-focus", "value": "0 0 0 3px var(--focus-ring)", "resolved_value": "0 0 0 3px rgba(0,126,167,.38)" }
+    ],
+    "motion": {
+      "durations": [
+        { "token": "--dur-1", "value": "110ms", "usage": "control colour" },
+        { "token": "--dur-2", "value": "180ms", "usage": "fades, focus ring" },
+        { "token": "--dur-3", "value": "260ms", "usage": "card lift, panels" },
+        { "token": "--dur-4", "value": "420ms", "usage": "full-panel reveal" }
+      ],
+      "easings": [
+        { "token": "--ease-standard", "value": "cubic-bezier(.2,.6,.25,1)" },
+        { "token": "--ease-out", "value": "cubic-bezier(.16,1,.3,1)" },
+        { "token": "--ease-in", "value": "cubic-bezier(.6,0,.9,.4)" }
+      ],
+      "composite_transitions": [
+        {
+          "token": "--transition-control",
+          "value": "background-color var(--dur-1) var(--ease-standard),color var(--dur-1) var(--ease-standard),border-color var(--dur-1) var(--ease-standard),box-shadow var(--dur-2) var(--ease-standard)",
+          "resolved_value": "background-color 110ms cubic-bezier(.2,.6,.25,1),color 110ms cubic-bezier(.2,.6,.25,1),border-color 110ms cubic-bezier(.2,.6,.25,1),box-shadow 180ms cubic-bezier(.2,.6,.25,1)"
+        }
+      ]
+    }
+  },
+  "portal": {
+    "note": "There is no 'Portal' tokens section in this design system — Portal (Distributor portal) is one of the two UI kits (ui_kits/portal/), which is a full click-through screen composition consuming the tokens/components below, not a distinct token set. It introduces no colors, type or spacing values beyond what is listed in this file. Structural specs used in that kit: sidebar width 248px, sidebar background --surface-inverse, active nav item inset marker 'inset 3px 0 0 var(--brand-teal)', top bar height 64px, top bar background --surface-card with 1px --border-hairline bottom border."
+  },
+  "spacing": {
+    "borders_and_rules": {
+      "widths": [
+        { "token": "--bw-hair", "value": "1px" },
+        { "token": "--bw-thick", "value": "2px" },
+        { "token": "--rule-accent-width", "value": "3px", "usage": "teal accent rule — top edge on featured cards, left edge on toasts" }
+      ],
+      "colors": [
+        { "token": "--border-hairline", "hex": "#e2e7ea" },
+        { "token": "--border-default", "hex": "#ccd4d9" },
+        { "token": "--border-strong", "hex": "#a3b0b8" },
+        { "token": "--border-accent", "hex": "#007ea7" },
+        { "token": "--border-inverse", "value": "rgba(255,255,255,.16)" }
+      ]
+    },
+    "layout_widths": [
+      { "token": "--container-max", "value": "1200px", "usage": "max page container width" },
+      { "token": "--container-narrow", "value": "720px", "usage": "prose measure" },
+      { "token": "--gutter", "value": "32px", "usage": "container side padding" },
+      { "token": "--field-h", "value": "44px", "usage": "default form field height" },
+      { "token": "--field-h-sm", "value": "36px", "usage": "small form field height" },
+      { "token": "--field-h-lg", "value": "52px", "usage": "large form field height" }
+    ],
+    "corner_radii": [
+      { "token": "--r-0", "value": "0px", "usage": "full-bleed panels, rules" },
+      { "token": "--r-1", "value": "2px", "usage": "tags, checkboxes, switch" },
+      { "token": "--r-2", "value": "3px", "usage": "cards & controls (default)" },
+      { "token": "--r-3", "value": "4px", "usage": "rare, large surfaces" },
+      { "token": "--r-4", "value": "6px" },
+      { "token": "--r-pill", "value": "999px", "usage": "dots only — never buttons" },
+      { "token": "--radius-card", "value": "var(--r-2)", "resolved_value": "3px" },
+      { "token": "--radius-control", "value": "var(--r-2)", "resolved_value": "3px" },
+      { "token": "--radius-tag", "value": "var(--r-1)", "resolved_value": "2px" }
+    ],
+    "section_rhythm": [
+      { "token": "--space-section", "value": "96px", "usage": "default vertical space between sections" },
+      { "token": "--space-section-lg", "value": "128px", "usage": "large section rhythm" },
+      { "token": "--space-block", "value": "32px", "usage": "vertical space between blocks within a section" }
+    ],
+    "spacing_scale": [
+      { "token": "--s-1", "value": "4px" },
+      { "token": "--s-2", "value": "8px" },
+      { "token": "--s-3", "value": "12px" },
+      { "token": "--s-4", "value": "16px" },
+      { "token": "--s-5", "value": "20px" },
+      { "token": "--s-6", "value": "24px" },
+      { "token": "--s-8", "value": "32px" },
+      { "token": "--s-10", "value": "40px" },
+      { "token": "--s-12", "value": "48px" },
+      { "token": "--s-16", "value": "64px" },
+      { "token": "--s-20", "value": "80px" },
+      { "token": "--s-24", "value": "96px" },
+      { "token": "--s-32", "value": "128px" }
+    ]
+  },
+  "type": {
+    "families": [
+      { "token": "--font-display", "family": "Archivo", "weights_available": [400, 500, 600, 700, 800], "fallback_stack": "\"Archivo\", \"Helvetica Neue\", Arial, sans-serif", "usage": "display and headings", "source": "Google Fonts (substitution — no vendor font files supplied)" },
+      { "token": "--font-sans", "family": "IBM Plex Sans", "weights_available": [400, 500, 600], "fallback_stack": "\"IBM Plex Sans\", \"Helvetica Neue\", Arial, sans-serif", "usage": "body, labels, UI" },
+      { "token": "--font-mono", "family": "IBM Plex Mono", "weights_available": [400, 500], "fallback_stack": "\"IBM Plex Mono\", ui-monospace, monospace", "usage": "catalogue numbers, dimensions, cycle data" }
+    ],
+    "font_weight_tokens": [
+      { "token": "--fw-regular", "value": 400 },
+      { "token": "--fw-medium", "value": 500 },
+      { "token": "--fw-semibold", "value": 600 },
+      { "token": "--fw-bold", "value": 700 },
+      { "token": "--fw-black", "value": 800 }
+    ],
+    "letter_spacing_tokens": [
+      { "token": "--ls-tight", "value": "-.02em" },
+      { "token": "--ls-normal", "value": "0" },
+      { "token": "--ls-wide", "value": ".06em" },
+      { "token": "--ls-label", "value": ".18em" }
+    ],
+    "display_scale": [
+      { "step": "display-1", "size_token": "--t-display-1-size", "size": "64px", "line_height_token": "--t-display-1-lh", "line_height": 1.02, "letter_spacing_token": "--t-display-1-ls", "letter_spacing": "-.028em" },
+      { "step": "display-2", "size_token": "--t-display-2-size", "size": "48px", "line_height_token": "--t-display-2-lh", "line_height": 1.06, "letter_spacing_token": "--t-display-2-ls", "letter_spacing": "-.024em" },
+      { "step": "display-3", "size_token": "--t-display-3-size", "size": "36px", "line_height_token": "--t-display-3-lh", "line_height": 1.12, "letter_spacing_token": "--t-display-3-ls", "letter_spacing": "-.02em" },
+      { "step": "h1", "size_token": "--t-h1-size", "size": "28px", "line_height_token": "--t-h1-lh", "line_height": 1.2, "letter_spacing_token": "--t-h1-ls", "letter_spacing": "-.016em" },
+      { "step": "h2", "size_token": "--t-h2-size", "size": "22px", "line_height_token": "--t-h2-lh", "line_height": 1.28, "letter_spacing_token": "--t-h2-ls", "letter_spacing": "-.012em" },
+      { "step": "h3", "size_token": "--t-h3-size", "size": "18px", "line_height_token": "--t-h3-lh", "line_height": 1.36, "letter_spacing_token": "--t-h3-ls", "letter_spacing": "-.008em" }
+    ],
+    "body_scale": [
+      { "step": "body-lg", "size_token": "--t-body-lg-size", "size": "18px", "line_height_token": "--t-body-lg-lh", "line_height": 1.62 },
+      { "step": "body", "size_token": "--t-body-size", "size": "15px", "line_height_token": "--t-body-lh", "line_height": 1.65 },
+      { "step": "body-sm", "size_token": "--t-body-sm-size", "size": "13px", "line_height_token": "--t-body-sm-lh", "line_height": 1.55 },
+      { "step": "label", "size_token": "--t-label-size", "size": "11px", "line_height_token": "--t-label-lh", "line_height": 1.2, "letter_spacing_token": "--t-label-ls", "letter_spacing": ".18em" },
+      { "step": "label-lg", "size_token": "--t-label-lg-size", "size": "13px", "line_height_token": "--t-label-lg-lh", "line_height": 1.2, "letter_spacing_token": "--t-label-lg-ls", "letter_spacing": ".14em" },
+      { "step": "mono", "size_token": "--t-mono-size", "size": "13px", "line_height_token": "--t-mono-lh", "line_height": 1.5, "letter_spacing_token": "--t-mono-ls", "letter_spacing": ".01em" }
+    ]
+  }
+}
