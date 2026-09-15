@@ -68,6 +68,10 @@ const sections = [
    fromSlug    fallback when a page prints no article numbers (PRF pages 40-42)
    figureGroups  a page whose captioned <figure>s are each a SEPARATE product
                  (PRF surgical set, p42) — one block per figure, not thumbnails
+   promote     source files that must lead their list — used where the catalogue
+               prints the closed lid first and the open box second
+   drop        article numbers to leave out — printed in the catalogue but not
+               actually made
    ─────────────────────────────────────────────────────────── */
 const PRODUCTS = [
   /* 1 ── Wire Mesh Trays ─────────────────────────────────────────────── */
@@ -83,9 +87,11 @@ const PRODUCTS = [
   /* 2 ── Perforated Trays ────────────────────────────────────────────── */
   { slug: 'perforated-tray-square', section: 'Perforated Trays', pages: [8],
     name: 'Perforated Trays — Square Pattern',
-    // page 8 prints the chamfer variant first; lead with the round-corner tray
-    hero: 'p08/p08-perforated-trays-punching-processed-01-466x294.png',
-    heroAlt: 'p08/p08-perforated-trays-punching-processed-02-495x272.png',
+    /* Was -01 ("page 8 prints the chamfer variant first; lead with the
+       round-corner tray"). Hassan, 2026-09-15, pointed at the second shot on
+       the page and asked for that one up front instead. */
+    hero: 'p08/p08-perforated-trays-punching-processed-02-495x272.png',
+    heroAlt: 'p08/p08-perforated-trays-punching-processed-01-466x294.png',
     variants: [{ code: 'CXPS', label: 'Round corner' }, { code: 'CXPT', label: 'Chamfer corner' }] },
   { slug: 'perforated-tray-round', section: 'Perforated Trays', pages: [9],
     name: 'Perforated Trays — Round Pattern',
@@ -104,7 +110,10 @@ const PRODUCTS = [
      Hassan's instruction, 2026-09-12. Data is still in the snapshot if needed. */
 
   /* 4 ── Cassette Trays ──────────────────────────────────────────────── */
-  { slug: 'light-pattern-cassettes', section: 'Cassette Trays', pages: [46, 47], name: 'Light Pattern Cassettes' },
+  { slug: 'light-pattern-cassettes', section: 'Cassette Trays', pages: [46, 47], name: 'Light Pattern Cassettes',
+    /* Four sizes only — 05 / 07 / 10 / 20 instruments. The two "+ accessory
+       area" rows on p46 are not made (Hassan, 2026-09-15). */
+    drop: ['CXCL-1108', 'CXCL-1116'] },
   { slug: 'instruments-plus-cassettes', section: 'Cassette Trays', pages: [48], name: 'Instruments Plus Cassette Trays', groups: true },
   { slug: 'twin-cassette-trays', section: 'Cassette Trays', pages: [49], name: 'Twin Cassette Trays' },
   { slug: 'bracket-lock-cassettes', section: 'Cassette Trays', pages: [50], name: 'Bracket-Lock Cassette Trays' },
@@ -122,12 +131,25 @@ const PRODUCTS = [
 
   /* 5 ── PRF & GRF System — these pages print article numbers as plain text,
          not in table cells, so they are picked up by the SKU-pattern scan. ─── */
-  { slug: 'prf-grf-boxes', section: 'PRF & GRF System', pages: [40], name: 'PRF & GRF Boxes', groups: true },
+  { slug: 'prf-grf-boxes', section: 'PRF & GRF System', pages: [40], name: 'PRF & GRF Boxes', groups: true,
+    /* p40 prints each box lid-first. Hassan, 2026-09-15: lead with the open box
+       — the shot that shows the wells and the perforated base. One per block:
+       -02 professional, -05 student, -09 GRF system box. */
+    promote: [
+      'p40/p40-for-professional-02-305x221.png',
+      'p40/p40-for-professional-05-319x230.png',
+      'p40/p40-for-professional-09-287x215.png',
+    ] },
   { slug: 'prf-racks-dishes', section: 'PRF & GRF System', pages: [41], name: 'PRF System — Racks & Dishes', groups: true },
   // p42 prints SEVEN separate instruments, each with its own photo and article
   // number — not one product with detail shots (Hassan, 2026-09-12). One card,
   // "PRF Surgical Set"; its page gives each instrument its own block.
-  { slug: 'prf-surgical-set', section: 'PRF & GRF System', pages: [42], name: 'PRF Surgical Set', figureGroups: true },
+  { slug: 'prf-surgical-set', section: 'PRF & GRF System', pages: [42], name: 'PRF Surgical Set', figureGroups: true,
+    /* The card and the share image were a single elevator — the set read as one
+       instrument. Composed from the seven printed shots, all scaled to the same
+       height on white (Hassan, 2026-09-15). The per-instrument blocks below are
+       unchanged. */
+    hero: 'p42/p42-prf-surgical-set-all-791x680.png' },
   { slug: 'prf-cassettes', section: 'PRF & GRF System', pages: [43], name: 'PRF System Cassettes', groups: true },
 
   /* 6 ── Implantology / Bur Holders — p69 prints 4 holder families ───── */
@@ -293,6 +315,11 @@ for (const cfg of PRODUCTS) {
     }
     sizes = skus.map(sku => sizeBySku.get(sku)).filter(Boolean).map(s => ({ ...s }));
   }
+  /* Article numbers the printed catalogue lists but CandelX does not actually
+     make. Hassan, 2026-09-15 (light pattern cassettes): "there are only four
+     sizes 5, 7, 10, 20 — these are the only sizes which are available", which
+     leaves the two "+ accessory area" rows on p46 with nothing behind them. */
+  if (cfg.drop) sizes = sizes.filter(s => !cfg.drop.includes(s.sku));
   sizes = sizes.map(s => ({ ...s, variant: prefixOf(s.sku), isLid: lidSkus.has(s.sku) }));
   for (const s of sizes) usedSkus.add(s.sku);
 
@@ -308,6 +335,18 @@ for (const cfg of PRODUCTS) {
   } else {
     pool = pd.flatMap(p => p.figures);
   }
+
+  /* The printed catalogue leads some products with the closed box — the lid,
+     which shows nothing of what the product holds. `promote` names those source
+     files; they move to the front of whatever list they belong to, the hero pool
+     and the group blocks alike, and everything else keeps the catalogue's own
+     order. Hassan, 2026-09-15 (PRF & GRF boxes). */
+  const promote = cfg.promote || [];
+  const lead = (arr, key = (x) => x) =>
+    promote.length
+      ? [...arr].sort((a, b) => (promote.includes(key(a)) ? 0 : 1) - (promote.includes(key(b)) ? 0 : 1))
+      : arr;
+  pool = lead(pool, (f) => f.src);
 
   const captioned = pool.filter(f => f.caption);
   // Keep the catalogue's own order — the main shot is printed first. (Sorting by
@@ -347,7 +386,7 @@ for (const cfg of PRODUCTS) {
       const gSizes = b.arts.map(a => sizeBySku.get(a)).filter(Boolean)
         .map(s => ({ ...s, variant: prefixOf(s.sku), isLid: lidSkus.has(s.sku) }));
       const figs = p.figures.filter(f => b.imgs.includes(f.src));
-      const gImgs = figs.filter(f => !f.caption).map(f => f.src);
+      const gImgs = lead(figs.filter(f => !f.caption).map(f => f.src));
       if (!gSizes.length && !gImgs.length) continue;
       for (const s of gImgs) wanted.add(s);
       // The same heading can repeat across two pages (silicon "Color E — Blue"

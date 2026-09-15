@@ -3,7 +3,7 @@
 // A product here = one SUB-CATEGORY of the printed catalogue (a PDF page's
 // title/subtitle), except pages that print several products in a grid.
 // Edit the PRODUCTS table in the script, then re-run it.
-// 79 products · 598 article numbers · 9 sections.
+// 79 products · 596 article numbers · 9 sections.
 
 export type CatSize = {
   sku: string;
@@ -1899,8 +1899,8 @@ export const families: CatFamily[] = [
       "Perforation": "Square pattern Lid & bottom : 6.4 x 6.4mm",
       "Side": "4.8 x 4.8mm"
     },
-    "image": "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.webp",
-    "imageAlt": "/catalogue/img/p08/p08-perforated-trays-punching-processed-02-495x272.webp",
+    "image": "/catalogue/img/p08/p08-perforated-trays-punching-processed-02-495x272.webp",
+    "imageAlt": "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.webp",
     "imageFlag": "ok",
     "details": [
       {
@@ -2451,7 +2451,7 @@ export const families: CatFamily[] = [
         "isLid": true
       }
     ],
-    "imageAspect": 1.585
+    "imageAspect": 1.8199
   },
   {
     "slug": "perforated-tray-round",
@@ -4932,19 +4932,6 @@ export const families: CatFamily[] = [
         "isLid": false
       },
       {
-        "sku": "CXCL-1108",
-        "L": "205",
-        "W": "142",
-        "H": "30",
-        "sizeText": null,
-        "raw": "205 x 142 x 30",
-        "lid": null,
-        "note": "08 instruments + accessory area",
-        "needsReview": false,
-        "variant": "CXCL",
-        "isLid": false
-      },
-      {
         "sku": "CXCL-1110",
         "L": "205",
         "W": "142",
@@ -4953,19 +4940,6 @@ export const families: CatFamily[] = [
         "raw": "205 x 142 x 30",
         "lid": null,
         "note": "10 instruments",
-        "needsReview": false,
-        "variant": "CXCL",
-        "isLid": false
-      },
-      {
-        "sku": "CXCL-1116",
-        "L": "282",
-        "W": "205",
-        "H": "30",
-        "sizeText": null,
-        "raw": "282 x 205 x 30",
-        "lid": null,
-        "note": "16 instruments + accessory area",
         "needsReview": false,
         "variant": "CXCL",
         "isLid": false
@@ -8165,8 +8139,8 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p40/p40-for-professional-01-302x187.webp",
-    "imageAlt": "/catalogue/img/p40/p40-for-professional-02-305x221.webp",
+    "image": "/catalogue/img/p40/p40-for-professional-02-305x221.webp",
+    "imageAlt": "/catalogue/img/p40/p40-for-professional-05-319x230.webp",
     "imageFlag": "ok",
     "details": [],
     "groups": [
@@ -8175,8 +8149,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p40/p40-for-professional-01-302x187.webp",
           "/catalogue/img/p40/p40-for-professional-02-305x221.webp",
+          "/catalogue/img/p40/p40-for-professional-01-302x187.webp",
           "/catalogue/img/p40/p40-for-professional-03-263x175.webp"
         ],
         "sizes": [
@@ -8200,8 +8174,8 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
-          "/catalogue/img/p40/p40-for-professional-04-317x209.webp",
           "/catalogue/img/p40/p40-for-professional-05-319x230.webp",
+          "/catalogue/img/p40/p40-for-professional-04-317x209.webp",
           "/catalogue/img/p40/p40-for-professional-06-273x182.webp"
         ],
         "sizes": [
@@ -8225,9 +8199,9 @@ export const families: CatFamily[] = [
         "code": null,
         "note": null,
         "images": [
+          "/catalogue/img/p40/p40-for-professional-09-287x215.webp",
           "/catalogue/img/p40/p40-for-professional-07-289x250.webp",
           "/catalogue/img/p40/p40-for-professional-08-399x324.webp",
-          "/catalogue/img/p40/p40-for-professional-09-287x215.webp",
           "/catalogue/img/p40/p40-for-professional-10-272x268.webp"
         ],
         "sizes": [
@@ -8292,7 +8266,7 @@ export const families: CatFamily[] = [
         "isLid": false
       }
     ],
-    "imageAspect": 1.615
+    "imageAspect": 1.3801
   },
   {
     "slug": "prf-racks-dishes",
@@ -8583,7 +8557,7 @@ export const families: CatFamily[] = [
     "needsReview": false,
     "notes": [],
     "specs": {},
-    "image": "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.webp",
+    "image": "/catalogue/img/p42/p42-prf-surgical-set-all-791x680.webp",
     "imageAlt": null,
     "imageFlag": "ok",
     "details": [],
@@ -8847,7 +8821,7 @@ export const families: CatFamily[] = [
         "isLid": false
       }
     ],
-    "imageAspect": 0.0567
+    "imageAspect": 1.1632
   },
   {
     "slug": "prf-cassettes",
@@ -12870,13 +12844,13 @@ export const imageDims: Record<string, [number, number]> = {
     1500,
     1500
   ],
-  "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.webp": [
-    466,
-    294
-  ],
   "/catalogue/img/p08/p08-perforated-trays-punching-processed-02-495x272.webp": [
     495,
     272
+  ],
+  "/catalogue/img/p08/p08-perforated-trays-punching-processed-01-466x294.webp": [
+    466,
+    294
   ],
   "/catalogue/img/p08/p08-perforated-trays-punching-processed-recovered-chamfercorner-163x110.webp": [
     163,
@@ -13234,13 +13208,17 @@ export const imageDims: Record<string, [number, number]> = {
     1352,
     1352
   ],
-  "/catalogue/img/p40/p40-for-professional-01-302x187.webp": [
-    302,
-    187
-  ],
   "/catalogue/img/p40/p40-for-professional-02-305x221.webp": [
     305,
     221
+  ],
+  "/catalogue/img/p40/p40-for-professional-05-319x230.webp": [
+    319,
+    230
+  ],
+  "/catalogue/img/p40/p40-for-professional-01-302x187.webp": [
+    302,
+    187
   ],
   "/catalogue/img/p40/p40-for-professional-03-263x175.webp": [
     263,
@@ -13250,13 +13228,13 @@ export const imageDims: Record<string, [number, number]> = {
     317,
     209
   ],
-  "/catalogue/img/p40/p40-for-professional-05-319x230.webp": [
-    319,
-    230
-  ],
   "/catalogue/img/p40/p40-for-professional-06-273x182.webp": [
     273,
     182
+  ],
+  "/catalogue/img/p40/p40-for-professional-09-287x215.webp": [
+    287,
+    215
   ],
   "/catalogue/img/p40/p40-for-professional-07-289x250.webp": [
     289,
@@ -13265,10 +13243,6 @@ export const imageDims: Record<string, [number, number]> = {
   "/catalogue/img/p40/p40-for-professional-08-399x324.webp": [
     399,
     324
-  ],
-  "/catalogue/img/p40/p40-for-professional-09-287x215.webp": [
-    287,
-    215
   ],
   "/catalogue/img/p40/p40-for-professional-10-272x268.webp": [
     272,
@@ -13297,6 +13271,10 @@ export const imageDims: Record<string, [number, number]> = {
   "/catalogue/img/p41/p41-68-x-60-x-20mm-06-187x149.webp": [
     187,
     149
+  ],
+  "/catalogue/img/p42/p42-prf-surgical-set-all-791x680.webp": [
+    791,
+    680
   ],
   "/catalogue/img/p42/p42-prf-system-recovered-srf9902-28x494.webp": [
     28,

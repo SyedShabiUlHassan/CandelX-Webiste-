@@ -1,0 +1,331 @@
+---
+/* Catalogue drawer — the ☰ on a product page.
+
+   Hassan, 2026-09-15: "if i open a product i want a slider option at left side,
+   3 lines — if someone clicks it, it shows the products category page." So a
+   product page carries its own way into the rest of the catalogue: the nine
+   sections, each opening to the products inside it, without a trip back to
+   /catalogue and without losing the page you were on.
+
+   Above 820px the button is a tab pinned to the left edge of the window, so it
+   stays reachable however far down the page you are. Below 820px a pinned tab
+   would sit on top of the photo on a 390px screen, so it becomes an inline pill
+   beside the "← Catalogue" link instead. One button, two positions, no second
+   copy in the markup.
+
+   Everything here is rendered in markup rather than built in JS — scoped styles
+   never reach a createElement node (site/CLAUDE.md), and this way the panel is
+   styled even on the no-JS path, where CSS keeps it closed and out of the tab
+   order. */
+import Icon from "../components/ds/Icon.astro";
+import { families, sections } from "../data/catalogue.ts";
+
+const { current } = Astro.props as { current?: string };
+
+const groups = sections
+  .map((name) => ({
+    name,
+    items: families
+      .filter((f) => f.section === name)
+      .map((f) => ({ slug: f.slug, name: f.name, n: f.sizes.length })),
+  }))
+  .filter((g) => g.items.length);
+
+/* The section you are already in opens with the drawer, and the product you are
+   on is marked — otherwise you land in a list of nine closed rows with no clue
+   where you are. */
+const currentSection = families.find((f) => f.slug === current)?.section ?? null;
+---
+
+<button
+  class="cxd-tab"
+  type="button"
+  data-cxd-open
+  aria-expanded="false"
+  aria-controls="cxd-panel"
+>
+  <span class="cxd-tab__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span class="cxd-tab__label">Products</span>
+</button>
+
+<div class="cxd-scrim" data-cxd-scrim aria-hidden="true"></div>
+
+<aside
+  id="cxd-panel"
+  class="cxd"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Product categories"
+>
+  <div class="cxd__head">
+    <a href="/" class="cxd__logo" aria-label="CandelX Surgicals — home">
+      <img src="/brand/logo-candelx.svg" alt="CandelX Surgicals" width="140" height="35" decoding="async" />
+    </a>
+    <button class="cxd__close" type="button" data-cxd-close aria-label="Close">
+      <Icon name="x" size={18} />
+    </button>
+  </div>
+
+  <nav class="cxd__body" aria-label="Product categories">
+    {groups.map((g, i) => (
+      <div class="cxd__sec" data-open={g.name === currentSection ? "" : undefined}>
+        <button
+          class="cxd__secbtn"
+          type="button"
+          data-cxd-sec
+          aria-expanded={g.name === currentSection ? "true" : "false"}
+          aria-controls={`cxd-s${i}`}
+        >
+          <span class="cxd__secname">{g.name}</span>
+          <span class="cxd__n">{g.items.length}</span>
+          <span class="cxd__chev" aria-hidden="true"><Icon name="chevron-down" size={17} /></span>
+        </button>
+        <ul class="cxd__list" id={`cxd-s${i}`}>
+          {g.items.map((it) => (
+            <li>
+              <a href={`/catalogue/${it.slug}`} aria-current={it.slug === current ? "page" : undefined}>
+                <span>{it.name}</span>
+                <span class="cxd__n">{it.n}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </nav>
+
+  <div class="cxd__foot">
+    <a href="/catalogue">
+      All {families.length} products
+      <Icon name="arrow-right" size={14} />
+    </a>
+  </div>
+</aside>
+
+<style>
+  /* ── the button ─────────────────────────────────────────────────────────── */
+  .cxd-tab {
+    display: inline-flex; align-items: center; gap: 9px;
+    min-height: 44px; padding: 0 14px 0 12px;
+    background: var(--surface-card); color: var(--text-body);
+    border: 1px solid var(--border-default); border-radius: 999px;
+    font-family: var(--font-sans); font-size: 13px; cursor: pointer;
+    transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+  }
+  .cxd-tab:hover { border-color: var(--brand-teal); color: var(--brand-teal); }
+  .cxd-tab__bars { display: block; width: 15px; flex: none; }
+  .cxd-tab__bars i { display: block; height: 1.7px; border-radius: 2px; background: currentColor; }
+  .cxd-tab__bars i + i { margin-top: 4px; }
+
+  @media (min-width: 821px) {
+    /* Pinned to the left edge, vertically centred: a tab that stays put while
+       the page scrolls, the way the reference does it. The label is folded away
+       until you point at it, so it reads as an edge affordance and not a
+       floating widget parked over the photo. */
+    .cxd-tab {
+      position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 20;
+      flex-direction: row; gap: 0; padding: 0; overflow: hidden;
+      width: 40px; height: 62px; justify-content: center;
+      border-left: none; border-radius: 0 var(--r-2) var(--r-2) 0;
+      box-shadow: var(--shadow-2);
+      transition: width var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out),
+                  color var(--dur-2) var(--ease-out);
+    }
+    .cxd-tab:hover, .cxd-tab:focus-visible { width: 112px; gap: 9px; }
+    .cxd-tab__label {
+      max-width: 0; opacity: 0; white-space: nowrap; overflow: hidden;
+      transition: max-width var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+    }
+    .cxd-tab:hover .cxd-tab__label, .cxd-tab:focus-visible .cxd-tab__label { max-width: 60px; opacity: 1; }
+  }
+  @media (max-width: 820px) {
+    /* Inline beside the back link — the label is the whole point at this width. */
+    .cxd-tab__label { font-weight: var(--fw-medium); }
+  }
+  /* The tab is the thing that opened the panel; leaving it on top of the scrim
+     just gives you two ways to look at the same state. */
+  :global(html[data-cxd]) .cxd-tab { opacity: 0; pointer-events: none; }
+
+  /* ── the dim ────────────────────────────────────────────────────────────── */
+  /* backdrop-filter on an overlay, never filter on the page: filtering an
+     ancestor breaks every position:fixed descendant under it, the sticky header
+     included. Same trick as the phone menu in system.css. */
+  .cxd-scrim {
+    position: fixed; inset: 0; z-index: 40;
+    background: rgba(0, 26, 38, .34);
+    backdrop-filter: blur(7px) saturate(115%);
+    -webkit-backdrop-filter: blur(7px) saturate(115%);
+    opacity: 0; visibility: hidden;
+    transition: opacity .26s var(--ease-out), visibility 0s .26s;
+  }
+  :global(html[data-cxd]) .cxd-scrim {
+    opacity: 1; visibility: visible;
+    transition: opacity .26s var(--ease-out), visibility 0s;
+  }
+
+  /* ── the panel ──────────────────────────────────────────────────────────── */
+  /* visibility, not display: display:none cannot transition, and visibility
+     still takes every link out of the tab order and the accessibility tree
+     while the drawer is shut. */
+  .cxd {
+    position: fixed; top: 0; bottom: 0; left: 0; z-index: 41;
+    width: min(348px, 88vw);
+    display: flex; flex-direction: column;
+    background: var(--surface-card);
+    box-shadow: var(--shadow-4);
+    transform: translateX(-100%); visibility: hidden;
+    transition: transform .32s var(--ease-out), visibility 0s .32s;
+  }
+  :global(html[data-cxd]) .cxd {
+    transform: translateX(0); visibility: visible;
+    transition: transform .32s var(--ease-out), visibility 0s;
+  }
+
+  .cxd__head {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px 16px 18px 22px; border-bottom: 1px solid var(--border-hairline); flex: none;
+  }
+  .cxd__logo { display: inline-flex; border: none; }
+  .cxd__logo img { display: block; width: 140px; height: auto; }
+  .cxd__close {
+    width: 40px; height: 40px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: 1px solid transparent; border-radius: var(--r-2);
+    color: var(--text-muted); cursor: pointer;
+    transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+  }
+  .cxd__close:hover { color: var(--text-strong); border-color: var(--border-default); }
+
+  .cxd__body { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; padding: 6px 0; }
+
+  .cxd__secbtn {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    min-height: 50px; padding: 0 20px;
+    background: none; border: none; text-align: left; cursor: pointer;
+    font-family: var(--font-display); font-size: 14.5px; font-weight: var(--fw-semibold);
+    color: var(--text-strong);
+    transition: color var(--dur-2) var(--ease-out);
+  }
+  .cxd__secbtn:hover { color: var(--brand-teal); }
+  .cxd__secname { flex: 1 1 auto; line-height: 1.3; }
+  .cxd__n { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); flex: none; }
+  .cxd__chev {
+    display: inline-flex; flex: none; color: var(--text-faint);
+    transition: transform var(--dur-2) var(--ease-out);
+  }
+  .cxd__sec[data-open] .cxd__chev { transform: rotate(180deg); }
+
+  /* display:none rather than the hidden attribute: system.css sets `display` on
+     several of these element types, and a `display` rule beats [hidden]. */
+  .cxd__sec:not([data-open]) .cxd__list { display: none; }
+  .cxd__list { list-style: none; margin: 0; padding: 0 0 8px; }
+  .cxd__list a {
+    display: flex; align-items: center; gap: 10px;
+    min-height: 40px; padding: 7px 20px 7px 32px;
+    border: none; border-left: 2px solid transparent;
+    font-size: 13px; line-height: 1.35; color: var(--text-body);
+    transition: color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out);
+  }
+  .cxd__list a span:first-child { flex: 1 1 auto; }
+  .cxd__list a:hover { color: var(--text-strong); background: var(--surface-sunken); }
+  .cxd__list a[aria-current="page"] {
+    color: var(--brand-teal); font-weight: var(--fw-semibold);
+    border-left-color: var(--brand-teal); background: var(--surface-sunken);
+  }
+
+  .cxd__foot { flex: none; border-top: 1px solid var(--border-hairline); }
+  .cxd__foot a {
+    display: flex; align-items: center; gap: 8px;
+    min-height: 52px; padding: 0 20px;
+    border: none; font-size: 13.5px; font-weight: var(--fw-medium); color: var(--text-link);
+  }
+
+  /* Site mobile rules (site/CLAUDE.md): every tap target at least 44px, no
+     visible text under 12px. */
+  @media (max-width: 820px) {
+    .cxd__list a { min-height: 44px; font-size: 13.5px; }
+    .cxd__secbtn { min-height: 52px; }
+    .cxd__close { width: 44px; height: 44px; }
+    .cxd__n { font-size: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cxd, .cxd-scrim, .cxd-tab, .cxd__chev, .cxd-tab__label { transition: none; }
+  }
+</style>
+
+<script>
+  /* Progressive: with no JS the panel stays shut (visibility:hidden, out of the
+     tab order) and the button does nothing that matters — the "← Catalogue"
+     link above it is still the way out. */
+  const tab = document.querySelector<HTMLButtonElement>("[data-cxd-open]");
+  const panel = document.getElementById("cxd-panel");
+  const scrim = document.querySelector<HTMLElement>("[data-cxd-scrim]");
+
+  if (tab && panel && scrim) {
+    const root = document.documentElement;
+    /* Same scroll lock as the phone menu: fixing <body> is the only approach iOS
+       Safari honours, and remembering the offset is what stops the page jumping
+       to the top when the drawer closes. */
+    let lockedAt = 0;
+
+    const setOpen = (open: boolean) => {
+      if (open === root.hasAttribute("data-cxd")) return;
+      root.toggleAttribute("data-cxd", open);
+      tab.setAttribute("aria-expanded", String(open));
+
+      const b = document.body.style;
+      if (open) {
+        lockedAt = window.scrollY;
+        b.position = "fixed";
+        b.top = `-${lockedAt}px`;
+        b.left = "0";
+        b.right = "0";
+        panel.querySelector<HTMLElement>("[data-cxd-close]")?.focus();
+      } else {
+        b.position = "";
+        b.top = "";
+        b.left = "";
+        b.right = "";
+        window.scrollTo(0, lockedAt);
+      }
+    };
+
+    tab.addEventListener("click", () => setOpen(true));
+    scrim.addEventListener("click", () => setOpen(false));
+    panel.querySelector("[data-cxd-close]")?.addEventListener("click", () => {
+      setOpen(false);
+      tab.focus();
+    });
+
+    /* Sections open and close in place — the point of the drawer is to get from
+       one product to another without a page load in between. */
+    panel.querySelectorAll<HTMLButtonElement>("[data-cxd-sec]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const sec = btn.closest<HTMLElement>(".cxd__sec");
+        if (!sec) return;
+        const open = sec.toggleAttribute("data-open");
+        btn.setAttribute("aria-expanded", String(open));
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!root.hasAttribute("data-cxd")) return;
+      if (e.key === "Escape") {
+        setOpen(false);
+        tab.focus();
+        return;
+      }
+      /* Keep Tab inside the drawer while it is modal, so a keyboard user cannot
+         walk out into a page they cannot see. */
+      if (e.key !== "Tab") return;
+      const stops = [...panel.querySelectorAll<HTMLElement>("button, a[href]")]
+        .filter((el) => el.offsetParent !== null);
+      if (!stops.length) return;
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+</script>

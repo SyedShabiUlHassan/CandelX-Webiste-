@@ -1,0 +1,125 @@
+---
+/* What a product page ends on, in place of the site footer.
+
+   Hassan, 2026-09-15: "on products when someone opens a product, in footer I
+   don't want you to show the CandelX footer you made — replace it and show
+   related products, and show them visually." So the bottom of a product page is
+   the rest of its own section, as photo cards, and nothing else.
+
+   Related = the other products in the same printed section, which is the
+   relationship the catalogue itself asserts. If a section is thin, the row is
+   topped up from the neighbouring sections rather than printing two cards and a
+   lot of white space. */
+import Icon from "../components/ds/Icon.astro";
+import { families, imageDims, sections } from "../data/catalogue.ts";
+
+const { current } = Astro.props as { current: string };
+
+const MAX = 8;
+const self = families.find((f) => f.slug === current);
+const section = self?.section ?? null;
+
+const card = (f: (typeof families)[number]) => ({
+  slug: f.slug,
+  name: f.name,
+  section: f.section,
+  prefix: f.prefix,
+  count: f.sizes.length,
+  image: f.image,
+});
+
+const sameSection = families.filter((f) => f.slug !== current && f.section === section);
+
+/* Top-up order: the sections either side of this one in the printed catalogue,
+   which are the nearest thing the data has to "similar". */
+const i = section ? sections.indexOf(section) : -1;
+const nearby = i < 0 ? [] : [...sections.slice(i + 1), ...sections.slice(0, i).reverse()]
+  .flatMap((s) => families.filter((f) => f.section === s));
+
+const picked = [...sameSection, ...nearby].slice(0, MAX).map(card);
+
+/* Measured pixel size so the cards reserve their boxes before the photos
+   arrive and the row does not reflow — same reason as the catalogue grid. */
+const dimsOf = (src: string | null | undefined) => {
+  const d = src ? imageDims[src] : undefined;
+  return d ? { width: d[0], height: d[1] } : {};
+};
+---
+
+{picked.length > 0 && (
+  <section class="rp" aria-labelledby="rp-h">
+    <div class="cx-container">
+      <div class="rp__head">
+        <h2 id="rp-h" class="rp__title">
+          {section ? `More in ${section}` : "More products"}
+        </h2>
+        <a class="rp__all" href="/catalogue">
+          All {families.length} products <Icon name="arrow-right" size={14} />
+        </a>
+      </div>
+
+      <div class="rp__grid">
+        {picked.map((c) => (
+          <a class="rp__card" href={`/catalogue/${c.slug}`}>
+            <span class="rp__ph">
+              {c.image
+                ? <img src={c.image} alt={`${c.name} — ${c.section}`} {...dimsOf(c.image)} loading="lazy" decoding="async" />
+                : <span class="rp__ph--empty">Photo to follow</span>}
+            </span>
+            <span class="rp__body">
+              <span class="rp__sec">{c.section}</span>
+              <span class="rp__name">{c.name}</span>
+              <span class="rp__foot">
+                <span>{c.count} {c.count === 1 ? "article no." : "article nos."}</span>
+                <span class="rp__prefix">{c.prefix}</span>
+              </span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  /* Sunken, so the strip reads as the end of the page rather than more of the
+     product — the job the footer's dark band used to do. */
+  .rp { background: var(--surface-sunken); border-top: 1px solid var(--border-hairline);
+    padding: 44px 0 56px; margin-top: 40px; }
+  .rp__head { display: flex; align-items: baseline; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+  .rp__title { font-family: var(--font-display); font-size: 19px; font-weight: var(--fw-bold);
+    color: var(--text-strong); margin: 0; letter-spacing: -.01em; }
+  .rp__all { display: inline-flex; align-items: center; gap: 7px; border: none;
+    font-size: 13.5px; font-weight: var(--fw-medium); color: var(--text-link); }
+
+  .rp__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+  .rp__card { display: flex; flex-direction: column; border: 1px solid var(--border-hairline);
+    border-radius: var(--r-2); background: var(--surface-card); overflow: hidden;
+    transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+  .rp__card:hover { border-color: var(--border-default); box-shadow: var(--shadow-2); }
+  .rp__card:hover .rp__name { color: var(--brand-teal); }
+
+  .rp__ph { display: flex; align-items: center; justify-content: center;
+    height: 132px; padding: 12px; background: var(--surface-card);
+    border-bottom: 1px solid var(--border-hairline); }
+  .rp__ph img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+  .rp__ph--empty { font-size: 11.5px; color: var(--text-faint); }
+
+  .rp__body { display: flex; flex-direction: column; gap: 5px; padding: 12px 14px 13px; flex: 1 1 auto; }
+  .rp__sec { font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--text-faint); }
+  .rp__name { font-family: var(--font-display); font-size: 13.5px; font-weight: var(--fw-semibold);
+    line-height: 1.3; color: var(--text-strong);
+    transition: color var(--dur-2) var(--ease-out); }
+  .rp__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    margin-top: auto; padding-top: 9px; font-size: 11.5px; color: var(--text-muted); }
+  .rp__prefix { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); }
+
+  @media (max-width: 1020px) { .rp__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 820px) {
+    .rp__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* Nothing visible under 12px on a phone (site/CLAUDE.md). */
+    .rp__sec, .rp__foot, .rp__prefix, .rp__ph--empty { font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .rp__card, .rp__name { transition: none; } }
+</style>

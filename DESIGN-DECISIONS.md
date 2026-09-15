@@ -1008,3 +1008,150 @@ Restoring the offset is what stops the page jumping to the top on close.
 own loses to it and the button label sat left-aligned under the inherited
 `space-between`. Qualifying it as `nav a.cx-nav__cta` wins. Specificity counts types
 after classes — a class alone does not beat a class plus two elements.
+
+---
+
+## 2026-09-15 — Product pages: one screen, the right photo first, and a catalogue drawer
+
+Four things Hassan asked for, off four screenshots.
+
+### 1. The whole product block fits one screen — measured, not eyeballed
+**Target: 1440 × 780**, which is the window in Hassan's own screenshots. Confirmed with
+him before touching anything: the hero photo had to shrink for this to be possible.
+
+Before, **47 of 79 pages** pushed something below the fold — usually the description
+and the captioned detail strip, sometimes the quote button. After, **0 of 79**; the
+tallest page (`implant-cassette`) ends at 761px. Measured by loading every product page
+into a 1440×780 iframe and reading the bottom of `.pd-grid`.
+
+Where the height came from:
+
+| lever | before | after |
+| --- | --- | --- |
+| `<Section pad>` on the product page | 56 | 40 |
+| `.pd-grid` margin-top / gap | 28 / 56 | 20 / 48 |
+| `.pd-figure` height | uncapped (up to 650px) | `min(57vh, 452px)` |
+| …on a page that also has a detail strip | — | `min(45vh, 360px)` |
+| spec row padding | 9px | 6px |
+| sizes-panel row padding | 9px | 6px |
+| detail thumbs | 4 tracks, 4:3, wraps to 2 rows | 5 tracks, fixed 76px, always 1 row |
+| "Mass, load ratings…" fine print | stacked under the quote button | **beside** it |
+
+**`vh`, not a flat pixel cap.** A 900px-tall window gets a bigger photo; the px ceiling
+stops it becoming a billboard on a 27" display. Nothing is cropped — the image is still
+`object-fit: contain` inside a shorter box.
+
+**The detail strip is five tracks whatever the page carries.** Five captioned shots used
+to wrap onto a second row (`wire-mesh-double-frame`), which alone cost 118px. Fixed tracks
+also mean the strip costs the same on every page, so it can be budgeted against the fold.
+Captions clamp to two lines.
+
+**The fine print moved beside the quote button.** Stacked, it was the last ~30px that kept
+`implant-cassette` over the line. It reads better there too.
+
+### 2. Lead with the open box, not the lid
+`scripts/build-catalogue.mjs` gained a **`promote`** option: source files listed there move
+to the front of whatever list they belong to — the hero pool *and* the group blocks —
+everything else keeping the catalogue's own printed order.
+
+Used on `prf-grf-boxes` (p40), which prints all three boxes closed-lid-first:
+`-02` professional, `-05` student, `-09` GRF system box. Hassan pointed at two of those;
+the third is the same picture in the same position and was changed with them.
+
+This also fixes the **catalogue card** and the `og:image` for that product, which were
+showing the closed lid.
+
+### 3. The catalogue drawer — `site/src/components/CatalogueDrawer.astro`
+"if i open a product i want a slider option at left side, 3 lines — if someone clicks it
+it shows the products category page." Nine sections, each opening in place to the products
+inside it, so you can get from one product to another without a trip back to `/catalogue`.
+
+- The section you are in **opens with the drawer**, and the product you are on is marked
+  teal with a left bar. Otherwise you land on nine closed rows with no clue where you are.
+- **Above 820px** the button is a 40×62 tab flush to the left edge, vertically centred,
+  fixed — it stays put as the page scrolls. Hovering widens it to show the word "Products".
+- **Below 820px** a pinned tab would sit on the photo on a 390px screen, so the same button
+  becomes an inline "☰ Products" pill beside "← Catalogue". One button, two positions,
+  no second copy in the markup.
+- Scrim is the phone menu's recipe — `backdrop-filter` on an overlay, never `filter` on the
+  page — at `z-index: 40/41`, i.e. **over** the header, because this drawer is modal and the
+  reference covers the bar.
+- Scroll lock is the same `position: fixed` on `<body>` with the offset restored.
+- Escape closes and returns focus to the tab; Tab loops inside the panel while it is open.
+- Sections collapse with `display: none`, **not** the `hidden` attribute: system.css sets
+  `display` on several of these element types and a `display` rule beats `[hidden]`.
+- Everything is in markup, not `createElement` — scoped styles never reach a created node.
+
+Measured at 360/390/430/768: no horizontal scroll, rows 44px, section buttons 52px, close
+44px, nothing under 12px.
+
+### 4. Repeated photos on multi-block pages — REVIEWED and removed
+The big photo at the top of a multi-block page was the first block's photo shown again:
+**10 of the 11** such pages did this. Hassan reviewed the sheet and said remove.
+
+**Not** by deleting the hero wholesale. Anything a block below already carries comes out
+of the hero, and whatever is left stays — the steel-mirror page has ten shots up top and
+only **one** was a repeat; the other nine exist nowhere else on the site and are still
+there. Where nothing unique is left (PRF & GRF boxes, universal trays + silicon, PRF
+cassettes…) the page drops to the single-column `pd-grid--intro` the instrument sets
+already use, and the blocks carry every photo.
+
+Verified across all 79: zero heroes repeat a block photo.
+
+---
+
+## 2026-09-15 (later) — data corrections, the sizes panel, and the product-page footer
+
+### Nothing had been pushed
+Hassan was checking the live Vercel site and seeing none of the above, because every change
+was sitting uncommitted on the Mac. **Vercel builds from `origin/main`; local edits are
+invisible to it.** Commit and push, every time, or the work does not exist as far as he is
+concerned.
+
+### "Sizes 40" was counting article numbers
+A perforated tray is **20 sizes in two corner patterns**, not 40 sizes. A light pattern
+cassette is **4 sizes in four lock types**, not 18. **34 of 79 products** overstated it.
+
+The panel header now counts distinct measurements and names the article-number total
+beside it — `Sizes 20 · 40 article numbers`. The expander does the same: "Show all 16
+sizes" became "Show all 16 article numbers" wherever the row count is not the size count.
+
+### Light Pattern Cassettes — two article numbers deleted
+Hassan: "there are only four sizes 5, 7, 10, 20 — these are the only sizes available."
+`CXCL-1108` (08 + accessory area) and `CXCL-1116` (16 + accessory area) are printed on
+p46 but not made. The generator gained a **`drop`** option; they are gone from the site
+and the generator reports them under NOT SHOWN, so they are not silently lost.
+
+### The sizes panel opens fully — no scrollbox
+Two rules capped each sub-table at 176px with its own scrollbar, so the Tray list and the
+Lid list ran into each other and you scrolled two boxes inside one panel. Both rules are
+gone: expanded means the whole list, one vertical run. The sub-headings ("Tray",
+"Lid (optional)") are now banded on `--surface-sunken` with a hairline under them, so it
+is obvious where one list ends. Every row is **numbered down the left** (`.pd-idx`), the
+header cell labelled for screen readers only.
+
+### PRF Surgical Set — the card was one instrument
+`fam.image` was a single elevator, so the card and the share image made a seven-piece set
+look like one tool. Composed from the seven printed shots — alpha flattened onto white,
+white margins trimmed, all scaled to one height, 34px apart —
+`images/p42/p42-prf-surgical-set-all-791x680.png` (+ a WebP in `site/.image-cache`), set as
+that product's `hero`. The per-instrument blocks on the page are untouched.
+
+### Perforated Trays — Square Pattern
+Hero swapped to `-02`; the old comment said "page 8 prints the chamfer variant first, lead
+with the round-corner tray", but Hassan pointed at the second shot and asked for that one.
+
+### Product pages end on related products, not the footer
+`Site.astro` gained a `footer` prop (default `true`); `[slug].astro` passes `footer={false}`
+and renders `components/RelatedProducts.astro` instead. **Hassan chose full removal** — no
+contact/privacy/copyright bar on the 79 product pages — when offered a slim footer under
+the strip.
+
+Related = the other products in the same printed section, which is the relationship the
+catalogue itself asserts. A thin section is topped up from the neighbouring sections in
+printed order rather than showing two cards and a lot of white. Eight cards, 4 / 3 / 2
+across at 1020 / 820px, sunken band so it reads as the end of the page.
+
+### Re-verified after all of it
+All 79 product pages still fit 1440×780 (tallest 761px), no hero repeats a block photo,
+no empty photo frames, slider dots match photo counts, the drawer is on every page.

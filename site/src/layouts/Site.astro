@@ -22,6 +22,9 @@ interface Props {
   noindex?: boolean;
   /** JSON-LD object(s) for this page. Rendered as application/ld+json. */
   schema?: unknown;
+  /** Product pages end on a related-products strip instead of the site footer —
+      Hassan, 2026-09-15. Everything else keeps the footer. */
+  footer?: boolean;
 }
 
 const {
@@ -31,6 +34,7 @@ const {
   image = OG_IMAGE,
   noindex = false,
   schema,
+  footer = true,
 } = Astro.props as Props;
 
 /* Astro.site comes from `site` in astro.config.mjs. Building without it would
@@ -98,6 +102,6 @@ const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <a class="cx-skip" href="#main">Skip to content</a>
     <Header current={current} />
     <main id="main" tabindex="-1"><slot /></main>
-    <Footer />
+    {footer && <Footer />}
   </body>
 </html>
