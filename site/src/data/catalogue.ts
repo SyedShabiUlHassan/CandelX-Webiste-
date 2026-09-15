@@ -8286,7 +8286,7 @@ export const families: CatFamily[] = [
     "specs": {
       "Material": "304 (ASTM)"
     },
-    "image": "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.webp",
+    "image": "/catalogue/img/p41/p41-prf-racks-dishes-all-834x486.webp",
     "imageAlt": "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.webp",
     "imageFlag": "ok",
     "details": [],
@@ -8540,7 +8540,7 @@ export const families: CatFamily[] = [
         "isLid": false
       }
     ],
-    "imageAspect": 0.9719
+    "imageAspect": 1.716
   },
   {
     "slug": "prf-surgical-set",
@@ -13248,13 +13248,17 @@ export const imageDims: Record<string, [number, number]> = {
     272,
     268
   ],
-  "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.webp": [
-    311,
-    320
+  "/catalogue/img/p41/p41-prf-racks-dishes-all-834x486.webp": [
+    834,
+    486
   ],
   "/catalogue/img/p41/p41-68-x-60-x-20mm-02-290x248.webp": [
     290,
     248
+  ],
+  "/catalogue/img/p41/p41-68-x-60-x-20mm-01-311x320.webp": [
+    311,
+    320
   ],
   "/catalogue/img/p41/p41-68-x-60-x-20mm-04-202x143.webp": [
     202,

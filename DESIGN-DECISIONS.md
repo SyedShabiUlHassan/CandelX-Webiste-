@@ -1155,3 +1155,51 @@ across at 1020 / 820px, sunken band so it reads as the end of the page.
 ### Re-verified after all of it
 All 79 product pages still fit 1440×780 (tallest 761px), no hero repeats a block photo,
 no empty photo frames, slider dots match photo counts, the drawer is on every page.
+
+---
+
+## 2026-09-15 (third pass) — the photo frame bug, and four corrections
+
+### The photo was small because of an `aspect-ratio` + `max-height` trap
+`.pd-figure` carried the photo's own aspect ratio (inline `style="aspect-ratio:…"`)
+**and** the new `max-height` cap. With a ratio set and no definite width, clamping the
+height pulls the **width** down with it — so a portrait photo drew a **292px** frame in a
+544px column while a landscape one drew the full 544. Hassan: "this product photo is very
+small and it doesn't resemble the layout of other products."
+
+Fixed by removing the ratio entirely. **One frame on every product: `width: 100%` and
+`height: min(56vh, 448px)`** — 544 × 437 at 1440×780, identical on all 79 pages, verified.
+`imageAspect` is still in the data; the page no longer uses it. Block photos in
+`.pd-slider--sm` get a flat `height: 300px` for the same reason.
+
+If a height cap is ever needed on a box that must keep its ratio: give it a definite width
+(`width: 100%`), or the ratio wins and shrinks the box.
+
+### Grouped pages keep the normal layout — the hero borrows
+Dropping the repeats left pages whose every photo belongs to a block with no hero at all,
+and the one-column `pd-grid--intro` fallback "changed the layout entirely" (Hassan).
+
+Now the hero **borrows**: it takes the lead photo of the first block that has one to spare
+(`images.length > 1`) and that block stops showing it. Two columns, same as every other
+product, photo still appearing exactly once.
+
+Where no block can spare one — `prf-racks-dishes`, six products with one photo each —
+borrowing would leave a block with an empty frame. That page gets a **composed set photo**
+instead (`images/p41/p41-prf-racks-dishes-all-834x486.png`, six shots in a 3×2 grid), the
+same treatment as the PRF surgical set.
+
+**Result: zero repeated photos across all 79 pages, zero blocks left without a photo,
+and only `prf-surgical-set` uses the single-column intro — as it always did.**
+
+### Removed
+`.pd-source` — "From the CandelX catalogue — Wire Mesh Trays, page 10." Hassan: no purpose.
+Gone from the markup and the CSS on all 79 pages.
+
+### Drawer tab moved to the top
+`top: 50%; transform: translateY(-50%)` → `top: 78px`, level with the "← Catalogue" row.
+Halfway down the window it read as a stray widget floating beside the photo.
+
+### Re-verified, all 79
+0 pages over 1440×780 (tallest 775). 0 repeated photos. 0 empty blocks. Every frame
+544×437. Drawer tab at y=78 everywhere. Related-products strip on every page. No
+horizontal scroll and a 44px tab at 360 / 390 / 768px.

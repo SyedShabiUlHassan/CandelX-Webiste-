@@ -118,12 +118,12 @@ const currentSection = families.find((f) => f.slug === current)?.section ?? null
   .cxd-tab__bars i + i { margin-top: 4px; }
 
   @media (min-width: 821px) {
-    /* Pinned to the left edge, vertically centred: a tab that stays put while
-       the page scrolls, the way the reference does it. The label is folded away
-       until you point at it, so it reads as an edge affordance and not a
-       floating widget parked over the photo. */
+    /* Pinned to the left edge, near the top — level with the "← Catalogue" row
+       rather than halfway down the window, where it read as a stray widget
+       floating beside the photo (Hassan, 2026-09-15). Still fixed, so it stays
+       put as the page scrolls. The label is folded away until you point at it. */
     .cxd-tab {
-      position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 20;
+      position: fixed; left: 0; top: 78px; z-index: 20;
       flex-direction: row; gap: 0; padding: 0; overflow: hidden;
       width: 40px; height: 62px; justify-content: center;
       border-left: none; border-radius: 0 var(--r-2) var(--r-2) 0;

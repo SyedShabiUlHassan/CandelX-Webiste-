@@ -140,7 +140,11 @@ const PRODUCTS = [
       'p40/p40-for-professional-05-319x230.png',
       'p40/p40-for-professional-09-287x215.png',
     ] },
-  { slug: 'prf-racks-dishes', section: 'PRF & GRF System', pages: [41], name: 'PRF System — Racks & Dishes', groups: true },
+  { slug: 'prf-racks-dishes', section: 'PRF & GRF System', pages: [41], name: 'PRF System — Racks & Dishes', groups: true,
+    /* Six separate products, one photo each, so the page had no shot of its own
+       and the hero could only repeat a block. Composed from all six instead —
+       same treatment as the PRF surgical set (Hassan, 2026-09-15). */
+    hero: 'p41/p41-prf-racks-dishes-all-834x486.png' },
   // p42 prints SEVEN separate instruments, each with its own photo and article
   // number — not one product with detail shots (Hassan, 2026-09-12). One card,
   // "PRF Surgical Set"; its page gives each instrument its own block.
