@@ -26,6 +26,11 @@ scrollcraft/
 Candelx Surgicals Website.html
 design-system-review.html
 
+# Intermediates from scripts/sales-brief/build.mjs. The PDF itself is covered by
+# the *.pdf rule above — regenerate it with `node scripts/sales-brief/build.mjs`.
+scripts/sales-brief/.brief.html
+scripts/sales-brief/.thumbs/
+
 # ── Environment / secrets ───────────────────────────────────────────────────
 .env
 .env.*
